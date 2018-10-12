@@ -7,7 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI", "GUI\GUI.csproj", "{6
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{9D9CA31D-C06E-4B7E-877A-A62B857BAFE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic", "Logic\Logic.csproj", "{C91B2271-CD1C-427F-8CCF-BC390656702A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logic", "Logic\Logic.csproj", "{C91B2271-CD1C-427F-8CCF-BC390656702A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TUI", "TUI\TUI.csproj", "{487E4099-7B18-4DA9-9551-C2F3528B8C6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{C91B2271-CD1C-427F-8CCF-BC390656702A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C91B2271-CD1C-427F-8CCF-BC390656702A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C91B2271-CD1C-427F-8CCF-BC390656702A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{487E4099-7B18-4DA9-9551-C2F3528B8C6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{487E4099-7B18-4DA9-9551-C2F3528B8C6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{487E4099-7B18-4DA9-9551-C2F3528B8C6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{487E4099-7B18-4DA9-9551-C2F3528B8C6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
