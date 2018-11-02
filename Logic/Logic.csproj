@@ -43,6 +43,18 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reader.cs" />
+    <Compile Include="ReflectionMetadata\AbstractENum.cs" />
+    <Compile Include="ReflectionMetadata\AccessLevel.cs" />
+    <Compile Include="ReflectionMetadata\AssemblyMetadata.cs" />
+    <Compile Include="ReflectionMetadata\ExtensionMethods.cs" />
+    <Compile Include="ReflectionMetadata\MethodMetadata.cs" />
+    <Compile Include="ReflectionMetadata\NamespaceMetadata.cs" />
+    <Compile Include="ReflectionMetadata\ParameterMetadata.cs" />
+    <Compile Include="ReflectionMetadata\PropertyMetadata.cs" />
+    <Compile Include="ReflectionMetadata\SealedEnum.cs" />
+    <Compile Include="ReflectionMetadata\StaticEnum.cs" />
+    <Compile Include="ReflectionMetadata\TypeMetadata.cs" />
+    <Compile Include="ReflectionMetadata\VirtualEnum.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
