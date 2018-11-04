@@ -1,11 +1,13 @@
 ﻿using Caliburn.Micro;
 using GUI.Models;
+using Logic.ReflectionMetadata;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,6 +17,14 @@ namespace GUI.ViewModels
 {
     public class GUIViewModel: Screen
     {
+        #region DataContext
+        public ObservableCollection<TreeViewItem> HierarchicalAreas { get; set; }
+        public string PathVariable { get; set; }
+        public Visibility ChangeControlVisibility { get; set; } = Visibility.Hidden;
+        public ICommand Click_Browse { get; }
+        public ICommand Click_Button { get; }
+        #endregion
+
         #region constructors
         public GUIViewModel()
         {
@@ -22,14 +32,6 @@ namespace GUI.ViewModels
             Click_Button = new RelayCommand(LoadDLL);
             Click_Browse = new RelayCommand(Browse);
         }
-        #endregion
-
-        #region DataContext
-        public ObservableCollection<TreeViewItem> HierarchicalAreas { get; set; }
-        public string PathVariable { get; set; }
-        public Visibility ChangeControlVisibility { get; set; } = Visibility.Hidden;
-        public ICommand Click_Browse { get; }
-        public ICommand Click_Button { get; }
         #endregion
 
         #region INotifyPropertyChanged
@@ -48,7 +50,8 @@ namespace GUI.ViewModels
         }
         private void TreeViewLoaded()
         {
-            TreeViewItem rootItem = new TreeViewItem { Name = PathVariable.Substring(PathVariable.LastIndexOf('\\') + 1) };
+            AssemblyMetadata assemblyMetadata = new AssemblyMetadata(Assembly.LoadFile(PathVariable));
+            TreeViewItem rootItem = new TreeViewItem { Name = assemblyMetadata.m_Name, rest = assemblyMetadata.GetInternals()};
             HierarchicalAreas.Add(rootItem);
         }
         private void Browse()

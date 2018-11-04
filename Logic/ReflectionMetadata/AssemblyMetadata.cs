@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Logic.AssemblyMetadata
+namespace Logic.ReflectionMetadata
 {
-  public class AssemblyMetadata
-  {
+  public class AssemblyMetadata : IInternalGeter
+    {
 
-    internal AssemblyMetadata(Assembly assembly)
+    public AssemblyMetadata(Assembly assembly)
     {
       m_Name = assembly.ManifestModule.Name;
       m_Namespaces = from Type _type in assembly.GetTypes()
@@ -19,8 +19,13 @@ namespace Logic.AssemblyMetadata
                      select new NamespaceMetadata(_group.Key, _group);
     }
 
-    private string m_Name;
+    public string m_Name;
     private IEnumerable<NamespaceMetadata> m_Namespaces;
 
-  }
+
+        public ICollection<IInternalGeter> GetInternals()
+        {
+            return m_Namespaces.ToList<IInternalGeter>();
+        }
+    }
 }

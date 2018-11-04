@@ -11,7 +11,7 @@ namespace Logic
     {
         public static void read()
         {
-            Assembly assembly = Assembly.LoadFile(@"C:\Users\Bartosz\Desktop\Mock\Mock\bin\Debug\Mock.dll");
+            Assembly assembly = Assembly.LoadFile(@"D:\Technologie progrmaowania\TP\Lecture\P01.Introduction\Introduction\bin\Debug\TP.Introduction.dll");
             Console.WriteLine(assembly.FullName);
 
             Type[] typ = assembly.GetTypes();

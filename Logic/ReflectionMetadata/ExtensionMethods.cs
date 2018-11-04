@@ -2,7 +2,7 @@
 using System;
 using System.Reflection;
 
-namespace Logic.AssemblyMetadata
+namespace Logic.ReflectionMetadata
 {
   internal static class ExtensionMethods
   {

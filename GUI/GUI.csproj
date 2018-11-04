@@ -108,7 +108,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Logic\Logic.csproj">
+      <Project>{28254930-A865-40F0-ACDE-C988C2A35C85}</Project>
+      <Name>Logic</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Page Include="Views\GUIView.xaml">
       <SubType>Designer</SubType>

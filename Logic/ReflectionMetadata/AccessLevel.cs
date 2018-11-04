@@ -1,5 +1,5 @@
 ﻿
-namespace Logic.AssemblyMetadata
+namespace Logic.ReflectionMetadata
 {
   internal enum AccessLevel
   {

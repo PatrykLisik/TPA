@@ -1,18 +1,16 @@
-﻿using System;
+﻿using Logic.ReflectionMetadata;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GUI.Models
 {
     public class TreeViewItem
     {
+        internal ICollection<IInternalGeter> rest;
         public TreeViewItem()
         {
             Children = new ObservableCollection<TreeViewItem>() { null };
-            this.m_WasBuilt = false;
+            m_WasBuilt = false;
         }
         public string Name { get; set; }
         public ObservableCollection<TreeViewItem> Children { get; set; }
@@ -34,9 +32,29 @@ namespace GUI.Models
         private bool m_IsExpanded;
         private void BuildMyself()
         {
-            Random random = new Random();
-            for (int i = 0; i < random.Next(7); i++)
-                this.Children.Add(new TreeViewItem() { Name = "sample" + i });
+            foreach (IInternalGeter namespace_conteriner in rest)
+            {
+                ICollection<IInternalGeter>  internal_obj = namespace_conteriner.GetInternals();
+                if (internal_obj is null)
+                {
+                    Children.Add(new TreeViewItem
+                    {
+                        Name = namespace_conteriner.ToString(),
+                    });
+                }
+                else
+                {
+                    Children.Add(new TreeViewItem
+                    {
+                        Name = namespace_conteriner.ToString(),
+                        rest = internal_obj
+                    });
+                }
+
+
+
+            }
+
         }
 
     }
