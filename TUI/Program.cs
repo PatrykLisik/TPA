@@ -1,11 +1,5 @@
 ﻿using Logic;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TUI
 {
@@ -13,7 +7,8 @@ namespace TUI
     {
         static void Main(string[] args)
         {
-            Reader.read();
+            Reader r = new Reader();
+            r.read();
             Console.ReadLine();
         }
     }
