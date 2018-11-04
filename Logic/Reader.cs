@@ -31,7 +31,8 @@ namespace Logic
         public void read()
         {
             Console.WriteLine();
-            Assembly assembly = Assembly.LoadFile("C:\\Users\\Bartosz\\Dysk Google\\Studia\\Technologie Programowania Adaptacyjnego\\TPA\\TUI\\bin\\Debug\\Mock.dll");
+            string path = @"C:\Users\Bartosz\Dysk Google\Studia\Technologie Programowania Adaptacyjnego\TPA\Mock\TP.Introduction.dll";
+            Assembly assembly = Assembly.LoadFile(path);
             Console.WriteLine(assembly.FullName);
 
             Type[] typ = assembly.GetTypes();
