@@ -72,7 +72,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\TreeViewItem.cs" />
+    <Compile Include="Models\WrappedNode.cs" />
     <Compile Include="ViewModels\GUIViewModel.cs" />
+    <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="Views\GUIView.xaml.cs">
       <DependentUpon>GUIView.xaml</DependentUpon>
     </Compile>
@@ -106,7 +109,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
+    <ProjectReference Include="..\Logic\Logic.csproj">
+      <Project>{28254930-A865-40F0-ACDE-C988C2A35C85}</Project>
+      <Name>Logic</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\GUIView.xaml">
