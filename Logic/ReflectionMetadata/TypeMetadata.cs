@@ -28,7 +28,7 @@ namespace Logic.ReflectionMetadata
         #endregion
 
         #region API
-        internal enum TypeKind
+        public enum TypeKind
         {
             EnumType, StructType, InterfaceType, ClassType
         }
@@ -47,19 +47,20 @@ namespace Logic.ReflectionMetadata
 
         #region private
         //vars
-        private readonly string m_typeName;
-        private readonly string m_NamespaceName;
-        private readonly TypeMetadata m_BaseType;
-        private readonly IEnumerable<TypeMetadata> m_GenericArguments;
-        private readonly Tuple<AccessLevel, SealedEnum, AbstractENum> m_Modifiers;
-        private readonly TypeKind m_TypeKind;
-        private readonly IEnumerable<Attribute> m_Attributes;
-        private readonly IEnumerable<TypeMetadata> m_ImplementedInterfaces;
-        private readonly IEnumerable<TypeMetadata> m_NestedTypes;
-        private readonly IEnumerable<PropertyMetadata> m_Properties;
-        private readonly TypeMetadata m_DeclaringType;
-        private readonly IEnumerable<MethodMetadata> m_Methods;
-        private readonly IEnumerable<MethodMetadata> m_Constructors;
+        public string m_typeName;
+        public string m_NamespaceName;
+        public TypeMetadata m_BaseType;
+        public IEnumerable<TypeMetadata> m_GenericArguments;
+        public Tuple<AccessLevel, SealedEnum, AbstractENum> m_Modifiers;
+        public TypeKind m_TypeKind;
+        public IEnumerable<Attribute> m_Attributes;
+        public IEnumerable<TypeMetadata> m_ImplementedInterfaces;
+        public IEnumerable<TypeMetadata> m_NestedTypes;
+        public IEnumerable<PropertyMetadata> m_Properties;
+        public TypeMetadata m_DeclaringType;
+        public IEnumerable<MethodMetadata> m_Methods;
+        public IEnumerable<MethodMetadata> m_Constructors;
+        public IEnumerable<ParameterMetadata> m_Fields;
 
         public string TypeName => m_typeName;
 

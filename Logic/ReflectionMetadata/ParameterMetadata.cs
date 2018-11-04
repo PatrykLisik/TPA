@@ -1,18 +1,17 @@
 ﻿
 namespace Logic.ReflectionMetadata
 {
-  internal class ParameterMetadata
-  {
-
-    public ParameterMetadata(string name, TypeMetadata typeMetadata)
+    public class ParameterMetadata
     {
-      this.m_Name = name;
-      this.m_TypeMetadata = typeMetadata;
-    }
-    
-    //private vars
-    private string m_Name;
-    private TypeMetadata m_TypeMetadata;
+        public ParameterMetadata(string name, TypeMetadata typeMetadata)
+        {
+            m_Name = name;
+            m_TypeMetadata = typeMetadata;
+        }
 
-  }
+        //private vars
+        public string m_Name { get; private set; }
+        public TypeMetadata m_TypeMetadata { get; private set; }
+
+    }
 }

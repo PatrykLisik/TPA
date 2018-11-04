@@ -1,7 +1,7 @@
 ﻿
 namespace Logic.ReflectionMetadata
 {
-  internal enum AbstractENum
+  public enum AbstractENum
   {
     NotAbstract, Abstract
   }

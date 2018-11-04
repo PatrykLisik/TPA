@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 
 namespace Logic.ReflectionMetadata
 {
-    internal class MethodMetadata : IInternalGeter
+    public class MethodMetadata : IInternalGeter
     {
 
         internal static IEnumerable<MethodMetadata> EmitMethods(IEnumerable<MethodBase> methods)
@@ -26,7 +26,7 @@ namespace Logic.ReflectionMetadata
         private readonly bool m_Extension;
         private readonly IEnumerable<ParameterMetadata> m_Parameters;
         //constructor
-        private MethodMetadata(MethodBase method)
+        public MethodMetadata(MethodBase method)
         {
             m_Name = method.Name;
             m_GenericArguments = !method.IsGenericMethodDefinition ? null : TypeMetadata.EmitGenericArguments(method.GetGenericArguments());

@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace Logic.ReflectionMetadata
 {
-    internal class PropertyMetadata : IInternalGeter
+    public class PropertyMetadata : IInternalGeter
     {
 
         internal static IEnumerable<PropertyMetadata> EmitProperties(IEnumerable<PropertyInfo> props)
@@ -23,7 +23,7 @@ namespace Logic.ReflectionMetadata
         #region private
         private readonly string m_Name;
         private TypeMetadata m_TypeMetadata;
-        private PropertyMetadata(string propertyName, TypeMetadata propertyType)
+        public PropertyMetadata(string propertyName, TypeMetadata propertyType)
         {
             m_Name = propertyName;
             m_TypeMetadata = propertyType;
