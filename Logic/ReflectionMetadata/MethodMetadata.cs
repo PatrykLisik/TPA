@@ -30,7 +30,7 @@ namespace Logic.ReflectionMetadata
         {
             m_Name = method.Name;
             m_GenericArguments = !method.IsGenericMethodDefinition ? null : TypeMetadata.EmitGenericArguments(method.GetGenericArguments());
-            m_ReturnType = EmitReturnType(method);
+            m_ReturnType = EmitReturnType(method) ?? new TypeMetadata(typeof(void));
             m_Parameters = EmitParameters(method.GetParameters());
             m_Modifiers = EmitModifiers(method);
             m_Extension = EmitExtension(method);
@@ -72,6 +72,7 @@ namespace Logic.ReflectionMetadata
                 _virtual = VirtualEnum.Virtual;
             return new Tuple<AccessLevel, AbstractENum, StaticEnum, VirtualEnum>(_access, _abstract, _static, _virtual);
         }
+        #endregion
 
         public ICollection<IInternalGeter> GetInternals()
         {
@@ -79,9 +80,31 @@ namespace Logic.ReflectionMetadata
         }
         public override string ToString()
         {
-            return "Method " + m_Name;
+            return m_Modifiers.Item1.Stringify() +
+                   m_Modifiers.Item2.Stringify() +
+                   m_Modifiers.Item3.Stringify() +
+                   m_Modifiers.Item4.Stringify() +
+                   m_ReturnType.TypeName + " " +
+                   m_Name +
+                   genericArgsString() +
+                   "(" + string.Join(" ,", m_Parameters) + ")";
         }
-        #endregion
 
+        private string genericArgsString()
+        {
+            string genericArgs;
+            if (m_GenericArguments is null)
+            {
+                genericArgs = "";
+            }
+            else
+            {
+                genericArgs = "<" +
+                    string.Join(" ,", m_GenericArguments) +
+                    ">";
+            }
+
+            return genericArgs;
+        }
     }
 }

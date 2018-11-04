@@ -59,6 +59,9 @@ namespace Logic.ReflectionMetadata
         private readonly TypeMetadata m_DeclaringType;
         private readonly IEnumerable<MethodMetadata> m_Methods;
         private readonly IEnumerable<MethodMetadata> m_Constructors;
+
+        public string TypeName => m_typeName;
+
         //constructors
         private TypeMetadata(string typeName, string namespaceName)
         {
@@ -138,23 +141,7 @@ namespace Logic.ReflectionMetadata
         }
 
         #region ToString
-        private string ModifiersToString(Tuple<AccessLevel, SealedEnum, AbstractENum> modifiers)
-        {
-            string ret = "";
-            //Remove "is" isPrivate => Private
-            ret += Enum.GetName(typeof(AccessLevel), modifiers.Item1).Replace("Is", "");
 
-            if (modifiers.Item2 == SealedEnum.Sealed)
-            {
-                ret += " Seald ";
-            }
-
-            if (modifiers.Item3 == AbstractENum.Abstract)
-            {
-                ret += " Abstract ";
-            }
-            return ret;
-        }
 
         private string TypeKindToString(TypeKind typeKind)
         {
@@ -162,9 +149,11 @@ namespace Logic.ReflectionMetadata
         }
         public override string ToString()
         {
-            return ModifiersToString(m_Modifiers) + " "+
-                TypeKindToString(m_TypeKind) + " " +
-                m_typeName;
+            return m_Modifiers.Item1.Stringify() +
+                   m_Modifiers.Item2.Stringify() +
+                   m_Modifiers.Item3.Stringify()+ " " +
+                   m_TypeKind.ToString().Replace("Type"," ") + " " +
+                   TypeName;
         }
         #endregion
     }
