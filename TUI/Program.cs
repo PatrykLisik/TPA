@@ -8,7 +8,7 @@ namespace TUI
         static void Main(string[] args)
         {
             Reader r = new Reader();
-            r.read();
+            r.Read();
             Console.ReadLine();
         }
     }

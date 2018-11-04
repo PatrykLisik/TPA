@@ -37,7 +37,7 @@ namespace Logic
         private static string selectedNamespace;
         private static Dictionary<string, TypeMetadata> expandableTypes = new Dictionary<string, TypeMetadata>();
 
-        public void read()
+        public void Read()
         {
             tracer.Tracer(TraceEventType.Information, "Program has started");
             string path = @"C:\Users\Bartosz\Dysk Google\Studia\Technologie Programowania Adaptacyjnego\TPA\GUI\bin\Debug\Caliburn.Micro.dll";
@@ -81,7 +81,7 @@ namespace Logic
             Console.WriteLine("Stored types: " + TypeMetadata.storedTypes.Count);
             foreach (var storedType in namespaces[namespaceName].m_Types)
             {
-                //Console.WriteLine(new TypeMetadataViewModel(storedType));
+                Console.WriteLine(storedType);
                 expandableTypes.Add(storedType.TypeName, storedType);
             }
         }
