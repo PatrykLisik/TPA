@@ -121,17 +121,51 @@ namespace Logic.ReflectionMetadata
                 return null;
             return EmitReference(baseType);
         }
+        #endregion
+
 
         public ICollection<IInternalGeter> GetInternals()
         {
-            return new List<IInternalGeter>().Concat<IInternalGeter>(m_Methods).ToList();
+            List<IInternalGeter> ret = new List<IInternalGeter>();
+            ret.AddRange(m_Methods ?? Enumerable.Empty<IInternalGeter>());
+            ret.AddRange(m_Constructors ?? Enumerable.Empty<IInternalGeter>());
+            ret.AddRange(m_Properties ?? Enumerable.Empty<IInternalGeter>());
+            ret.AddRange(m_NestedTypes ?? Enumerable.Empty<IInternalGeter>());
+            //ret.AddRange(m_ImplementedInterfaces ?? Enumerable.Empty<IInternalGeter>());
+            ret.Distinct();
+            return ret;
+
         }
 
+        #region ToString
+        private string ModifiersToString(Tuple<AccessLevel, SealedEnum, AbstractENum> modifiers)
+        {
+            string ret = "";
+            //Remove "is" isPrivate => Private
+            ret += Enum.GetName(typeof(AccessLevel), modifiers.Item1).Replace("Is", "");
+
+            if (modifiers.Item2 == SealedEnum.Sealed)
+            {
+                ret += " Seald ";
+            }
+
+            if (modifiers.Item3 == AbstractENum.Abstract)
+            {
+                ret += " Abstract ";
+            }
+            return ret;
+        }
+
+        private string TypeKindToString(TypeKind typeKind)
+        {
+            return Enum.GetName(typeof(TypeKind), typeKind).Replace("Type", "");
+        }
         public override string ToString()
         {
-            return "Type" + m_typeName;
+            return ModifiersToString(m_Modifiers) + " "+
+                TypeKindToString(m_TypeKind) + " " +
+                m_typeName;
         }
         #endregion
-
     }
 }

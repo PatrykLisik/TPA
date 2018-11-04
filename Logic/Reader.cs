@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Logic.ReflectionMetadata;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -9,6 +10,14 @@ namespace Logic
 {
     public class Reader
     {
+        int property = 10;
+
+        public int Property { get => property; set => property = value; }
+
+        public class nestedType
+        {
+            public int a;
+        }
         public static void read()
         {
             Assembly assembly = Assembly.LoadFile(@"D:\Technologie progrmaowania\TP\Lecture\P01.Introduction\Introduction\bin\Debug\TP.Introduction.dll");

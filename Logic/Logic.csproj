@@ -48,7 +48,6 @@
     <Compile Include="ReflectionMetadata\AssemblyMetadata.cs" />
     <Compile Include="ReflectionMetadata\ExtensionMethods.cs" />
     <Compile Include="ReflectionMetadata\InternalGeter.cs" />
-    <Compile Include="ReflectionMetadata\Metadata.cs" />
     <Compile Include="ReflectionMetadata\MethodMetadata.cs" />
     <Compile Include="ReflectionMetadata\NamespaceMetadata.cs" />
     <Compile Include="ReflectionMetadata\ParameterMetadata.cs" />
