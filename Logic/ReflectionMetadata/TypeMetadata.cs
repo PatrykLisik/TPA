@@ -10,7 +10,7 @@ namespace Logic.ReflectionMetadata
         public static Dictionary<string, TypeMetadata> storedTypes = new Dictionary<string, TypeMetadata>();
 
         #region constructors
-        internal TypeMetadata(Type type)
+        public TypeMetadata(Type type)
         {
             m_typeName = type.Name;
             m_DeclaringType = EmitDeclaringType(type.DeclaringType);

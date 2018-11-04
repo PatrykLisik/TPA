@@ -159,20 +159,20 @@ namespace Logic
             // fields
             foreach (var field in type.m_Fields)
             {
-                string fieldTypeName = field.TypeMetadata.TypeName;
+                string fieldTypeName = field.m_TypeMetadata.TypeName;
                 if (!expandableTypes.ContainsKey(fieldTypeName))
                 {
-                    expandableTypes.Add(fieldTypeName, field.TypeMetadata);
+                    expandableTypes.Add(fieldTypeName, field.m_TypeMetadata);
                 }
             }
 
             // properties
             foreach (var property in type.m_Properties)
             {
-                string propertyTypeName = property.TypeMetadata.TypeName;
+                string propertyTypeName = property.m_TypeMetadata.TypeName;
                 if (!expandableTypes.ContainsKey(propertyTypeName))
                 {
-                    expandableTypes.Add(propertyTypeName, property.TypeMetadata);
+                    expandableTypes.Add(propertyTypeName, property.m_TypeMetadata);
                 }
             }
 
@@ -180,19 +180,19 @@ namespace Logic
             foreach (var method in type.m_Methods)
             {
                 // return type
-                string returnTypeName = method.ReturnType.TypeName;
+                string returnTypeName = method.m_ReturnType.TypeName;
                 if (!expandableTypes.ContainsKey(returnTypeName))
                 {
-                    expandableTypes.Add(returnTypeName, method.ReturnType);
+                    expandableTypes.Add(returnTypeName, method.m_ReturnType);
                 }
 
                 // parameters
                 foreach (var parameter in method.m_Parameters)
                 {
-                    string parameterTypeName = parameter.TypeMetadata.TypeName;
+                    string parameterTypeName = parameter.m_TypeMetadata.TypeName;
                     if (!expandableTypes.ContainsKey(parameterTypeName))
                     {
-                        expandableTypes.Add(parameterTypeName, parameter.TypeMetadata);
+                        expandableTypes.Add(parameterTypeName, parameter.m_TypeMetadata);
                     }
                 }
             }

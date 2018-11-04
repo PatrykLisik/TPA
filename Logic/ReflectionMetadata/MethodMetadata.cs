@@ -19,12 +19,12 @@ namespace Logic.ReflectionMetadata
 
         #region private
         //vars
-        private readonly string m_Name;
+        public string m_Name { get; private set; }
         private readonly IEnumerable<TypeMetadata> m_GenericArguments;
         private readonly Tuple<AccessLevel, AbstractENum, StaticEnum, VirtualEnum> m_Modifiers;
-        private readonly TypeMetadata m_ReturnType;
+        public TypeMetadata m_ReturnType { get; private set; }
         private readonly bool m_Extension;
-        private readonly IEnumerable<ParameterMetadata> m_Parameters;
+        public IEnumerable<ParameterMetadata> m_Parameters { get; private set; }
         //constructor
         public MethodMetadata(MethodBase method)
         {
