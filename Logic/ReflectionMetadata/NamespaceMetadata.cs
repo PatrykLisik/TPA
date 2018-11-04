@@ -16,8 +16,8 @@ namespace Logic.ReflectionMetadata
             m_Types = from type in types orderby type.Name select new TypeMetadata(type);
         }
 
-        private readonly string m_NamespaceName;
-        private IEnumerable<TypeMetadata> m_Types;
+        public string m_NamespaceName { get; private set; }
+        public IEnumerable<TypeMetadata> m_Types;
         public override string ToString()
         {
             return "Namesapce " + m_NamespaceName;

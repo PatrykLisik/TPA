@@ -1,11 +1,13 @@
 ﻿using Logic.ReflectionMetadata;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Tracer;
 
 namespace Logic
 {
@@ -19,7 +21,7 @@ namespace Logic
         private Tuple<AccessLevel, SealedEnum, AbstractENum> m_Modifiers;
         private TypeKind m_TypeKind;
         private TypeMetadata m_DeclaringType;
-        */
+        
         private IEnumerable<PropertyInfo> m_Properties;
         private IEnumerable<MethodInfo> m_Methods;
         private IEnumerable<ConstructorInfo> m_Constructors;
@@ -27,37 +29,61 @@ namespace Logic
         private IEnumerable<Attribute> m_Attributes;
         private IEnumerable<FieldInfo> m_Fields;
         private IEnumerable<Type> m_ImplementedInterfaces;
-        private IEnumerable<Type> m_NestedTypes;
+        private IEnumerable<Type> m_NestedTypes;*/
+
+        private static TracerFile tracer = new TracerFile();
+        private static AssemblyMetadata assemblyMetadata;
+        private static Dictionary<string, NamespaceMetadata> namespaces = new Dictionary<string, NamespaceMetadata>();
+        private static string selectedNamespace;
+        private static Dictionary<string, TypeMetadata> expandableTypes = new Dictionary<string, TypeMetadata>();
 
         public void read()
         {
-            Console.WriteLine();
-            Assembly assembly = Assembly.LoadFile("C:\\Users\\Bartosz\\Dysk Google\\Studia\\Technologie Programowania Adaptacyjnego\\TPA\\TUI\\bin\\Debug\\Mock.dll");
+            tracer.Tracer(TraceEventType.Information, "Program has started");
+            string path = @"C:\Users\Bartosz\Dysk Google\Studia\Technologie Programowania Adaptacyjnego\TPA\GUI\bin\Debug\Caliburn.Micro.dll";
+            Assembly assembly = Assembly.LoadFile(path);
             Console.WriteLine(assembly.FullName);
 
-            Type[] typ = assembly.GetTypes();
-            foreach (Type t in typ)
-            {                
-                m_Properties = t.GetProperties();
-                m_Methods = t.GetMethods();
-                m_Constructors = t.GetConstructors();
-                m_GenericArguments = t.GetGenericArguments();
-                m_Attributes = t.GetCustomAttributes();
-                m_Fields = t.GetFields();
-                m_ImplementedInterfaces = t.GetInterfaces();
-                m_NestedTypes = t.GetNestedTypes();
- 
-                Console.WriteLine("Type:); " + t.Name + " Base type: " + t.BaseType);
-                foreach (var v in m_Constructors) { Console.WriteLine("\tConstructors: " + v.Name + ", " +v.Attributes); }
-                foreach (var p in m_Properties) { Console.WriteLine("\tProperty: " + p.Name + ", Property type: " + p.PropertyType); }
-                foreach (var f in m_Fields){Console.WriteLine("\tFields: " + f.Name + ", Field type: " + f.FieldType);}
-                foreach (var m in m_Methods) { Console.WriteLine("\tMethods: " + m.Name + ", Return type: " + m.ReturnType); }
-                foreach (var g in m_GenericArguments) { Console.WriteLine("\tGeneric: " + g.Name); }
-                foreach (var i in m_ImplementedInterfaces) { Console.WriteLine("\tImplementedInterfaces: " + i.Name + ", " + i.Attributes); }
-                foreach (var n in m_NestedTypes) { Console.WriteLine("\tNestedTypes: " + n.Name); }
+            assemblyMetadata = new AssemblyMetadata(assembly);
+
+            // add namespaces to Dictionary
+            int i = 0;
+            Console.WriteLine("Choose namespace:");
+            foreach (var @namespace in assemblyMetadata.m_Namespaces)
+            {
+                namespaces.Add(@namespace.m_NamespaceName, @namespace);
+                Console.WriteLine(i + ". " + @namespace.m_NamespaceName);
             }
 
+            string userInput = Console.ReadLine();
 
+            if (userInput == null)
+            {
+                Console.WriteLine("No input from user!");
+                tracer.Tracer(TraceEventType.Warning, "No input from user!");
+            }
+            else
+            {
+                selectedNamespace = userInput;
+                tracer.Tracer(TraceEventType.Information, "selected namespace" + selectedNamespace);
+            }
+
+            // list types from selected dll file from namespace Reflection
+            tracer.Tracer(TraceEventType.Start, "default types display");
+            ListDefaultTypes(userInput);
+            tracer.Tracer(TraceEventType.Stop, "default types displayed");
+        }
+        private static void ListDefaultTypes(string namespaceName)
+        {
+            Console.Clear();
+            expandableTypes.Clear();
+
+            Console.WriteLine("Stored types: " + TypeMetadata.storedTypes.Count);
+            foreach (var storedType in namespaces[namespaceName].m_Types)
+            {
+                //Console.WriteLine(new TypeMetadataViewModel(storedType));
+                expandableTypes.Add(storedType.TypeName, storedType);
+            }
         }
     }
 }

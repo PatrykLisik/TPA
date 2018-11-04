@@ -7,6 +7,7 @@ namespace Logic.ReflectionMetadata
 {
     public class TypeMetadata : IInternalGeter
     {
+        public static Dictionary<string, TypeMetadata> storedTypes = new Dictionary<string, TypeMetadata>();
 
         #region constructors
         internal TypeMetadata(Type type)
@@ -137,12 +138,9 @@ namespace Logic.ReflectionMetadata
             //ret.AddRange(m_ImplementedInterfaces ?? Enumerable.Empty<IInternalGeter>());
             ret.Distinct();
             return ret;
-
         }
 
         #region ToString
-
-
         private string TypeKindToString(TypeKind typeKind)
         {
             return Enum.GetName(typeof(TypeKind), typeKind).Replace("Type", "");
