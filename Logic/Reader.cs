@@ -28,6 +28,8 @@ namespace Logic
         private IEnumerable<Type> m_ImplementedInterfaces;
         private IEnumerable<Type> m_NestedTypes;
 
+        public Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum> Modifiers { get; set; }
+
         public void read()
         {
             Console.WriteLine();
@@ -47,7 +49,7 @@ namespace Logic
                 m_ImplementedInterfaces = t.GetInterfaces();
                 m_NestedTypes = t.GetNestedTypes();
  
-                Console.WriteLine("Type:); " + t.Name + " Base type: " + t.BaseType);
+                Console.WriteLine("Type: " + t.Name + " Base type: " + t.BaseType);
                 foreach (var v in m_Constructors) { Console.WriteLine("\tConstructors: " + v.Name + ", " +v.Attributes); }
                 foreach (var p in m_Properties) { Console.WriteLine("\tProperty: " + p.Name + ", Property type: " + p.PropertyType); }
                 foreach (var f in m_Fields){Console.WriteLine("\tFields: " + f.Name + ", Field type: " + f.FieldType);}
@@ -58,6 +60,27 @@ namespace Logic
             }
 
 
+        }
+
+        private static Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum> EmitModifiers(MethodBase method)
+        {
+            AccessLevel _access = AccessLevel.IsPrivate;
+            if (method.IsPublic)
+                _access = AccessLevel.IsPublic;
+            else if (method.IsFamily)
+                _access = AccessLevel.IsProtected;
+            else if (method.IsFamilyAndAssembly)
+                _access = AccessLevel.IsProtectedInternal;
+            AbstractEnum _abstract = AbstractEnum.NotAbstract;
+            if (method.IsAbstract)
+                _abstract = AbstractEnum.Abstract;
+            StaticEnum _static = StaticEnum.NotStatic;
+            if (method.IsStatic)
+                _static = StaticEnum.Static;
+            VirtualEnum _virtual = VirtualEnum.NotVirtual;
+            if (method.IsVirtual)
+                _virtual = VirtualEnum.Virtual;
+            return new Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum>(_access, _abstract, _static, _virtual);
         }
     }
 }
