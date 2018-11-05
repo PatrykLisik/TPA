@@ -28,12 +28,16 @@ namespace Logic
             assemblyMetadata = new AssemblyMetadata(Assembly.LoadFile(path));
 
             // add namespaces to Dictionary
-            Console.WriteLine("Choose namespace:");
+            Console.WriteLine("Choose namespace");
             foreach (var @namespace in assemblyMetadata.m_Namespaces)
             {
                 namespaces.Add(@namespace.m_NamespaceName, @namespace);
                 Console.WriteLine(@namespace.m_NamespaceName);
             }
+
+            // get namespace name from user
+
+            Console.Write(">>> ");
 
             string userInput = Console.ReadLine();
 
@@ -122,10 +126,9 @@ namespace Logic
             expandableTypes.Clear();
 
             Console.WriteLine("Stored types: " + TypeMetadata.storedTypes.Count);
-            int i = 0;
             foreach (var storedType in namespaces[namespaceName].m_Types)
             {
-                Console.WriteLine(i++ + ". " + storedType);
+                Console.WriteLine(storedType);
                 expandableTypes.Add(storedType.TypeName, storedType);
             }
         }

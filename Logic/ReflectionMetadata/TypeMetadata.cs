@@ -12,6 +12,11 @@ namespace Logic.ReflectionMetadata
         #region constructors
         public TypeMetadata(Type type)
         {
+            if (!storedTypes.ContainsKey(type.Name))
+            {
+                storedTypes.Add(type.Name, this);
+            }
+
             m_typeName = type.Name;
             m_DeclaringType = EmitDeclaringType(type.DeclaringType);
             m_Constructors = MethodMetadata.EmitMethods(type.GetConstructors());
@@ -32,17 +37,25 @@ namespace Logic.ReflectionMetadata
         {
             EnumType, StructType, InterfaceType, ClassType
         }
-        internal static TypeMetadata EmitReference(Type type)
+        public static TypeMetadata EmitReference(Type type)
         {
             if (!type.IsGenericType)
+            {
+                if (storedTypes.ContainsKey(type.Name))
+                {
+                    return storedTypes[type.Name];
+                }
                 return new TypeMetadata(type.Name, type.GetNamespace());
-            else
-                return new TypeMetadata(type.Name, type.GetNamespace(), EmitGenericArguments(type.GetGenericArguments()));
+            }
+            return new TypeMetadata(type.Name, type.GetNamespace(),
+                EmitGenericArguments(type.GetGenericArguments()));
         }
         internal static IEnumerable<TypeMetadata> EmitGenericArguments(IEnumerable<Type> arguments)
         {
             return from Type _argument in arguments select EmitReference(_argument);
         }
+
+
         #endregion
 
         #region private
