@@ -1,7 +1,7 @@
 ﻿
 namespace Logic.ReflectionMetadata
 {
-  internal enum AccessLevel
+  public enum AccessLevel
   {
       IsPublic, IsProtected, IsProtectedInternal, IsPrivate
   }

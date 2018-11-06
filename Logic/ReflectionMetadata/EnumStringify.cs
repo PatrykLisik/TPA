@@ -17,7 +17,7 @@ namespace Logic.ReflectionMetadata
 
         internal static string Stringify(this AccessLevel accesLevel)
         {
-            return Enum.GetName(typeof(AccessLevel), accesLevel).Replace("Is", "");
+            return Enum.GetName(typeof(AccessLevel), accesLevel).Replace("Is", "") + " ";
         }
 
         internal static string Stringify(this SealedEnum sealedEnum)
@@ -27,9 +27,9 @@ namespace Logic.ReflectionMetadata
             return "";
         }
 
-        internal static string Stringify(this AbstractENum sealedEnum)
+        internal static string Stringify(this AbstractEnum sealedEnum)
         {
-            if (sealedEnum == AbstractENum.Abstract)
+            if (sealedEnum == AbstractEnum.Abstract)
                 return "Abstract ";
             return "";
         }

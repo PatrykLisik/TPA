@@ -6,7 +6,7 @@ namespace GUI.Models
 {
     public class TreeViewItem
     {
-        internal ICollection<IInternalGeter> rest;
+        internal IEnumerable<IInternalGeter> rest;
         public TreeViewItem()
         {
             Children = new ObservableCollection<TreeViewItem>() { null };
@@ -34,7 +34,7 @@ namespace GUI.Models
         {
             foreach (IInternalGeter namespace_conteriner in rest)
             {
-                ICollection<IInternalGeter>  internal_obj = namespace_conteriner.GetInternals();
+                IEnumerable<IInternalGeter>  internal_obj = namespace_conteriner.GetInternals();
                 if (internal_obj is null)
                 {
                     Children.Add(new TreeViewItem

@@ -2,15 +2,23 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace Logic.ReflectionMetadata
 {
     public class TypeMetadata : IInternalGeter
     {
+        public static Dictionary<string, TypeMetadata> storedTypes = new Dictionary<string, TypeMetadata>();
 
         #region constructors
-        internal TypeMetadata(Type type)
+        public TypeMetadata(Type type)
         {
+            if (!storedTypes.ContainsKey(type.Name))
+            {
+                storedTypes.Add(type.Name, this);
+            }
+
             m_typeName = type.Name;
             m_DeclaringType = EmitDeclaringType(type.DeclaringType);
             m_Constructors = MethodMetadata.EmitMethods(type.GetConstructors());
@@ -23,11 +31,14 @@ namespace Logic.ReflectionMetadata
             m_Properties = PropertyMetadata.EmitProperties(type.GetProperties());
             m_TypeKind = GetTypeKind(type);
             m_Attributes = type.GetCustomAttributes(false).Cast<Attribute>();
+            m_Fields = EmitFields(type);
         }
+
+
         #endregion
 
         #region API
-        internal enum TypeKind
+        public enum TypeKind
         {
             EnumType, StructType, InterfaceType, ClassType
         }
@@ -46,19 +57,20 @@ namespace Logic.ReflectionMetadata
 
         #region private
         //vars
-        private readonly string m_typeName;
-        private readonly string m_NamespaceName;
-        private readonly TypeMetadata m_BaseType;
-        private readonly IEnumerable<TypeMetadata> m_GenericArguments;
-        private readonly Tuple<AccessLevel, SealedEnum, AbstractENum> m_Modifiers;
-        private readonly TypeKind m_TypeKind;
-        private readonly IEnumerable<Attribute> m_Attributes;
-        private readonly IEnumerable<TypeMetadata> m_ImplementedInterfaces;
-        private readonly IEnumerable<TypeMetadata> m_NestedTypes;
-        private readonly IEnumerable<PropertyMetadata> m_Properties;
-        private readonly TypeMetadata m_DeclaringType;
-        private readonly IEnumerable<MethodMetadata> m_Methods;
-        private readonly IEnumerable<MethodMetadata> m_Constructors;
+        public string m_typeName { get; private set; }
+        public string m_NamespaceName { get; private set; }
+        public TypeMetadata m_BaseType { get; private set; }
+        public IEnumerable<TypeMetadata> m_GenericArguments { get; private set; }
+        public Tuple<AccessLevel, SealedEnum, AbstractEnum> m_Modifiers { get; private set; }
+        public TypeKind m_TypeKind { get; private set; }
+        public IEnumerable<Attribute> m_Attributes { get; private set; }
+        public IEnumerable<TypeMetadata> m_ImplementedInterfaces { get; private set; }
+        public IEnumerable<TypeMetadata> m_NestedTypes { get; private set; }
+        public IEnumerable<PropertyMetadata> m_Properties { get; private set; }
+        public TypeMetadata m_DeclaringType { get; private set; }
+        public IEnumerable<MethodMetadata> m_Methods { get; private set; }
+        public IEnumerable<MethodMetadata> m_Constructors { get; private set; }
+        public IEnumerable<ParameterMetadata> m_Fields { get; private set; }
 
         public string TypeName => m_typeName;
 
@@ -90,6 +102,13 @@ namespace Logic.ReflectionMetadata
             return from currentInterface in interfaces
                    select EmitReference(currentInterface);
         }
+        private IEnumerable<ParameterMetadata> EmitFields(Type type)
+        {
+            return from _fieldInfo in type
+                        .GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
+                        //.Where(f => f.GetCustomAttribute<CompilerGeneratedAttribute>() == null)
+                   select new ParameterMetadata(_fieldInfo.Name, new TypeMetadata(_fieldInfo.FieldType));
+        }
         private static TypeKind GetTypeKind(Type type) //#80 TPA: Reflection - Invalid return value of GetTypeKind() 
         {
             return type.IsEnum ? TypeKind.EnumType :
@@ -97,11 +116,11 @@ namespace Logic.ReflectionMetadata
                    type.IsInterface ? TypeKind.InterfaceType :
                    TypeKind.ClassType;
         }
-        static Tuple<AccessLevel, SealedEnum, AbstractENum> EmitModifiers(Type type)
+        static Tuple<AccessLevel, SealedEnum, AbstractEnum> EmitModifiers(Type type)
         {
             //set defaults 
             AccessLevel _access = AccessLevel.IsPrivate;
-            AbstractENum _abstract = AbstractENum.NotAbstract;
+            AbstractEnum _abstract = AbstractEnum.NotAbstract;
             SealedEnum _sealed = SealedEnum.NotSealed;
             // check if not default 
             if (type.IsPublic)
@@ -115,8 +134,8 @@ namespace Logic.ReflectionMetadata
             if (type.IsSealed)
                 _sealed = SealedEnum.Sealed;
             if (type.IsAbstract)
-                _abstract = AbstractENum.Abstract;
-            return new Tuple<AccessLevel, SealedEnum, AbstractENum>(_access, _sealed, _abstract);
+                _abstract = AbstractEnum.Abstract;
+            return new Tuple<AccessLevel, SealedEnum, AbstractEnum>(_access, _sealed, _abstract);
         }
         private static TypeMetadata EmitExtends(Type baseType)
         {
@@ -127,33 +146,46 @@ namespace Logic.ReflectionMetadata
         #endregion
 
 
-        public ICollection<IInternalGeter> GetInternals()
+        public IEnumerable<IInternalGeter> GetInternals()
         {
             List<IInternalGeter> ret = new List<IInternalGeter>();
-            ret.AddRange(m_Methods ?? Enumerable.Empty<IInternalGeter>());
-            ret.AddRange(m_Constructors ?? Enumerable.Empty<IInternalGeter>());
-            ret.AddRange(m_Properties ?? Enumerable.Empty<IInternalGeter>());
-            ret.AddRange(m_NestedTypes ?? Enumerable.Empty<IInternalGeter>());
-            //ret.AddRange(m_ImplementedInterfaces ?? Enumerable.Empty<IInternalGeter>());
-            ret.Distinct();
+            ret = ret.AddRangeOrDefault(m_GenericArguments);
+            ret = ret.AddRangeOrDefault(m_GenericArguments);
+            ret = ret.AddRangeOrDefault(m_NestedTypes);
+            ret = ret.AddRangeOrDefault(m_Properties);
+            ret = ret.AddRangeOrDefault(m_Methods);
+            ret = ret.AddRangeOrDefault(m_Constructors);
+            ret = ret.AddRangeOrDefault(m_Fields);
+            //ret.Distinct();
             return ret;
 
         }
 
         #region ToString
 
-
         private string TypeKindToString(TypeKind typeKind)
         {
-            return Enum.GetName(typeof(TypeKind), typeKind).Replace("Type", "");
+            return typeKind.ToString().Replace("Type", "") + " ";
         }
         public override string ToString()
         {
-            return m_Modifiers.Item1.Stringify() +
-                   m_Modifiers.Item2.Stringify() +
-                   m_Modifiers.Item3.Stringify()+ " " +
-                   m_TypeKind.ToString().Replace("Type"," ") + " " +
-                   TypeName;
+
+            return modifiersToString() +
+                   TypeKindToString(m_TypeKind) +
+                   TypeName + genericParamsToString();
+        }
+        private string modifiersToString()
+        {
+            if (m_Modifiers is null)
+                return "";
+            return genericParamsToString();
+        }
+
+        private string genericParamsToString()
+        {
+            if (m_GenericArguments is null)
+                return "";
+            return "<" + string.Join(",", m_GenericArguments) + ">";
         }
         #endregion
     }

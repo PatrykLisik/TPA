@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 
 namespace Logic.ReflectionMetadata
 {
-    internal class MethodMetadata : IInternalGeter
+    public class MethodMetadata : IInternalGeter
     {
 
         internal static IEnumerable<MethodMetadata> EmitMethods(IEnumerable<MethodBase> methods)
@@ -19,12 +19,12 @@ namespace Logic.ReflectionMetadata
 
         #region private
         //vars
-        private readonly string m_Name;
-        private readonly IEnumerable<TypeMetadata> m_GenericArguments;
-        private readonly Tuple<AccessLevel, AbstractENum, StaticEnum, VirtualEnum> m_Modifiers;
-        private readonly TypeMetadata m_ReturnType;
-        private readonly bool m_Extension;
-        private readonly IEnumerable<ParameterMetadata> m_Parameters;
+        public string m_Name { get; private set; }
+        public IEnumerable<TypeMetadata> m_GenericArguments { get; private set; }
+        public Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum> m_Modifiers { get; private set; }
+        public TypeMetadata m_ReturnType { get; private set; }
+        public bool m_Extension { get; private set; }
+        public IEnumerable<ParameterMetadata> m_Parameters { get; private set; }
         //constructor
         private MethodMetadata(MethodBase method)
         {
@@ -52,7 +52,7 @@ namespace Logic.ReflectionMetadata
         {
             return method.IsDefined(typeof(ExtensionAttribute), true);
         }
-        private static Tuple<AccessLevel, AbstractENum, StaticEnum, VirtualEnum> EmitModifiers(MethodBase method)
+        private static Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum> EmitModifiers(MethodBase method)
         {
             AccessLevel _access = AccessLevel.IsPrivate;
             if (method.IsPublic)
@@ -61,20 +61,20 @@ namespace Logic.ReflectionMetadata
                 _access = AccessLevel.IsProtected;
             else if (method.IsFamilyAndAssembly)
                 _access = AccessLevel.IsProtectedInternal;
-            AbstractENum _abstract = AbstractENum.NotAbstract;
+            AbstractEnum _abstract = AbstractEnum.NotAbstract;
             if (method.IsAbstract)
-                _abstract = AbstractENum.Abstract;
+                _abstract = AbstractEnum.Abstract;
             StaticEnum _static = StaticEnum.NotStatic;
             if (method.IsStatic)
                 _static = StaticEnum.Static;
             VirtualEnum _virtual = VirtualEnum.NotVirtual;
             if (method.IsVirtual)
                 _virtual = VirtualEnum.Virtual;
-            return new Tuple<AccessLevel, AbstractENum, StaticEnum, VirtualEnum>(_access, _abstract, _static, _virtual);
+            return new Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum>(_access, _abstract, _static, _virtual);
         }
         #endregion
 
-        public ICollection<IInternalGeter> GetInternals()
+        public IEnumerable<IInternalGeter> GetInternals()
         {
             return new List<IInternalGeter>();
         }

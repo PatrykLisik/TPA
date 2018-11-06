@@ -23,7 +23,7 @@ namespace Logic.ReflectionMetadata
     private IEnumerable<NamespaceMetadata> m_Namespaces;
 
 
-        public ICollection<IInternalGeter> GetInternals()
+        public IEnumerable<IInternalGeter> GetInternals()
         {
             return m_Namespaces.ToList<IInternalGeter>();
         }
