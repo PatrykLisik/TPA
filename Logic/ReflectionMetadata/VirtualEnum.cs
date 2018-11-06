@@ -1,7 +1,7 @@
 ﻿
 namespace Logic.ReflectionMetadata
 {
-  internal enum  VirtualEnum
+  public enum  VirtualEnum
   {
     NotVirtual, Virtual 
   }

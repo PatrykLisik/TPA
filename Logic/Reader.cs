@@ -19,7 +19,7 @@ namespace Logic
         private Tuple<AccessLevel, SealedEnum, AbstractENum> m_Modifiers;
         private TypeKind m_TypeKind;
         private TypeMetadata m_DeclaringType;
-        */
+        
         private IEnumerable<PropertyInfo> m_Properties;
         private IEnumerable<MethodInfo> m_Methods;
         private IEnumerable<ConstructorInfo> m_Constructors;
@@ -31,6 +31,7 @@ namespace Logic
 
         public void read()
         {
+            
             Console.WriteLine();
             Assembly assembly = Assembly.LoadFile("C:\\Users\\Bartosz\\Dysk Google\\Studia\\Technologie Programowania Adaptacyjnego\\TPA\\TUI\\bin\\Debug\\Mock.dll");
             Console.WriteLine(assembly.FullName);
@@ -56,8 +57,8 @@ namespace Logic
                 foreach (var i in m_ImplementedInterfaces) { Console.WriteLine("\tImplementedInterfaces: " + i.Name + ", " + i.Attributes); }
                 foreach (var n in m_NestedTypes) { Console.WriteLine("\tNestedTypes: " + n.Name); }
             }
+            
 
-
-        }
+        }*/
     }
 }

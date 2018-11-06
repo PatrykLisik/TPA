@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TUI", "TUI\TUI.csproj", "{4
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic", "Logic\Logic.csproj", "{28254930-A865-40F0-ACDE-C988C2A35C85}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracer", "Tracer\Tracer.csproj", "{D9F27D92-09DB-4A8B-A30D-521B667D963D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{28254930-A865-40F0-ACDE-C988C2A35C85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28254930-A865-40F0-ACDE-C988C2A35C85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28254930-A865-40F0-ACDE-C988C2A35C85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9F27D92-09DB-4A8B-A30D-521B667D963D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9F27D92-09DB-4A8B-A30D-521B667D963D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9F27D92-09DB-4A8B-A30D-521B667D963D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9F27D92-09DB-4A8B-A30D-521B667D963D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

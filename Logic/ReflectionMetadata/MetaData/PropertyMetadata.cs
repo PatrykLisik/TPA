@@ -6,10 +6,12 @@ using System.Reflection;
 
 namespace Logic.ReflectionMetadata
 {
-    internal class PropertyMetadata : IInternalGeter
+    public class PropertyMetadata : IInternalGeter
     {
+        public string m_Name { get; private set; }
+        public TypeMetadata m_TypeMetadata { get; private set; }
 
-        internal static IEnumerable<PropertyMetadata> EmitProperties(IEnumerable<PropertyInfo> props)
+        public static IEnumerable<PropertyMetadata> EmitProperties(IEnumerable<PropertyInfo> props)
         {
             return from prop in props
                    where prop.GetGetMethod().GetVisible() || prop.GetSetMethod().GetVisible()
@@ -26,15 +28,12 @@ namespace Logic.ReflectionMetadata
         {
             return "Property: " + m_TypeMetadata.TypeName + " "+m_Name;
         }
-        #region private
-        private readonly string m_Name;
-        private TypeMetadata m_TypeMetadata;
+
         private PropertyMetadata(string propertyName, TypeMetadata propertyType)
         {
             m_Name = propertyName;
             m_TypeMetadata = propertyType;
         }
-        #endregion
 
     }
 }
