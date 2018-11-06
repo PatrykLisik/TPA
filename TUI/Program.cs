@@ -136,7 +136,7 @@ namespace TUI
         {
             if (typeHistory.Count > 0)
             {
-                // check if only 1 value is stored in stack
+                // check if only 1 value is stored in stack 
                 if (typeHistory.Count == 1)
                 {
                     typeHistory.Clear();
