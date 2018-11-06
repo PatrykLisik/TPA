@@ -27,9 +27,9 @@ namespace Logic.ReflectionMetadata
             return "";
         }
 
-        internal static string Stringify(this AbstractENum sealedEnum)
+        internal static string Stringify(this AbstractEnum sealedEnum)
         {
-            if (sealedEnum == AbstractENum.Abstract)
+            if (sealedEnum == AbstractEnum.Abstract)
                 return "Abstract ";
             return "";
         }

@@ -7,10 +7,16 @@ namespace Logic.ReflectionMetadata
 {
     public class TypeMetadata : IInternalGeter
     {
+        public static Dictionary<string, TypeMetadata> storedTypes = new Dictionary<string, TypeMetadata>();
 
         #region constructors
-        internal TypeMetadata(Type type)
+        public TypeMetadata(Type type)
         {
+            if (!storedTypes.ContainsKey(type.Name))
+            {
+                storedTypes.Add(type.Name, this);
+            }
+
             m_typeName = type.Name;
             m_DeclaringType = EmitDeclaringType(type.DeclaringType);
             m_Constructors = MethodMetadata.EmitMethods(type.GetConstructors());
@@ -27,7 +33,7 @@ namespace Logic.ReflectionMetadata
         #endregion
 
         #region API
-        internal enum TypeKind
+        public enum TypeKind
         {
             EnumType, StructType, InterfaceType, ClassType
         }
@@ -46,19 +52,20 @@ namespace Logic.ReflectionMetadata
 
         #region private
         //vars
-        private readonly string m_typeName;
-        private readonly string m_NamespaceName;
-        private readonly TypeMetadata m_BaseType;
-        private readonly IEnumerable<TypeMetadata> m_GenericArguments;
-        private readonly Tuple<AccessLevel, SealedEnum, AbstractENum> m_Modifiers;
-        private readonly TypeKind m_TypeKind;
-        private readonly IEnumerable<Attribute> m_Attributes;
-        private readonly IEnumerable<TypeMetadata> m_ImplementedInterfaces;
-        private readonly IEnumerable<TypeMetadata> m_NestedTypes;
-        private readonly IEnumerable<PropertyMetadata> m_Properties;
-        private readonly TypeMetadata m_DeclaringType;
-        private readonly IEnumerable<MethodMetadata> m_Methods;
-        private readonly IEnumerable<MethodMetadata> m_Constructors;
+        public string m_typeName { get; private set; }
+        public string m_NamespaceName { get; private set; }
+        public TypeMetadata m_BaseType { get; private set; }
+        public IEnumerable<TypeMetadata> m_GenericArguments { get; private set; }
+        public Tuple<AccessLevel, SealedEnum, AbstractEnum> m_Modifiers { get; private set; }
+        public TypeKind m_TypeKind { get; private set; }
+        public IEnumerable<Attribute> m_Attributes { get; private set; }
+        public IEnumerable<TypeMetadata> m_ImplementedInterfaces { get; private set; }
+        public IEnumerable<TypeMetadata> m_NestedTypes { get; private set; }
+        public IEnumerable<PropertyMetadata> m_Properties { get; private set; }
+        public TypeMetadata m_DeclaringType { get; private set; }
+        public IEnumerable<MethodMetadata> m_Methods { get; private set; }
+        public IEnumerable<MethodMetadata> m_Constructors { get; private set; }
+        public IEnumerable<ParameterMetadata> m_Fields { get; private set; }
 
         public string TypeName => m_typeName;
 
@@ -97,11 +104,11 @@ namespace Logic.ReflectionMetadata
                    type.IsInterface ? TypeKind.InterfaceType :
                    TypeKind.ClassType;
         }
-        static Tuple<AccessLevel, SealedEnum, AbstractENum> EmitModifiers(Type type)
+        static Tuple<AccessLevel, SealedEnum, AbstractEnum> EmitModifiers(Type type)
         {
             //set defaults 
             AccessLevel _access = AccessLevel.IsPrivate;
-            AbstractENum _abstract = AbstractENum.NotAbstract;
+            AbstractEnum _abstract = AbstractEnum.NotAbstract;
             SealedEnum _sealed = SealedEnum.NotSealed;
             // check if not default 
             if (type.IsPublic)
@@ -115,8 +122,8 @@ namespace Logic.ReflectionMetadata
             if (type.IsSealed)
                 _sealed = SealedEnum.Sealed;
             if (type.IsAbstract)
-                _abstract = AbstractENum.Abstract;
-            return new Tuple<AccessLevel, SealedEnum, AbstractENum>(_access, _sealed, _abstract);
+                _abstract = AbstractEnum.Abstract;
+            return new Tuple<AccessLevel, SealedEnum, AbstractEnum>(_access, _sealed, _abstract);
         }
         private static TypeMetadata EmitExtends(Type baseType)
         {
