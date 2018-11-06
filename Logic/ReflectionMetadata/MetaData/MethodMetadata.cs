@@ -46,6 +46,7 @@ namespace Logic.ReflectionMetadata
             MethodInfo methodInfo = method as MethodInfo;
             if (methodInfo == null)
                 return null;
+            TypeMetadata.AddToStoredTypes(methodInfo.ReturnType);
             return TypeMetadata.EmitReference(methodInfo.ReturnType);
         }
         private static bool EmitExtension(MethodBase method)

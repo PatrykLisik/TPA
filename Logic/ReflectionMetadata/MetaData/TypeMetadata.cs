@@ -17,6 +17,7 @@ namespace Logic.ReflectionMetadata
             if (!storedTypes.ContainsKey(type.Name))
             {
                 storedTypes.Add(type.Name, this);
+                Console.WriteLine("> " + type.Name);
             }
 
             m_typeName = type.Name;
@@ -33,8 +34,15 @@ namespace Logic.ReflectionMetadata
             m_Attributes = type.GetCustomAttributes(false).Cast<Attribute>();
             m_Fields = EmitFields(type);
         }
-
-
+        private TypeMetadata(string typeName, string namespaceName)
+        {
+            m_typeName = typeName;
+            m_NamespaceName = namespaceName;
+        }
+        private TypeMetadata(string typeName, string namespaceName, IEnumerable<TypeMetadata> genericArguments) : this(typeName, namespaceName)
+        {
+            m_GenericArguments = genericArguments;
+        }
         #endregion
 
         #region API
@@ -45,17 +53,23 @@ namespace Logic.ReflectionMetadata
         internal static TypeMetadata EmitReference(Type type)
         {
             if (!type.IsGenericType)
+            {
+                if (storedTypes.ContainsKey(type.Name))
+                {
+                    return storedTypes[type.Name];
+                }
                 return new TypeMetadata(type.Name, type.GetNamespace());
-            else
+            }
                 return new TypeMetadata(type.Name, type.GetNamespace(), EmitGenericArguments(type.GetGenericArguments()));
         }
         internal static IEnumerable<TypeMetadata> EmitGenericArguments(IEnumerable<Type> arguments)
         {
+            AddToStoredTypes(arguments);
+
             return from Type _argument in arguments select EmitReference(_argument);
         }
         #endregion
 
-        #region private
         //vars
         public string m_typeName { get; private set; }
         public string m_NamespaceName { get; private set; }
@@ -74,40 +88,42 @@ namespace Logic.ReflectionMetadata
 
         public string TypeName => m_typeName;
 
-        //constructors
-        private TypeMetadata(string typeName, string namespaceName)
-        {
-            m_typeName = typeName;
-            m_NamespaceName = namespaceName;
-        }
-        private TypeMetadata(string typeName, string namespaceName, IEnumerable<TypeMetadata> genericArguments) : this(typeName, namespaceName)
-        {
-            m_GenericArguments = genericArguments;
-        }
         //methods
         private TypeMetadata EmitDeclaringType(Type declaringType)
         {
             if (declaringType == null)
                 return null;
+            AddToStoredTypes(declaringType);
             return EmitReference(declaringType);
         }
         private IEnumerable<TypeMetadata> EmitNestedTypes(IEnumerable<Type> nestedTypes)
         {
+            AddToStoredTypes(nestedTypes);
+
             return from _type in nestedTypes
                    where _type.GetVisible()
                    select new TypeMetadata(_type);
         }
         private IEnumerable<TypeMetadata> EmitImplements(IEnumerable<Type> interfaces)
         {
+            AddToStoredTypes(interfaces);
+
             return from currentInterface in interfaces
                    select EmitReference(currentInterface);
         }
         private IEnumerable<ParameterMetadata> EmitFields(Type type)
         {
-            return from _fieldInfo in type
-                        .GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
-                        //.Where(f => f.GetCustomAttribute<CompilerGeneratedAttribute>() == null)
-                   select new ParameterMetadata(_fieldInfo.Name, new TypeMetadata(_fieldInfo.FieldType));
+            IEnumerable<FieldInfo> fieldInfo = type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+            List<ParameterMetadata> parameters = new List<ParameterMetadata>();
+            foreach (var field in fieldInfo)
+            {
+                AddToStoredTypes(field.FieldType);
+                parameters.Add(new ParameterMetadata(field.Name, EmitReference(field.FieldType)));
+            }
+
+            return parameters;
+            //.Where(f => f.GetCustomAttribute<CompilerGeneratedAttribute>() == null)
+            //select new ParameterMetadata(_fieldInfo.Name, new TypeMetadata(_fieldInfo.FieldType));
         }
         private static TypeKind GetTypeKind(Type type) //#80 TPA: Reflection - Invalid return value of GetTypeKind() 
         {
@@ -141,10 +157,28 @@ namespace Logic.ReflectionMetadata
         {
             if (baseType == null || baseType == typeof(object) || baseType == typeof(ValueType) || baseType == typeof(Enum))
                 return null;
-            return EmitReference(baseType);
-        }
-        #endregion
 
+            AddToStoredTypes(baseType);
+            return EmitReference(baseType);
+
+        }
+
+        internal static void AddToStoredTypes(Type type)
+        {
+            if (!storedTypes.ContainsKey(type.Name))
+            {
+                // TypeMetadata object is added to dictionary when invoking its constructor
+                new TypeMetadata(type);
+            }
+        }
+
+        internal static void AddToStoredTypes(IEnumerable<Type> types)
+        {
+            foreach (var type in types)
+            {
+                AddToStoredTypes(type);
+            }
+        }
 
         public IEnumerable<IInternalGeter> GetInternals()
         {

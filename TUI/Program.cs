@@ -34,26 +34,32 @@ namespace TUI
             }
 
             // get namespace name from user
+            string userInput;
 
-            Console.Write(">>> ");
-
-            string userInput = Console.ReadLine();
-
-            if (userInput == null)
+            bool trigger = true;
+            do
             {
-                Console.WriteLine("No input from user!");
-                tracer.Tracer(TraceEventType.Warning, "No input from user!");
-            }
-            else
-            {
-                selectedNamespace = userInput;
-                tracer.Tracer(TraceEventType.Information, "selected namespace" + selectedNamespace);
-            }
+                Console.Write(">>> ");
+                userInput = Console.ReadLine();
+                if (userInput == null)
+                {
+                    Console.WriteLine("No input from user!");
+                    tracer.Tracer(TraceEventType.Warning, "No input from user!");
+                }
 
-            // list types from selected dll file from namespace Reflection
-            tracer.Tracer(TraceEventType.Start, "default types display");
-            ListDefaultTypes(userInput);
-            tracer.Tracer(TraceEventType.Stop, "default types displayed");
+                if (namespaces.ContainsKey(userInput))
+                {
+                    trigger = false;
+                    selectedNamespace = userInput;
+                    tracer.Tracer(TraceEventType.Information, "selected namespace" + selectedNamespace);
+                    
+                    // list types from selected dll file from namespace Reflection
+                    tracer.Tracer(TraceEventType.Start, "default types display");
+                    ListDefaultTypes(userInput);
+                    tracer.Tracer(TraceEventType.Stop, "default types displayed");
+
+                }
+            } while (trigger);
 
             do
             {
