@@ -74,7 +74,7 @@ namespace Logic.ReflectionMetadata
         }
         #endregion
 
-        public ICollection<IInternalGeter> GetInternals()
+        public IEnumerable<IInternalGeter> GetInternals()
         {
             return new List<IInternalGeter>();
         }

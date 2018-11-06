@@ -9,6 +9,6 @@ namespace Logic.ReflectionMetadata
 {
     public interface IInternalGeter
     {
-        ICollection<IInternalGeter> GetInternals();
+        IEnumerable<IInternalGeter> GetInternals();
     }
 }

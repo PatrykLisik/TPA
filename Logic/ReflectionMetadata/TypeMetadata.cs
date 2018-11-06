@@ -127,16 +127,24 @@ namespace Logic.ReflectionMetadata
         #endregion
 
 
-        public ICollection<IInternalGeter> GetInternals()
-        {
+        public IEnumerable<IInternalGeter> GetInternals()
+        {/*
+        private readonly IEnumerable<TypeMetadata> m_GenericArguments;
+        private readonly IEnumerable<Attribute> m_Attributes;
+        private readonly IEnumerable<TypeMetadata> m_ImplementedInterfaces;
+        private readonly IEnumerable<TypeMetadata> m_NestedTypes;
+        private readonly IEnumerable<PropertyMetadata> m_Properties;
+        private readonly IEnumerable<MethodMetadata> m_Methods;
+        private readonly IEnumerable<MethodMetadata> m_Constructors;
+        */
             List<IInternalGeter> ret = new List<IInternalGeter>();
-            ret.AddRange(m_Methods ?? Enumerable.Empty<IInternalGeter>());
-            ret.AddRange(m_Constructors ?? Enumerable.Empty<IInternalGeter>());
-            ret.AddRange(m_Properties ?? Enumerable.Empty<IInternalGeter>());
-            ret.AddRange(m_NestedTypes ?? Enumerable.Empty<IInternalGeter>());
-            //ret.AddRange(m_ImplementedInterfaces ?? Enumerable.Empty<IInternalGeter>());
-            ret.Distinct();
-            return ret;
+            ret = ret.AddRangeOrDefault(m_GenericArguments);
+            ret = ret.AddRangeOrDefault(m_GenericArguments);
+            ret = ret.AddRangeOrDefault(m_NestedTypes);
+            ret = ret.AddRangeOrDefault(m_Properties);
+            ret = ret.AddRangeOrDefault(m_Methods);
+            ret = ret.AddRangeOrDefault(m_Constructors);
+            return ret.Distinct();
 
         }
 
@@ -145,15 +153,22 @@ namespace Logic.ReflectionMetadata
 
         private string TypeKindToString(TypeKind typeKind)
         {
-            return Enum.GetName(typeof(TypeKind), typeKind).Replace("Type", "");
+            return Enum.GetName(typeof(TypeKind), typeKind).Replace("Type", "") + " ";
         }
         public override string ToString()
         {
-            return m_Modifiers.Item1.Stringify() +
-                   m_Modifiers.Item2.Stringify() +
-                   m_Modifiers.Item3.Stringify()+ " " +
-                   m_TypeKind.ToString().Replace("Type"," ") + " " +
+            return modifiersToString() +
+                   m_TypeKind.ToString().Replace("Type", " ") +
                    TypeName;
+        }
+
+        private string modifiersToString()
+        {
+            if (m_Modifiers is null)
+                return "";
+            return m_Modifiers.Item1.Stringify() +
+                                m_Modifiers.Item2.Stringify() +
+                                m_Modifiers.Item3.Stringify();
         }
         #endregion
     }

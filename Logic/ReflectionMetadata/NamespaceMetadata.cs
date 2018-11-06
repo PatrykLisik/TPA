@@ -23,7 +23,7 @@ namespace Logic.ReflectionMetadata
             return "Namesapce " + m_NamespaceName;
         }
 
-        public ICollection<IInternalGeter> GetInternals()
+        public IEnumerable<IInternalGeter> GetInternals()
         {
             return m_Types.ToList<IInternalGeter>();
         }

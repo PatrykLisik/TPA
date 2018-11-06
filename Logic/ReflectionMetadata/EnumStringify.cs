@@ -17,7 +17,7 @@ namespace Logic.ReflectionMetadata
 
         internal static string Stringify(this AccessLevel accesLevel)
         {
-            return Enum.GetName(typeof(AccessLevel), accesLevel).Replace("Is", "");
+            return Enum.GetName(typeof(AccessLevel), accesLevel).Replace("Is", "") + " ";
         }
 
         internal static string Stringify(this SealedEnum sealedEnum)

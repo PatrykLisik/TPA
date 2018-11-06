@@ -1,6 +1,6 @@
 ﻿
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -21,6 +21,12 @@ namespace Logic.ReflectionMetadata
         {
             string ns = type.Namespace;
             return ns != null ? ns : string.Empty;
+        }
+
+        internal static List<T> AddRangeOrDefault<T>(this List<T> list, IEnumerable<T> range)
+        {
+            list.AddRange(range ?? Enumerable.Empty<T>());
+            return list;
         }
     }
 }

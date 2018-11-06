@@ -15,11 +15,15 @@ namespace Logic.ReflectionMetadata
                    select new PropertyMetadata(prop.Name, TypeMetadata.EmitReference(prop.PropertyType));
         }
 
-        public ICollection<IInternalGeter> GetInternals()
+        public IEnumerable<IInternalGeter> GetInternals()
         {
             return m_TypeMetadata.GetInternals();
         }
 
+        public override string ToString()
+        {
+            return m_TypeMetadata.ToString();
+        }
         #region private
         private readonly string m_Name;
         private TypeMetadata m_TypeMetadata;
