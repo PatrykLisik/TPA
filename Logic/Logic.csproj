@@ -48,6 +48,7 @@
     <Compile Include="ReflectionMetadata\AssemblyMetadata.cs" />
     <Compile Include="ReflectionMetadata\EnumStringify.cs" />
     <Compile Include="ReflectionMetadata\ExtensionMethods.cs" />
+    <Compile Include="ReflectionMetadata\FieldMetadata.cs" />
     <Compile Include="ReflectionMetadata\InternalGeter.cs" />
     <Compile Include="ReflectionMetadata\MethodMetadata.cs" />
     <Compile Include="ReflectionMetadata\NamespaceMetadata.cs" />

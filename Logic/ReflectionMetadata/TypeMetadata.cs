@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace Logic.ReflectionMetadata
 {
@@ -23,7 +24,10 @@ namespace Logic.ReflectionMetadata
             m_Properties = PropertyMetadata.EmitProperties(type.GetProperties());
             m_TypeKind = GetTypeKind(type);
             m_Attributes = type.GetCustomAttributes(false).Cast<Attribute>();
+            m_fields = EmitFields(type);
         }
+
+
         #endregion
 
         #region API
@@ -54,6 +58,7 @@ namespace Logic.ReflectionMetadata
         private readonly TypeKind m_TypeKind;
         private readonly IEnumerable<Attribute> m_Attributes;
         private readonly IEnumerable<TypeMetadata> m_ImplementedInterfaces;
+        private readonly IEnumerable<FieldMetadata> m_fields;
         private readonly IEnumerable<TypeMetadata> m_NestedTypes;
         private readonly IEnumerable<PropertyMetadata> m_Properties;
         private readonly TypeMetadata m_DeclaringType;
@@ -89,6 +94,13 @@ namespace Logic.ReflectionMetadata
         {
             return from currentInterface in interfaces
                    select EmitReference(currentInterface);
+        }
+        private IEnumerable<FieldMetadata> EmitFields(Type type)
+        {
+            return from _fieldInfo in type
+                        .GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
+                       //.Where(f => f.GetCustomAttribute<CompilerGeneratedAttribute>() == null)
+                   select new FieldMetadata(_fieldInfo.Name, new TypeMetadata(_fieldInfo.FieldType));
         }
         private static TypeKind GetTypeKind(Type type) //#80 TPA: Reflection - Invalid return value of GetTypeKind() 
         {
@@ -128,15 +140,7 @@ namespace Logic.ReflectionMetadata
 
 
         public IEnumerable<IInternalGeter> GetInternals()
-        {/*
-        private readonly IEnumerable<TypeMetadata> m_GenericArguments;
-        private readonly IEnumerable<Attribute> m_Attributes;
-        private readonly IEnumerable<TypeMetadata> m_ImplementedInterfaces;
-        private readonly IEnumerable<TypeMetadata> m_NestedTypes;
-        private readonly IEnumerable<PropertyMetadata> m_Properties;
-        private readonly IEnumerable<MethodMetadata> m_Methods;
-        private readonly IEnumerable<MethodMetadata> m_Constructors;
-        */
+        {
             List<IInternalGeter> ret = new List<IInternalGeter>();
             ret = ret.AddRangeOrDefault(m_GenericArguments);
             ret = ret.AddRangeOrDefault(m_GenericArguments);
@@ -144,31 +148,37 @@ namespace Logic.ReflectionMetadata
             ret = ret.AddRangeOrDefault(m_Properties);
             ret = ret.AddRangeOrDefault(m_Methods);
             ret = ret.AddRangeOrDefault(m_Constructors);
-            return ret.Distinct();
+            ret = ret.AddRangeOrDefault(m_fields);
+            //ret.Distinct();
+            return ret;
 
         }
 
         #region ToString
 
-
         private string TypeKindToString(TypeKind typeKind)
         {
-            return Enum.GetName(typeof(TypeKind), typeKind).Replace("Type", "") + " ";
+            return typeKind.ToString().Replace("Type", "") + " ";
         }
         public override string ToString()
         {
-            return modifiersToString() +
-                   m_TypeKind.ToString().Replace("Type", " ") +
-                   TypeName;
-        }
 
+            return modifiersToString() +
+                   TypeKindToString(m_TypeKind) +
+                   TypeName + genericParamsToString();
+        }
         private string modifiersToString()
         {
             if (m_Modifiers is null)
                 return "";
-            return m_Modifiers.Item1.Stringify() +
-                                m_Modifiers.Item2.Stringify() +
-                                m_Modifiers.Item3.Stringify();
+            return genericParamsToString();
+        }
+
+        private string genericParamsToString()
+        {
+            if (m_GenericArguments is null)
+                return "";
+            return "<" + string.Join(",", m_GenericArguments) + ">";
         }
         #endregion
     }

@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -18,11 +19,12 @@ namespace Logic.ReflectionMetadata
         public IEnumerable<IInternalGeter> GetInternals()
         {
             return m_TypeMetadata.GetInternals();
+
         }
 
         public override string ToString()
         {
-            return m_TypeMetadata.ToString();
+            return "Property: " + m_TypeMetadata.TypeName + " "+m_Name;
         }
         #region private
         private readonly string m_Name;
