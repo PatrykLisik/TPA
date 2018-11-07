@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic", "Logic\Logic.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracer", "Tracer\Tracer.csproj", "{D9F27D92-09DB-4A8B-A30D-521B667D963D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleDLL", "ExampleDLL\ExampleDLL.csproj", "{0F511544-381E-46A6-B553-573D19B9C616}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{D9F27D92-09DB-4A8B-A30D-521B667D963D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9F27D92-09DB-4A8B-A30D-521B667D963D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9F27D92-09DB-4A8B-A30D-521B667D963D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F511544-381E-46A6-B553-573D19B9C616}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F511544-381E-46A6-B553-573D19B9C616}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F511544-381E-46A6-B553-573D19B9C616}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F511544-381E-46A6-B553-573D19B9C616}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
