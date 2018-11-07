@@ -100,8 +100,10 @@ namespace Logic.ReflectionMetadata
             }
             else
             {
+                IEnumerable<String> args = from TypeMetadata _tm in m_GenericArguments
+                                           select _tm.TypeName;
                 genericArgs = "<" +
-                    string.Join(" ,", m_GenericArguments) +
+                    string.Join(" ,", args) +
                     ">";
             }
 

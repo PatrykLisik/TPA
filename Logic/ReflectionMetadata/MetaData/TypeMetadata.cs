@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 namespace Logic.ReflectionMetadata
 {
@@ -60,7 +59,7 @@ namespace Logic.ReflectionMetadata
                 }
                 return new TypeMetadata(type.Name, type.GetNamespace());
             }
-                return new TypeMetadata(type.Name, type.GetNamespace(), EmitGenericArguments(type.GetGenericArguments()));
+            return new TypeMetadata(type.Name, type.GetNamespace(), EmitGenericArguments(type.GetGenericArguments()));
         }
         internal static IEnumerable<TypeMetadata> EmitGenericArguments(IEnumerable<Type> arguments)
         {
@@ -86,7 +85,20 @@ namespace Logic.ReflectionMetadata
         public IEnumerable<MethodMetadata> m_Constructors { get; private set; }
         public IEnumerable<ParameterMetadata> m_Fields { get; private set; }
 
-        public string TypeName => m_typeName;
+        public string TypeName
+        {
+            get
+            {
+                string genParamsString = "";
+                if (!(m_GenericArguments is null))
+                {
+                    IEnumerable<string> genParams = from TypeMetadata _tm in m_GenericArguments
+                                                    select _tm.TypeName;
+                    genParamsString = "<" + string.Join(",", genParams) + ">";
+                }
+                return m_typeName + genParamsString;
+            }
+        }
 
         //methods
         private TypeMetadata EmitDeclaringType(Type declaringType)
@@ -212,7 +224,10 @@ namespace Logic.ReflectionMetadata
         {
             if (m_Modifiers is null)
                 return "";
-            return genericParamsToString();
+
+            return m_Modifiers.Item1.Stringify() +
+                   m_Modifiers.Item2.Stringify() +
+                   m_Modifiers.Item3.Stringify();
         }
 
         private string genericParamsToString()
