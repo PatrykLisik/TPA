@@ -65,11 +65,8 @@
     <Compile Include="ReflectionMetadata\MetaData\AssemblyMetadataTests.cs" />
     <Compile Include="ReflectionMetadata\MetaData\MethodMetadataTests.cs" />
     <Compile Include="ReflectionMetadata\MetaData\NamespaceMetadataTests.cs" />
-    <Compile Include="ReflectionMetadata\MetaData\ParameterMetadataTests.cs" />
-    <Compile Include="ReflectionMetadata\MetaData\PropertyMetadataTests.cs" />
     <Compile Include="ReflectionMetadata\MetaData\TypeMetadataTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnitTest2.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
