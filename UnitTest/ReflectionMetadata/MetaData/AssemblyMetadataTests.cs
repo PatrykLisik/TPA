@@ -12,13 +12,12 @@ namespace Logic.ReflectionMetadata.Tests
     [TestClass()]
     public class AssemblyMetadataTests
     {
-        //static string dll = @"D:\Technologie progrmaowania\TPA\ExampleDLL.dll";
         private Assembly testAssembly;
 
         [TestInitialize]
         public void Init()
         {
-            string pathToDll = @"..\..\..\UnitTest\bin\Debug\ExampleDLL.dll";
+            string pathToDll = @"..\..\..\UnitTest\ExampleDLL.dll";
             testAssembly = Assembly.LoadFrom(pathToDll);
         }
         [TestMethod()]
