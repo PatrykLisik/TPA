@@ -31,18 +31,23 @@ namespace TUI2
 
         private static int GetIntFromUser()
         {
-            Console.WriteLine("Enter choice: ");
-            string input = Console.ReadLine();
-            int number;
-            int.TryParse(input, out number);
-            return number-1;
+            while (true)
+            {
+                Console.WriteLine("Enter choice: ");
+                string input = Console.ReadLine();
+                int number=0;
+                int.TryParse(input, out number);
+                if (!(number == 0) && number -1 < rootItem.Children.Count())
+                    return number - 1;
+            }
         }
+
         private static void showOptions()
         {
             int start = 1;
             foreach (TuiViewItem tiv in rootItem.Children)
             {
-                Console.WriteLine(start.ToString()+"."+ tiv.Name);
+                Console.WriteLine(start.ToString() + "." + tiv.Name);
                 start++;
             }
         }
