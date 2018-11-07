@@ -23,9 +23,10 @@ namespace Example
             a++;
 
         }
-        public int Sum()
+        protected int Sum()
         {
             return int_1 + int_2;
         }
+
     }
 }

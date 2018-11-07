@@ -202,7 +202,7 @@ namespace Logic.ReflectionMetadata
             ret = ret.AddRangeOrDefault(m_Methods);
             ret = ret.AddRangeOrDefault(m_Constructors);
             ret = ret.AddRangeOrDefault(m_Fields);
-            //ret.Distinct();
+            ret.Distinct();
             return ret;
 
         }
@@ -218,9 +218,9 @@ namespace Logic.ReflectionMetadata
 
             return modifiersToString() +
                    TypeKindToString(m_TypeKind) +
-                   TypeName + genericParamsToString();
+                   TypeName;
         }
-        private string modifiersToString()
+        internal string modifiersToString()
         {
             if (m_Modifiers is null)
                 return "";
@@ -228,13 +228,6 @@ namespace Logic.ReflectionMetadata
             return m_Modifiers.Item1.Stringify() +
                    m_Modifiers.Item2.Stringify() +
                    m_Modifiers.Item3.Stringify();
-        }
-
-        private string genericParamsToString()
-        {
-            if (m_GenericArguments is null)
-                return "";
-            return "<" + string.Join(",", m_GenericArguments) + ">";
         }
         #endregion
     }
