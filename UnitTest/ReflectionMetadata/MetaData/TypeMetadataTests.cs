@@ -1,11 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Logic.ReflectionMetadata;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnitTest;
 using System.Reflection;
 
 namespace Logic.ReflectionMetadata.Tests
@@ -19,7 +14,7 @@ namespace Logic.ReflectionMetadata.Tests
         {
             string pathToDll = @"..\..\..\UnitTest\bin\Debug\ExampleDLL.dll";
             AssemblyMetadata testAssembly = new AssemblyMetadata(Assembly.LoadFrom(pathToDll));
-            IEnumerable<IInternalGeter>  namespaces = testAssembly.GetInternals();
+            IEnumerable<IInternalGeter> namespaces = testAssembly.GetInternals();
             var ListOfListOfTypes = from IInternalGeter _types in namespaces
                                     select _types.GetInternals();
             types = ListOfListOfTypes.SelectMany(x => x);
@@ -32,24 +27,27 @@ namespace Logic.ReflectionMetadata.Tests
         {
             Assert.IsTrue(types.Any());
 
-           
+
         }
 
         [TestMethod()]
         public void GetInternalsTest()
         {
-            Assert.Fail();
+            foreach (IInternalGeter _type in types)
+            {
+                Assert.IsTrue(_type.GetInternals().Any());
+
+            }
         }
 
         [TestMethod()]
         public void ToStringTest()
         {
             HashSet<string> expectedNameList = new HashSet<string>() { "ExampleEnum", "ExampleInterface", "GenericClass`2", "StaticExample", "TestClass1" };
-            foreach (IInternalGeter _type in types)
+            foreach (TypeMetadata _type in types)
             {
-                if (expectedNameList.Contains(_type.ToString())){
-                    Assert.IsTrue(false);
-                }
+                Assert.IsTrue(expectedNameList.Contains(_type.TypeName));
+
             }
         }
     }
