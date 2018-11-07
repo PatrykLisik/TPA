@@ -17,7 +17,7 @@ namespace Logic.ReflectionMetadata.Tests
         [TestInitialize]
         public void Init()
         {
-            string pathToDll = @"..\..\..\UnitTest\bin\Debug\ExampleDLL.dll";
+            string pathToDll = @"..\..\..\UnitTest\ExampleDLL.dll";
             AssemblyMetadata testAssembly = new AssemblyMetadata(Assembly.LoadFrom(pathToDll));
             namespaces = testAssembly.GetInternals();
         }

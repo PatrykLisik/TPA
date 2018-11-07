@@ -12,7 +12,7 @@ namespace Logic.ReflectionMetadata.Tests
         [TestInitialize]
         public void Init()
         {
-            string pathToDll = @"..\..\..\UnitTest\bin\Debug\ExampleDLL.dll";
+            string pathToDll = @"..\..\..\UnitTest\ExampleDLL.dll";
             AssemblyMetadata testAssembly = new AssemblyMetadata(Assembly.LoadFrom(pathToDll));
             IEnumerable<IInternalGeter> namespaces = testAssembly.GetInternals();
             var ListOfListOfTypes = from IInternalGeter _types in namespaces
