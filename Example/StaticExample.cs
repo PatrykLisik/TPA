@@ -4,11 +4,13 @@ using System.Text;
 
 namespace Example
 {
-    internal static class StaticExample
+    public static class StaticExample
     {
         static List<int> someList;
 
-        static void DoNothing()
+        public static List<int> SomeList { get => someList; set => someList = value; }
+
+        public static void DoNothing()
         {
             return;
         }
