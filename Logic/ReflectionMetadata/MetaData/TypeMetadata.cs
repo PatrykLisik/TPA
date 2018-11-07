@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 namespace Logic.ReflectionMetadata
 {
@@ -60,7 +59,7 @@ namespace Logic.ReflectionMetadata
                 }
                 return new TypeMetadata(type.Name, type.GetNamespace());
             }
-                return new TypeMetadata(type.Name, type.GetNamespace(), EmitGenericArguments(type.GetGenericArguments()));
+            return new TypeMetadata(type.Name, type.GetNamespace(), EmitGenericArguments(type.GetGenericArguments()));
         }
         internal static IEnumerable<TypeMetadata> EmitGenericArguments(IEnumerable<Type> arguments)
         {
@@ -86,7 +85,20 @@ namespace Logic.ReflectionMetadata
         public IEnumerable<MethodMetadata> m_Constructors { get; private set; }
         public IEnumerable<ParameterMetadata> m_Fields { get; private set; }
 
-        public string TypeName => m_typeName;
+        public string TypeName
+        {
+            get
+            {
+                string genParamsString = "";
+                if (!(m_GenericArguments is null))
+                {
+                    IEnumerable<string> genParams = from TypeMetadata _tm in m_GenericArguments
+                                                    select _tm.TypeName;
+                    genParamsString = "<" + string.Join(",", genParams) + ">";
+                }
+                return m_typeName + genParamsString;
+            }
+        }
 
         //methods
         private TypeMetadata EmitDeclaringType(Type declaringType)
@@ -190,7 +202,7 @@ namespace Logic.ReflectionMetadata
             ret = ret.AddRangeOrDefault(m_Methods);
             ret = ret.AddRangeOrDefault(m_Constructors);
             ret = ret.AddRangeOrDefault(m_Fields);
-            //ret.Distinct();
+            ret.Distinct();
             return ret;
 
         }
@@ -206,20 +218,16 @@ namespace Logic.ReflectionMetadata
 
             return modifiersToString() +
                    TypeKindToString(m_TypeKind) +
-                   TypeName + genericParamsToString();
+                   TypeName;
         }
-        private string modifiersToString()
+        internal string modifiersToString()
         {
             if (m_Modifiers is null)
                 return "";
-            return genericParamsToString();
-        }
 
-        private string genericParamsToString()
-        {
-            if (m_GenericArguments is null)
-                return "";
-            return "<" + string.Join(",", m_GenericArguments) + ">";
+            return m_Modifiers.Item1.Stringify() +
+                   m_Modifiers.Item2.Stringify() +
+                   m_Modifiers.Item3.Stringify();
         }
         #endregion
     }
