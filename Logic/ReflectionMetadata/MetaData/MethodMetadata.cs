@@ -13,6 +13,7 @@ namespace Logic.ReflectionMetadata
         internal static IEnumerable<MethodMetadata> EmitMethods(IEnumerable<MethodBase> methods)
         {
             return from MethodBase _currentMethod in methods
+                   where _currentMethod.GetVisible()
                    select new MethodMetadata(_currentMethod);
         }
 
@@ -99,10 +100,8 @@ namespace Logic.ReflectionMetadata
             }
             else
             {
-                IEnumerable<String> args = from TypeMetadata _tm in m_GenericArguments
-                                           select _tm.TypeName;
                 genericArgs = "<" +
-                    string.Join(" ,", args) +
+                    string.Join(" ,", m_GenericArguments) +
                     ">";
             }
 
