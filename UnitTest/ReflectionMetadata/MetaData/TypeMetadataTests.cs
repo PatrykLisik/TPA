@@ -15,7 +15,7 @@ namespace Logic.ReflectionMetadata.Tests
         [TestMethod()]
         public void TypeMetadataTest()
         {
-            TypeMetadata metadata = new TypeMetadata();
+           
         }
 
         [TestMethod()]

@@ -75,6 +75,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ExampleDLL\ExampleDLL.csproj">
+      <Project>{0f511544-381e-46a6-b553-573d19b9c616}</Project>
+      <Name>ExampleDLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Logic\Logic.csproj">
       <Project>{28254930-A865-40F0-ACDE-C988C2A35C85}</Project>
       <Name>Logic</Name>

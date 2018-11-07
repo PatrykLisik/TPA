@@ -11,6 +11,7 @@ namespace Logic.ReflectionMetadata.Tests
     [TestClass()]
     public class AssemblyMetadataTests
     {
+        static string pathToDll = @"..\..\..\UnitTest\bin\Debug\ExampleDLL.dll";
         [TestMethod()]
         public void AssemblyMetadataTest()
         {
