@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnitTest;
 
 namespace Logic.ReflectionMetadata.Tests
 {
@@ -14,7 +15,7 @@ namespace Logic.ReflectionMetadata.Tests
         [TestMethod()]
         public void TypeMetadataTest()
         {
-            Assert.Fail();
+            TypeMetadata metadata = new TypeMetadata();
         }
 
         [TestMethod()]
