@@ -9,6 +9,7 @@ namespace TUI2
     {
         static readonly string pathToDll = @"..\..\..\Logic\bin\Debug\Logic.dll";
         static TuiViewItem rootItem;
+        private static int indentLevel = 0;
 
         static void Main(string[] args)
         {
@@ -47,9 +48,10 @@ namespace TUI2
             int start = 1;
             foreach (TuiViewItem tiv in rootItem.Children)
             {
-                Console.WriteLine(start.ToString() + "." + tiv.Name);
+                Console.WriteLine(new string(' ',indentLevel)+ start.ToString() + "." + tiv.Name);
                 start++;
             }
+            indentLevel++;
         }
     }
 }
