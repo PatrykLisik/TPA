@@ -6,6 +6,7 @@ namespace Example
 {
     public static class StaticExample
     {
+
         public static void DoNothing()
         {
             return;

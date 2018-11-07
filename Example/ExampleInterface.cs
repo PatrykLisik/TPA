@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Example
 {
+
     public interface ExampleInterface
     {
         int SomeMethod();

@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Example
 {
+
     public class GenericClass<T1,T2>
     {
         public T1 genericType1;

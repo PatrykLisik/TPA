@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Example
 {
+
     public class TestClass1
     {
         private int int_1;
