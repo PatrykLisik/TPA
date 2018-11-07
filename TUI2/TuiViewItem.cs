@@ -57,20 +57,5 @@ namespace TUI2
 
         }
 
-        public string Print()
-        {
-            string ret =Name +"\n" ;
-            if (m_WasBuilt)
-            {
-                int start = 0;
-                foreach (IInternalGeter @internal in rest)
-                {
-                    ret += start.ToString()+". " + @internal.ToString()+"\n";
-                }
-            }
-
-            return ret;
-        }
-
     }
 }

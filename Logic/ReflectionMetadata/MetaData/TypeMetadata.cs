@@ -17,7 +17,6 @@ namespace Logic.ReflectionMetadata
             if (!storedTypes.ContainsKey(type.Name))
             {
                 storedTypes.Add(type.Name, this);
-                Console.WriteLine("> " + type.Name);
             }
 
             m_typeName = type.Name;
