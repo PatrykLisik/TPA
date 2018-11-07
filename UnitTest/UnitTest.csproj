@@ -68,7 +68,6 @@
     <Compile Include="ReflectionMetadata\MetaData\ParameterMetadataTests.cs" />
     <Compile Include="ReflectionMetadata\MetaData\PropertyMetadataTests.cs" />
     <Compile Include="ReflectionMetadata\MetaData\TypeMetadataTests.cs" />
-    <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
