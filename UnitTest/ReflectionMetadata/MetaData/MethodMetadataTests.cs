@@ -1,36 +1,47 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace Logic.ReflectionMetadata.Tests
 {
     [TestClass()]
     public class MethodMetadataTests
     {
+        IEnumerable<MethodMetadata> methods;
+
         [TestInitialize]
         public void Init()
         {
-            string pathToDll = @"..\..\..\UnitTest\ExampleDLL.dll";
-            AssemblyMetadata testAssembly = new AssemblyMetadata(Assembly.LoadFrom(pathToDll));
-            IEnumerable<IInternalGeter> namespaces = testAssembly.GetInternals();
-            var ListOfListOfTypes = from IInternalGeter _types in namespaces
-                                    select _types.GetInternals();
-            IEnumerable<IInternalGeter> types = ListOfListOfTypes.SelectMany(x => x);
-
+            object oo = new object();
+            methods = new TypeMetadata(oo.GetType()).m_Methods;
 
         }
 
         [TestMethod()]
         public void GetInternalsTest()
         {
-            Assert.Fail();
+            foreach (MethodMetadata methodMetadata in methods)
+            {
+                Assert.IsFalse(methodMetadata.GetInternals().Any());
+            }
         }
 
         [TestMethod()]
         public void ToStringTest()
         {
-            Assert.Fail();
+            HashSet<string> expectedNameList = new HashSet<string>() {
+                "Public Type GetType()",
+                "Public Virtual Int32 GetHashCode()",
+                "Public Virtual String ToString()",
+                "Public Virtual Boolean Equals(Object obj)",
+                "Public Static Boolean Equals(Object objA ,Object objB)",
+                "Public Static Boolean ReferenceEquals(Object objA ,Object objB)",
+            };
+            foreach (MethodMetadata _method in methods)
+            {
+                Assert.IsTrue(expectedNameList.Contains(_method.ToString()));
+            }
         }
     }
 }
