@@ -6,9 +6,9 @@ namespace Example
 
     public class TestClass1
     {
-        private int int_1;
+        private readonly int int_1;
         private int int_2;
-        private string PrivateString;
+        private readonly string PrivateString;
 
         public int Int_2 { get => int_2; set => int_2 = value; }
 
@@ -22,8 +22,8 @@ namespace Example
         {
             int a = 10;
             a++;
-
         }
+
         protected int Sum()
         {
             return int_1 + int_2;

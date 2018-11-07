@@ -55,6 +55,10 @@
       <Project>{28254930-a865-40f0-acde-c988c2a35c85}</Project>
       <Name>Logic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Tracer\Tracer.csproj">
+      <Project>{d9f27d92-09db-4a8b-a30d-521b667d963d}</Project>
+      <Name>Tracer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -6,11 +6,11 @@ namespace TUI2
 {
     public class TuiViewItem
     {
+        //potencjalne dzieci
         internal IEnumerable<IInternalGeter> rest;
         public TuiViewItem()
         {
             Children = new ObservableCollection<TuiViewItem>() { null };
-            m_WasBuilt = false;
         }
         public string Name { get; set; }
         public ObservableCollection<TuiViewItem> Children { get; set; }
@@ -20,15 +20,11 @@ namespace TUI2
             set
             {
                 m_IsExpanded = value;
-                if (m_WasBuilt)
-                    return;
                 Children.Clear();
                 BuildMyself();
-                m_WasBuilt = true;
             }
         }
 
-        private bool m_WasBuilt;
         private bool m_IsExpanded;
         private void BuildMyself()
         {
@@ -50,12 +46,7 @@ namespace TUI2
                         rest = internal_obj
                     });
                 }
-
-
-
             }
-
         }
-
     }
 }
