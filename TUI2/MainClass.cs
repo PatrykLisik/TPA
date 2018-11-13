@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using Tracer;
+using Logic;
 
 namespace TUI2
 {
@@ -16,6 +17,15 @@ namespace TUI2
 
         static void Main(string[] args)
         {
+            using (var db = new ReflectionDbContext2())
+            {
+                Assembly assembly = Assembly.LoadFrom(pathToDll);
+                AssemblyMetadata assemblyMetadata = new AssemblyMetadata(assembly);
+                db.all.Add(assemblyMetadata);
+                db.SaveChanges();
+            }
+            Console.ReadKey();
+            /*
             tracer.Tracer(TraceEventType.Information, "Program started");
             LoadRootItem();
             while (true)
@@ -25,6 +35,7 @@ namespace TUI2
                 int Choice = GetIntFromUser();
                 rootItem = rootItem.Children.ToList().ElementAt(Choice);
             }
+            */
         }
 
         private static void LoadRootItem()
