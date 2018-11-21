@@ -27,15 +27,5 @@ namespace Logic.ReflectionMetadata.Tests
             Assert.IsNotNull(assemblyMetadata);
         }
 
-        [TestMethod()]
-        public void GetInternalsTest()
-        {
-            AssemblyMetadata assemblyMetadata = new AssemblyMetadata(testAssembly);
-            IEnumerable<IInternalGeter> internals = assemblyMetadata.GetInternals();
-
-            Assert.IsNotNull(internals);
-            string name = assemblyMetadata.m_Name;
-            Assert.IsTrue(name.Contains("Example"));
-        }
     }
 }

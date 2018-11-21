@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace GUI.ViewModels
+namespace ViewModel
 {
     /// <summary>
     /// A generic command whose sole purpose is to relay its functionality to other

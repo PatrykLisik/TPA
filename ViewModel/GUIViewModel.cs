@@ -1,21 +1,15 @@
-﻿using Caliburn.Micro;
-using GUI.Models;
-using Logic.ReflectionMetadata;
+﻿using Logic.ReflectionMetadata;
 using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using ViewModel.TreeViewItems;
 
-namespace GUI.ViewModels
+namespace ViewModel
 {
-    public class GUIViewModel: Screen
+    public class GUIViewModel : INotifyPropertyChanged
     {
         #region DataContext
         public ObservableCollection<TreeViewItem> HierarchicalAreas { get; set; }
@@ -26,16 +20,18 @@ namespace GUI.ViewModels
         #endregion
 
         #region constructors
-        public GUIViewModel()
+        readonly IFilePathGeter pathGeter;
+        public GUIViewModel(IFilePathGeter fileGeter)
         {
             HierarchicalAreas = new ObservableCollection<TreeViewItem>();
             Click_Button = new RelayCommand(LoadDLL);
             Click_Browse = new RelayCommand(Browse);
+            pathGeter = fileGeter;
         }
         #endregion
 
         #region INotifyPropertyChanged
-        public override event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
         private void RaisePropertyChanged(string propertyName_)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName_));
@@ -50,22 +46,16 @@ namespace GUI.ViewModels
         }
         private void TreeViewLoaded()
         {
-            AssemblyMetadata assemblyMetadata = new AssemblyMetadata(Assembly.LoadFile(PathVariable));
-            TreeViewItem rootItem = new TreeViewItem { Name = assemblyMetadata.m_Name, rest = assemblyMetadata.GetInternals()};
+            TreeViewItem rootItem = RootItemBuilder.LoadRootItem(PathVariable);
             HierarchicalAreas.Add(rootItem);
         }
         private void Browse()
         {
-            OpenFileDialog test = new OpenFileDialog()
+
+            string patchToDLL = pathGeter.GetPath();
+            if (patchToDLL.Length != 0)
             {
-                Filter = "Dynamic Library File(*.dll)| *.dll"
-            };
-            test.ShowDialog();
-            if (test.FileName.Length == 0)
-                MessageBox.Show("No files selected");
-            else
-            {
-                PathVariable = test.FileName;
+                PathVariable = patchToDLL;
                 ChangeControlVisibility = Visibility.Visible;
                 RaisePropertyChanged("ChangeControlVisibility");
                 RaisePropertyChanged("PathVariable");

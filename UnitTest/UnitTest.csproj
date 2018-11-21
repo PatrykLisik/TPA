@@ -65,7 +65,6 @@
     <Compile Include="ReflectionMetadata\MetaData\AssemblyMetadataTests.cs" />
     <Compile Include="ReflectionMetadata\MetaData\MethodMetadataTests.cs" />
     <Compile Include="ReflectionMetadata\MetaData\NamespaceMetadataTests.cs" />
-    <Compile Include="ReflectionMetadata\MetaData\TypeMetadataTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

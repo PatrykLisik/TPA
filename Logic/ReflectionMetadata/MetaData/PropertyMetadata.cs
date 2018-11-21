@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace Logic.ReflectionMetadata
 {
-    public class PropertyMetadata : IInternalGeter
+    public class PropertyMetadata
     {
         public string m_Name { get; private set; }
         public TypeMetadata m_TypeMetadata { get; private set; }
@@ -18,11 +18,6 @@ namespace Logic.ReflectionMetadata
                    select new PropertyMetadata(prop.Name, TypeMetadata.EmitReference(prop.PropertyType));
         }
 
-        public IEnumerable<IInternalGeter> GetInternals()
-        {
-            return m_TypeMetadata.GetInternals();
-
-        }
 
         public override string ToString()
         {

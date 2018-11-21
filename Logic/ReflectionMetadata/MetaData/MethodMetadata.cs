@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 
 namespace Logic.ReflectionMetadata
 {
-    public class MethodMetadata : IInternalGeter
+    public class MethodMetadata
     {
 
         internal static IEnumerable<MethodMetadata> EmitMethods(IEnumerable<MethodBase> methods)
@@ -19,12 +19,25 @@ namespace Logic.ReflectionMetadata
 
         #region private
         //vars
-        public string m_Name { get; private set; }
-        public IEnumerable<TypeMetadata> m_GenericArguments { get; private set; }
-        public Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum> m_Modifiers { get; private set; }
-        public TypeMetadata m_ReturnType { get; private set; }
-        public bool m_Extension { get; private set; }
-        public IEnumerable<ParameterMetadata> m_Parameters { get; private set; }
+        private readonly string m_Name;
+        private readonly IEnumerable<TypeMetadata> m_GenericArguments;
+        private readonly Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum> m_Modifiers;
+        private readonly TypeMetadata m_ReturnType;
+        private readonly bool m_Extension;
+        private readonly IEnumerable<ParameterMetadata> m_Parameters;
+
+        public string Name => m_Name;
+
+        public IEnumerable<TypeMetadata> GenericArguments => m_GenericArguments;
+
+        public Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum> Modifiers => m_Modifiers;
+
+        public TypeMetadata ReturnType => m_ReturnType;
+
+        public bool Extension => m_Extension;
+
+        public IEnumerable<ParameterMetadata> Parameters => m_Parameters;
+
         //constructor
         private MethodMetadata(MethodBase method)
         {
@@ -46,7 +59,6 @@ namespace Logic.ReflectionMetadata
             MethodInfo methodInfo = method as MethodInfo;
             if (methodInfo == null)
                 return null;
-            TypeMetadata.AddToStoredTypes(methodInfo.ReturnType);
             return TypeMetadata.EmitReference(methodInfo.ReturnType);
         }
         private static bool EmitExtension(MethodBase method)
@@ -75,37 +87,6 @@ namespace Logic.ReflectionMetadata
         }
         #endregion
 
-        public IEnumerable<IInternalGeter> GetInternals()
-        {
-            return new List<IInternalGeter>();
-        }
-        public override string ToString()
-        {
-            return m_Modifiers.Item1.Stringify() +
-                   m_Modifiers.Item2.Stringify() +
-                   m_Modifiers.Item3.Stringify() +
-                   m_Modifiers.Item4.Stringify() +
-                   m_ReturnType.TypeName + " " +
-                   m_Name +
-                   genericArgsString() +
-                   "(" + string.Join(" ,", m_Parameters) + ")";
-        }
 
-        private string genericArgsString()
-        {
-            string genericArgs;
-            if (m_GenericArguments is null)
-            {
-                genericArgs = "";
-            }
-            else
-            {
-                genericArgs = "<" +
-                    string.Join(" ,", m_GenericArguments) +
-                    ">";
-            }
-
-            return genericArgs;
-        }
     }
 }

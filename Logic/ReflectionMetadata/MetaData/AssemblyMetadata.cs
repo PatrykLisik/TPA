@@ -6,10 +6,10 @@ using System.Reflection;
 
 namespace Logic.ReflectionMetadata
 {
-    public class AssemblyMetadata : IInternalGeter
+    public class AssemblyMetadata
     {
-        public string m_Name;
-        public IEnumerable<NamespaceMetadata> m_Namespaces { get; private set; }
+        private readonly string m_Name;
+        private readonly IEnumerable<NamespaceMetadata> m_Namespaces;
 
         public AssemblyMetadata(Assembly assembly)
         {
@@ -21,9 +21,8 @@ namespace Logic.ReflectionMetadata
                            select new NamespaceMetadata(_group.Key, _group);
         }
 
-        public IEnumerable<IInternalGeter> GetInternals()
-        {
-            return m_Namespaces.ToList<IInternalGeter>();
-        }
+        public IEnumerable<NamespaceMetadata> Namespaces => m_Namespaces;
+
+        public string Name => m_Name;
     }
 }
