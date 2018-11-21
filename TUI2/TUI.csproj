@@ -45,7 +45,6 @@
   <ItemGroup>
     <Compile Include="MainClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TuiViewItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -58,6 +57,10 @@
     <ProjectReference Include="..\Tracer\Tracer.csproj">
       <Project>{d9f27d92-09db-4a8b-a30d-521b667d963d}</Project>
       <Name>Tracer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ViewModel\ViewModel.csproj">
+      <Project>{2CEB5E7C-F0B3-4AF4-A8F0-B13C74D93550}</Project>
+      <Name>ViewModel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

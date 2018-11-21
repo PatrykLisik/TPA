@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using Tracer;
+using ViewModel.TreeViewItems;
 
 namespace TUI2
 {
@@ -11,7 +12,7 @@ namespace TUI2
     {
         private static TracerFile tracer = new TracerFile();
         static readonly string pathToDll = @"..\..\..\Logic\bin\Debug\Logic.dll";
-        static TuiViewItem rootItem;
+        static TreeViewItem rootItem;
         private static int indentLevel = 0;
 
         static void Main(string[] args)
@@ -31,7 +32,7 @@ namespace TUI2
         {
             Assembly assembly = Assembly.LoadFrom(pathToDll);
             AssemblyMetadata assemblyMetadata = new AssemblyMetadata(assembly);
-            //rootItem = new TuiViewItem { Name = assemblyMetadata.m_Name, rest = assemblyMetadata.GetInternals() }; //all namespaces
+            rootItem = new AssemblyMetadataTreeViewItem(assemblyMetadata);
         }
 
         private static int GetIntFromUser()
@@ -52,7 +53,7 @@ namespace TUI2
         {
             int start = 1;
             tracer.Tracer(TraceEventType.Start, "listing start");
-            foreach (TuiViewItem tiv in rootItem.Children)
+            foreach (TreeViewItem tiv in rootItem.Children)
             {
                 Console.WriteLine(new string(' ', indentLevel*4) + start + "." + tiv.Name);
                 start++;
