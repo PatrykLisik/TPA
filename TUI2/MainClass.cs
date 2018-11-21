@@ -23,6 +23,14 @@ namespace TUI2
                 AssemblyMetadata assemblyMetadata = new AssemblyMetadata(assembly);
                 db.all.Add(assemblyMetadata);
                 db.SaveChanges();
+
+                var query = from a in db.all
+                            select a;
+                Console.WriteLine("All things in db: ");
+                foreach(var item in query)
+                {
+                    Console.WriteLine(item.m_Name);
+                }
             }
             Console.ReadKey();
             /*
