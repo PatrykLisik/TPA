@@ -13,10 +13,10 @@ namespace TUI2
         private string pathToDll;
         static TreeViewItem rootItem;
         private static int indentLevel = 0;
-        private IDLLPathGeter pathGeter;
+        private IFilePathGeter pathGeter;
 
 
-        public TextView(IDLLPathGeter pathGeter)
+        public TextView(IFilePathGeter pathGeter)
         {
             this.pathGeter = pathGeter;
         }
@@ -25,7 +25,7 @@ namespace TUI2
         public void Run()
         {
             tracer.Tracer(TraceEventType.Information, "Program started");
-            pathToDll = pathGeter.GetDLLPatch();
+            pathToDll = pathGeter.GetPath();
             LoadRootItem();
             while (true)
             {

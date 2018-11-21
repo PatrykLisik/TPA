@@ -20,8 +20,8 @@ namespace ViewModel
         #endregion
 
         #region constructors
-        readonly IDLLPathGeter pathGeter;
-        public GUIViewModel(IDLLPathGeter fileGeter)
+        readonly IFilePathGeter pathGeter;
+        public GUIViewModel(IFilePathGeter fileGeter)
         {
             HierarchicalAreas = new ObservableCollection<TreeViewItem>();
             Click_Button = new RelayCommand(LoadDLL);
@@ -52,7 +52,7 @@ namespace ViewModel
         private void Browse()
         {
 
-            string patchToDLL = pathGeter.GetDLLPatch();
+            string patchToDLL = pathGeter.GetPath();
             if (patchToDLL.Length != 0)
             {
                 PathVariable = patchToDLL;

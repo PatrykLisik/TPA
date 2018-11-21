@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ViewModel
 {
-    public class ConsolePathGeter : IDLLPathGeter
+    public class ConsolePathGeter : IFilePathGeter
     {
-        public string GetDLLPatch()
+        public string GetPath()
         {
             return Console.ReadLine();
         }

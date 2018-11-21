@@ -3,9 +3,9 @@ using System.Windows;
 
 namespace ViewModel
 {
-    public class WindowPathGeter : IDLLPathGeter
+    public class WindowPathGeter : IFilePathGeter
     {
-        public string GetDLLPatch()
+        public string GetPath()
         {
             OpenFileDialog window = new OpenFileDialog()
             {

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace ViewModel
 {
-    public interface IDLLPathGeter
+    public interface IFilePathGeter
     {
-        string GetDLLPatch();
+        string GetPath();
     }
 }
