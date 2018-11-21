@@ -1,21 +1,14 @@
-﻿using Caliburn.Micro;
-using GUI.Models;
-using Logic.ReflectionMetadata;
-using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
+﻿using Logic.ReflectionMetadata;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
+using System.Windows;
+using Microsoft.Win32;
 
-namespace GUI.ViewModels
+namespace ViewModel
 {
-    public class GUIViewModel: Screen
+    public class GUIViewModel: INotifyPropertyChanged
     {
         #region DataContext
         public ObservableCollection<TreeViewItem> HierarchicalAreas { get; set; }
@@ -35,7 +28,7 @@ namespace GUI.ViewModels
         #endregion
 
         #region INotifyPropertyChanged
-        public override event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
         private void RaisePropertyChanged(string propertyName_)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName_));
@@ -51,7 +44,7 @@ namespace GUI.ViewModels
         private void TreeViewLoaded()
         {
             AssemblyMetadata assemblyMetadata = new AssemblyMetadata(Assembly.LoadFile(PathVariable));
-            TreeViewItem rootItem = new TreeViewItem { Name = assemblyMetadata.m_Name, rest = assemblyMetadata.GetInternals()};
+            TreeViewItem rootItem = new TreeViewItem { Name = assemblyMetadata.m_Name, rest = assemblyMetadata.GetInternals() };
             HierarchicalAreas.Add(rootItem);
         }
         private void Browse()

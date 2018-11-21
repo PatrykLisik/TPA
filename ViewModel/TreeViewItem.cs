@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace GUI.Models
+namespace ViewModel
 {
     public class TreeViewItem
     {
