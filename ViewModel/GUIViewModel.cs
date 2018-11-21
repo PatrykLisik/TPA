@@ -1,14 +1,14 @@
 ﻿using Logic.ReflectionMetadata;
+using Microsoft.Win32;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Reflection;
-using System.Windows.Input;
 using System.Windows;
-using Microsoft.Win32;
+using System.Windows.Input;
 
 namespace ViewModel
 {
-    public class GUIViewModel: INotifyPropertyChanged
+    public class GUIViewModel : INotifyPropertyChanged
     {
         #region DataContext
         public ObservableCollection<TreeViewItem> HierarchicalAreas { get; set; }
@@ -19,11 +19,13 @@ namespace ViewModel
         #endregion
 
         #region constructors
-        public GUIViewModel()
+        readonly IDLLPathGeter pathGeter;
+        public GUIViewModel(IDLLPathGeter fileGeter)
         {
             HierarchicalAreas = new ObservableCollection<TreeViewItem>();
             Click_Button = new RelayCommand(LoadDLL);
             Click_Browse = new RelayCommand(Browse);
+            pathGeter = fileGeter;
         }
         #endregion
 
@@ -49,16 +51,11 @@ namespace ViewModel
         }
         private void Browse()
         {
-            OpenFileDialog test = new OpenFileDialog()
+
+            string patchToDLL = pathGeter.GetDLLPatch();
+            if (patchToDLL.Length != 0)
             {
-                Filter = "Dynamic Library File(*.dll)| *.dll"
-            };
-            test.ShowDialog();
-            if (test.FileName.Length == 0)
-                MessageBox.Show("No files selected");
-            else
-            {
-                PathVariable = test.FileName;
+                PathVariable = patchToDLL;
                 ChangeControlVisibility = Visibility.Visible;
                 RaisePropertyChanged("ChangeControlVisibility");
                 RaisePropertyChanged("PathVariable");
