@@ -46,8 +46,7 @@ namespace ViewModel
         }
         private void TreeViewLoaded()
         {
-            AssemblyMetadata assemblyMetadata = new AssemblyMetadata(Assembly.LoadFile(PathVariable));
-            TreeViewItem rootItem = new AssemblyMetadataTreeViewItem(assemblyMetadata);
+            TreeViewItem rootItem = RootItemBuilder.LoadRootItem(PathVariable);
             HierarchicalAreas.Add(rootItem);
         }
         private void Browse()

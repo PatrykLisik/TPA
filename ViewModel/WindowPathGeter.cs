@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace ViewModel
 {
-    public class WindowPatchGeter : IDLLPathGeter
+    public class WindowPathGeter : IDLLPathGeter
     {
         public string GetDLLPatch()
         {
