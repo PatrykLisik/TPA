@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace ViewModel
 {
-    internal class WindowPatchGeter : IDLLPathGeter
+    public class WindowPatchGeter : IDLLPathGeter
     {
         public string GetDLLPatch()
         {
@@ -19,7 +19,7 @@ namespace ViewModel
             }
 
             else
-                return window.FileName
+                return window.FileName;
         }
     }
 }

@@ -7,25 +7,19 @@ using System.Linq;
 
 namespace Logic.ReflectionMetadata
 {
-    public class NamespaceMetadata : IInternalGeter
+    public class NamespaceMetadata
     {
-        public string m_NamespaceName { get; private set; }
-        public IEnumerable<TypeMetadata> m_Types { get; private set; }
+        private string m_NamespaceName;
+        private IEnumerable<TypeMetadata> m_Types;
+
+        public string NamespaceName { get => m_NamespaceName; set => m_NamespaceName = value; }
+        public IEnumerable<TypeMetadata> Types { get => m_Types; set => m_Types = value; }
 
         internal NamespaceMetadata(string name, IEnumerable<Type> types)
         {
-            m_NamespaceName = name;
-            m_Types = from type in types orderby type.Name select new TypeMetadata(type);
+            NamespaceName = name;
+            Types = from type in types orderby type.Name select new TypeMetadata(type);
         }
 
-        public override string ToString()
-        {
-            return "Namesapce " + m_NamespaceName;
-        }
-
-        public IEnumerable<IInternalGeter> GetInternals()
-        {
-            return m_Types.ToList<IInternalGeter>();
-        }
     }
 }

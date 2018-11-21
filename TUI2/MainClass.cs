@@ -31,7 +31,7 @@ namespace TUI2
         {
             Assembly assembly = Assembly.LoadFrom(pathToDll);
             AssemblyMetadata assemblyMetadata = new AssemblyMetadata(assembly);
-            rootItem = new TuiViewItem { Name = assemblyMetadata.m_Name, rest = assemblyMetadata.GetInternals() }; //all namespaces
+            //rootItem = new TuiViewItem { Name = assemblyMetadata.m_Name, rest = assemblyMetadata.GetInternals() }; //all namespaces
         }
 
         private static int GetIntFromUser()

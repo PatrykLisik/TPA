@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
+using ViewModel.TreeViewItems;
 
 namespace ViewModel
 {
@@ -46,7 +47,7 @@ namespace ViewModel
         private void TreeViewLoaded()
         {
             AssemblyMetadata assemblyMetadata = new AssemblyMetadata(Assembly.LoadFile(PathVariable));
-            TreeViewItem rootItem = new TreeViewItem { Name = assemblyMetadata.m_Name, rest = assemblyMetadata.GetInternals() };
+            TreeViewItem rootItem = new AssemblyMetadataTreeViewItem(assemblyMetadata);
             HierarchicalAreas.Add(rootItem);
         }
         private void Browse()

@@ -45,7 +45,6 @@
     <Compile Include="ReflectionMetadata\AbstractEnum.cs" />
     <Compile Include="ReflectionMetadata\AccessLevel.cs" />
     <Compile Include="ReflectionMetadata\MetaData\AssemblyMetadata.cs" />
-    <Compile Include="ReflectionMetadata\EnumStringify.cs" />
     <Compile Include="ReflectionMetadata\ExtensionMethods.cs" />
     <Compile Include="ReflectionMetadata\InternalGeter.cs" />
     <Compile Include="ReflectionMetadata\MetaData\MethodMetadata.cs" />

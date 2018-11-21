@@ -11,7 +11,7 @@ namespace View
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new GUIViewModel();
+            DataContext = new GUIViewModel(new WindowPatchGeter());
         }
     }
 }

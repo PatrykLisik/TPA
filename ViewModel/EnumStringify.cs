@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Logic.ReflectionMetadata
+﻿using Logic.ReflectionMetadata;
+using System;
+namespace ViewModel
 {
-    public static class EnumsStringify{
+    public static class EnumsStringify
+    {
 
         internal static string Stringify(this VirtualEnum virtualEnum)
         {

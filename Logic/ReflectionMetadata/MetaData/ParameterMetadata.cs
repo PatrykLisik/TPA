@@ -1,26 +1,17 @@
-﻿
-using System.Collections.Generic;
-
-namespace Logic.ReflectionMetadata
+﻿namespace Logic.ReflectionMetadata
 {
-    public class ParameterMetadata :IInternalGeter
+    public class ParameterMetadata
     {
-        public string m_Name { get; private set; }
-        public TypeMetadata m_TypeMetadata { get; private set; }
+        private string m_Name;
+        private TypeMetadata m_TypeMetadata;
 
         public ParameterMetadata(string name, TypeMetadata typeMetadata)
         {
-            this.m_Name = name;
-            this.m_TypeMetadata = typeMetadata;
+            Name = name;
+            TypeMetadata = typeMetadata;
         }
 
-        public IEnumerable<IInternalGeter> GetInternals()
-        {
-            return m_TypeMetadata.GetInternals();
-        }
-        public override string ToString()
-        {
-            return m_TypeMetadata.TypeName + " " + m_Name;
-        }
+        public string Name { get => m_Name; set => m_Name = value; }
+        public TypeMetadata TypeMetadata { get => m_TypeMetadata; set => m_TypeMetadata = value; }
     }
 }
