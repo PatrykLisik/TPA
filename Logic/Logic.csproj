@@ -38,8 +38,10 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -62,6 +64,8 @@
     <Compile Include="ReflectionMetadata\StaticEnum.cs" />
     <Compile Include="ReflectionMetadata\MetaData\TypeMetadata.cs" />
     <Compile Include="ReflectionMetadata\VirtualEnum.cs" />
+    <Compile Include="Serialization\IRepositoryActions.cs" />
+    <Compile Include="Serialization\XMLSerializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
