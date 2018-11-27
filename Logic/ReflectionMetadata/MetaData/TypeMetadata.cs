@@ -3,9 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
 
 namespace Logic.ReflectionMetadata
 {
+    [DataContract(IsReference = true)]
     public class TypeMetadata
     {
 
@@ -58,19 +60,33 @@ namespace Logic.ReflectionMetadata
         #endregion
 
         //vars
+        [DataMember]
         private readonly string m_typeName;
+        [DataMember]
         private readonly string m_NamespaceName;
+        [DataMember]
         private readonly TypeMetadata m_BaseType;
+        [DataMember]
         private IEnumerable<TypeMetadata> m_GenericArguments;
+        [DataMember]
         private Tuple<AccessLevel, SealedEnum, AbstractEnum> m_Modifiers;
+        [DataMember]
         private TypeKind m_TypeKind;
+        [DataMember]
         private readonly IEnumerable<Attribute> m_Attributes;
+        [DataMember]
         private readonly IEnumerable<TypeMetadata> m_ImplementedInterfaces;
+        [DataMember]
         private readonly IEnumerable<TypeMetadata> m_NestedTypes;
+        [DataMember]
         private readonly IEnumerable<PropertyMetadata> m_Properties;
+        [DataMember]
         private readonly TypeMetadata m_DeclaringType;
+        [DataMember]
         private readonly IEnumerable<MethodMetadata> m_Methods;
+        [DataMember]
         private readonly IEnumerable<MethodMetadata> m_Constructors;
+        [DataMember]
         private readonly IEnumerable<ParameterMetadata> m_Fields;
 
         public string TypeName => m_typeName;

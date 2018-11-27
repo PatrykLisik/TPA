@@ -3,12 +3,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
 
 namespace Logic.ReflectionMetadata
 {
+    [DataContract(IsReference = true)]
+    [KnownType(typeof(TypeMetadata))]
     public class PropertyMetadata
     {
+        [DataMember]
         public string m_Name { get; private set; }
+        [DataMember]
         public TypeMetadata m_TypeMetadata { get; private set; }
 
         public static IEnumerable<PropertyMetadata> EmitProperties(IEnumerable<PropertyInfo> props)

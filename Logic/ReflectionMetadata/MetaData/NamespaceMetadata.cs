@@ -4,12 +4,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace Logic.ReflectionMetadata
 {
+    [DataContract(IsReference = true)]
     public class NamespaceMetadata
     {
+        [DataMember]
         private string m_NamespaceName;
+        [DataMember]
         private IEnumerable<TypeMetadata> m_Types;
 
         public string NamespaceName { get => m_NamespaceName; set => m_NamespaceName = value; }

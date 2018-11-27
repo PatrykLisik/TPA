@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Logic.Serialization
 {
-    interface IRepositoryActions<T>
+    public interface IRepositoryActions<T>
     {
         void SaveToRepository(T data, string fileName);
         T LoadFromRepository(string fileName);

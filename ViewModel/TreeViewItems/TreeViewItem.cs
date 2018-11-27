@@ -1,7 +1,15 @@
 ﻿using System.Collections.ObjectModel;
+using System.Runtime.Serialization;
 
 namespace ViewModel.TreeViewItems
 {
+    [DataContract(IsReference = true)]
+    [KnownType(typeof(AssemblyMetadataTreeViewItem))]
+    [KnownType(typeof(MethodTreeViewItem))]
+    [KnownType(typeof(NamesapceTreeViewItem))]
+    [KnownType(typeof(ParamterTreeViewItem))]
+    [KnownType(typeof(TypeMetadataTreeViewItem))]
+    [KnownType(typeof(PropertyMetadaTreeViewItem))]
     public abstract class TreeViewItem
     {
         public TreeViewItem()

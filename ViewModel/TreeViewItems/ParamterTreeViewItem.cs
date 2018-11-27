@@ -1,10 +1,13 @@
 ﻿using Logic.ReflectionMetadata;
 using System;
+using System.Runtime.Serialization;
 
 namespace ViewModel.TreeViewItems
 {
+    [DataContract(IsReference = true)]
     public class ParamterTreeViewItem : TreeViewItem
     {
+        [DataMember]
         private readonly ParameterMetadata parameter;
 
         public ParamterTreeViewItem(ParameterMetadata parameter)
