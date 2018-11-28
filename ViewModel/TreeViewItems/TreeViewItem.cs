@@ -17,9 +17,11 @@ namespace ViewModel.TreeViewItems
             Children = new ObservableCollection<TreeViewItem>() { null };
             m_WasBuilt = false;
         }
+        [DataMember]
         public string Name { get; set; }
         [DataMember]
         public ObservableCollection<TreeViewItem> Children { get; set; }
+        [DataMember]
         public bool IsExpanded
         {
             get { return m_IsExpanded; }

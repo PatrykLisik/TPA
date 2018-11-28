@@ -7,7 +7,7 @@ namespace Logic.ReflectionMetadata
     {
         [DataMember]
         private string m_Name;
-        [DataMember] 
+        [DataMember]
         private TypeMetadata m_TypeMetadata;
 
         public ParameterMetadata(string name, TypeMetadata typeMetadata)

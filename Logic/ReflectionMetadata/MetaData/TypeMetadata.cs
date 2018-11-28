@@ -61,33 +61,33 @@ namespace Logic.ReflectionMetadata
 
         //vars
         [DataMember]
-        private readonly string m_typeName;
+        private string m_typeName;
         [DataMember]
-        private readonly string m_NamespaceName;
+        private string m_NamespaceName;
         [DataMember]
-        private readonly TypeMetadata m_BaseType;
+        private TypeMetadata m_BaseType;
         [DataMember]
         private IEnumerable<TypeMetadata> m_GenericArguments;
         [DataMember]
         private Tuple<AccessLevel, SealedEnum, AbstractEnum> m_Modifiers;
         [DataMember]
         private TypeKind m_TypeKind;
+        //[DataMember]
+        private IEnumerable<Attribute> m_Attributes;
         [DataMember]
-        private readonly IEnumerable<Attribute> m_Attributes;
+        private IEnumerable<TypeMetadata> m_ImplementedInterfaces;
         [DataMember]
-        private readonly IEnumerable<TypeMetadata> m_ImplementedInterfaces;
+        private IEnumerable<TypeMetadata> m_NestedTypes;
         [DataMember]
-        private readonly IEnumerable<TypeMetadata> m_NestedTypes;
+        private IEnumerable<PropertyMetadata> m_Properties;
         [DataMember]
-        private readonly IEnumerable<PropertyMetadata> m_Properties;
+        private TypeMetadata m_DeclaringType;
         [DataMember]
-        private readonly TypeMetadata m_DeclaringType;
+        private IEnumerable<MethodMetadata> m_Methods;
         [DataMember]
-        private readonly IEnumerable<MethodMetadata> m_Methods;
+        private IEnumerable<MethodMetadata> m_Constructors;
         [DataMember]
-        private readonly IEnumerable<MethodMetadata> m_Constructors;
-        [DataMember]
-        private readonly IEnumerable<ParameterMetadata> m_Fields;
+        private IEnumerable<ParameterMetadata> m_Fields;
 
         public string TypeName => m_typeName;
 
@@ -129,7 +129,7 @@ namespace Logic.ReflectionMetadata
         {
             IEnumerable<FieldInfo> fieldInfo = type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
             List<ParameterMetadata> parameters = new List<ParameterMetadata>();
-            foreach (var field in fieldInfo)
+            foreach (FieldInfo field in fieldInfo)
             {
                 parameters.Add(new ParameterMetadata(field.Name, EmitReference(field.FieldType)));
             }

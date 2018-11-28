@@ -29,7 +29,12 @@ namespace Logic.Serialization
             FileStream f = new FileStream(fileName, FileMode.Create);
             XmlWriterSettings settings = new XmlWriterSettings { Indent = true };
             XmlWriter w = XmlWriter.Create(f, settings);
-            DataContractSerializer s = new DataContractSerializer(typeof(T));
+            DataContractSerializer s = new DataContractSerializer(typeof(T),
+            null, 
+            0x7FFF /*maxItemsInObjectGraph*/, 
+            false /*ignoreExtensionDataObject*/, 
+            true /*preserveObjectReferences : this is where the magic happens */, 
+            null /*dataContractSurrogate*/);
             s.WriteObject(w, data);
             w.Close();
             f.Close();

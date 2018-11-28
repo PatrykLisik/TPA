@@ -7,7 +7,7 @@ namespace ViewModel.TreeViewItems
     public class MethodTreeViewItem : TreeViewItem
     {
         [DataMember]
-        private readonly MethodMetadata _method;
+        private MethodMetadata _method;
 
         public MethodTreeViewItem(MethodMetadata method)
         {

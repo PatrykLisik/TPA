@@ -22,17 +22,17 @@ namespace Logic.ReflectionMetadata
         #region private
         //vars\\\
         [DataMember]
-        private readonly string m_Name;
+        private string m_Name;
         [DataMember]
-        private readonly IEnumerable<TypeMetadata> m_GenericArguments;
+        private IEnumerable<TypeMetadata> m_GenericArguments;
         [DataMember]
-        private readonly Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum> m_Modifiers;
-        //[DataMember]
-        private readonly TypeMetadata m_ReturnType;
+        private Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum> m_Modifiers;
         [DataMember]
-        private readonly bool m_Extension;
+        private TypeMetadata m_ReturnType;
         [DataMember]
-        private readonly IEnumerable<ParameterMetadata> m_Parameters;
+        private bool m_Extension;
+        [DataMember]
+        private IEnumerable<ParameterMetadata> m_Parameters;
 
         public string Name => m_Name;
 
