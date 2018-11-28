@@ -75,7 +75,6 @@
     <Compile Include="TreeViewItems\AssemblyMetadataTreeViewItemTests.cs" />
     <Compile Include="TreeViewItems\MethodTreeViewItemTests.cs" />
     <Compile Include="TreeViewItems\NamesapceTreeViewItemTests.cs" />
-    <Compile Include="TreeViewItems\ParamterTreeViewItemTests.cs" />
     <Compile Include="TreeViewItems\PropertyMetadaTreeViewItemTests.cs" />
     <Compile Include="TreeViewItems\TypeMetadataTreeViewItemTests.cs" />
   </ItemGroup>
