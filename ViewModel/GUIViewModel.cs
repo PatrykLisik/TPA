@@ -1,15 +1,10 @@
-﻿using Logic.ReflectionMetadata;
-using Logic.Serialization;
-using Microsoft.Win32;
+﻿using Logic.Serialization;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Reflection;
 using System.Runtime.Serialization;
 using System.Windows;
 using System.Windows.Input;
 using ViewModel.TreeViewItems;
-using System.Linq;
-using System.Collections.Generic;
 
 namespace ViewModel
 {
@@ -22,21 +17,23 @@ namespace ViewModel
         public string PathVariable { get; set; }
         public Visibility ChangeControlVisibility { get; set; } = Visibility.Hidden;
         public ICommand Click_Browse { get; }
-        public ICommand Click_Button { get; }
+        public ICommand Show_TreeView { get; }
         public ICommand Save_Button { get; }
+        public ICommand Load_Button { get; }
         #endregion
 
         #region constructors
         readonly IFilePathGeter pathGeter;
 
-        private IRepositoryActions<List<TreeViewItem>> repository { get; set; }
+        private IRepositoryActions<AssemblyMetadataTreeViewItem> Repository { get; set; }
         public GUIViewModel(IFilePathGeter fileGeter)
         {
             HierarchicalAreas = new ObservableCollection<TreeViewItem>();
-            repository = new XMLSerializer<List<TreeViewItem>>();
-            Click_Button = new RelayCommand(LoadDLL);
+            Repository = new XMLSerializer<AssemblyMetadataTreeViewItem>();
+            Show_TreeView = new RelayCommand(LoadDLL);
             Click_Browse = new RelayCommand(Browse);
             Save_Button = new RelayCommand(Save);
+            Load_Button = new RelayCommand(LoadRepository);
             pathGeter = fileGeter;
         }
         #endregion
@@ -57,7 +54,7 @@ namespace ViewModel
         }
         private void TreeViewLoaded()
         {
-            TreeViewItem rootItem = RootItemBuilder.LoadRootItem(PathVariable);
+            TreeViewItem rootItem = RootItemBuilder.LoadRootItemFromDLL(PathVariable);
             HierarchicalAreas.Add(rootItem);
         }
         private void Browse()
@@ -74,12 +71,23 @@ namespace ViewModel
 
         private void Save()
         {
-            repository.SaveToRepository(HierarchicalAreas.ToList(), @"x.xml");
+            //string patchToXML = pathGeter.GetPath(".xml");
+            Repository.SaveToRepository(RootItemBuilder.LoadRootItemFromDLL(PathVariable), @"x.xml");
+
         }
 
-        private void Load()
+        private void LoadRepository()
         {
-            HierarchicalAreas = new ObservableCollection<TreeViewItem>(repository.LoadFromRepository(@"x.xml"));
+            string patchToXML = pathGeter.GetPath(".xml");
+            if (patchToXML.Length != 0)
+            {
+                PathVariable = patchToXML;
+                HierarchicalAreas.Add(Repository.LoadFromRepository(patchToXML));
+                ChangeControlVisibility = Visibility.Visible;
+                RaisePropertyChanged("ChangeControlVisibility");
+                RaisePropertyChanged("PathVariable");
+            }
+
         }
         #endregion
 

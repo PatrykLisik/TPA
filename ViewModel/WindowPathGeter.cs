@@ -5,11 +5,12 @@ namespace ViewModel
 {
     public class WindowPathGeter : IFilePathGeter
     {
-        public string GetPath()
+
+        public string GetPath(string extension = ".dll")
         {
             OpenFileDialog window = new OpenFileDialog()
             {
-                Filter = "Dynamic Library File(*.dll)| *.dll"
+                Filter = string.Format("Dynamic Library File(*{0})| *{0}",extension)
             };
             window.ShowDialog();
             if (window.FileName.Length == 0)

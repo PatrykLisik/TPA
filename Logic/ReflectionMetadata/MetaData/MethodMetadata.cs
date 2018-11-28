@@ -27,7 +27,7 @@ namespace Logic.ReflectionMetadata
         private readonly IEnumerable<TypeMetadata> m_GenericArguments;
         [DataMember]
         private readonly Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum> m_Modifiers;
-        //[DataMember] //for some reason this field cause exceptions
+        //[DataMember]
         private readonly TypeMetadata m_ReturnType;
         [DataMember]
         private readonly bool m_Extension;

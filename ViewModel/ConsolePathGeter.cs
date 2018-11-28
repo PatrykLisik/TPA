@@ -8,7 +8,7 @@ namespace ViewModel
 {
     public class ConsolePathGeter : IFilePathGeter
     {
-        public string GetPath()
+        public string GetPath(string extension = ".dll")
         {
             return Console.ReadLine();
         }

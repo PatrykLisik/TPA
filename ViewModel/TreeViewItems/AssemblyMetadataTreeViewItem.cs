@@ -8,7 +8,7 @@ namespace ViewModel.TreeViewItems
     public class AssemblyMetadataTreeViewItem : TreeViewItem
     {
         [DataMember]
-        readonly AssemblyMetadata assemblyMetada;
+        AssemblyMetadata assemblyMetada;
 
         public AssemblyMetadataTreeViewItem()
         {
@@ -17,14 +17,14 @@ namespace ViewModel.TreeViewItems
         public AssemblyMetadataTreeViewItem(AssemblyMetadata assemblyMetada)
         {
             this.assemblyMetada = assemblyMetada ?? throw new ArgumentNullException(nameof(assemblyMetada));
-            this.Name = assemblyMetada.Name;
+            Name = assemblyMetada.Name;
         }
 
         protected override void BuildMyself()
         {
-            foreach(NamespaceMetadata _namespaceMetadata in assemblyMetada.Namespaces)
+            foreach (NamespaceMetadata _namespaceMetadata in assemblyMetada.Namespaces)
             {
-                this.Children.Add(new NamesapceTreeViewItem(_namespaceMetadata));
+                Children.Add(new NamesapceTreeViewItem(_namespaceMetadata));
             }
         }
     }
