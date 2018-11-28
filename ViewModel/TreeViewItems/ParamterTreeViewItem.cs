@@ -10,6 +10,10 @@ namespace ViewModel.TreeViewItems
         [DataMember]
         private readonly ParameterMetadata parameter;
 
+        public ParamterTreeViewItem()
+        {
+        }
+
         public ParamterTreeViewItem(ParameterMetadata parameter)
         {
             this.parameter = parameter;

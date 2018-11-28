@@ -8,13 +8,10 @@ using System.Windows.Markup;
 
 namespace Logic.ReflectionMetadata
 {
-    [DataContract(IsReference = true)]
-    [KnownType(typeof(NamespaceMetadata))]
+    [Serializable]
     public class AssemblyMetadata
     {
-        [DataMember]
         private readonly string m_Name;
-        [DataMember]
         private readonly IEnumerable<NamespaceMetadata> m_Namespaces;
 
         public AssemblyMetadata(Assembly assembly)

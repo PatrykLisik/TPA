@@ -8,10 +8,7 @@ using System.Runtime.Serialization;
 
 namespace Logic.ReflectionMetadata
 {
-    [DataContract(IsReference = true)]
-    [KnownType(typeof(TypeMetadata))]
-    [KnownType(typeof(Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum>))]
-    [KnownType(typeof(ParameterMetadata))]
+    [Serializable]
     public class MethodMetadata
     {
 

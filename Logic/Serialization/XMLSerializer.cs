@@ -7,6 +7,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Serialization;
 
 namespace Logic.Serialization
 {
@@ -26,13 +27,11 @@ namespace Logic.Serialization
 
         public void SaveToRepository(T data, string fileName)
         {
-            FileStream f = new FileStream(fileName, FileMode.Create);
-            XmlWriterSettings settings = new XmlWriterSettings { Indent = true };
-            XmlWriter w = XmlWriter.Create(f, settings);
-            DataContractSerializer s = new DataContractSerializer(typeof(T));
-            s.WriteObject(w, data);
-            w.Close();
-            f.Close();
+            XmlSerializer xs = new XmlSerializer(typeof(T));
+            using (StreamWriter wr = new StreamWriter(fileName))
+            {
+                xs.Serialize(wr, data);
+            }
         }
     }
 }

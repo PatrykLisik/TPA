@@ -8,6 +8,8 @@ using System.Runtime.Serialization;
 using System.Windows;
 using System.Windows.Input;
 using ViewModel.TreeViewItems;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace ViewModel
 {
@@ -27,11 +29,11 @@ namespace ViewModel
         #region constructors
         readonly IFilePathGeter pathGeter;
 
-        private IRepositoryActions<ObservableCollection<TreeViewItem>> repository { get; set; }
+        private IRepositoryActions<List<TreeViewItem>> repository { get; set; }
         public GUIViewModel(IFilePathGeter fileGeter)
         {
             HierarchicalAreas = new ObservableCollection<TreeViewItem>();
-            repository = new XMLSerializer<ObservableCollection<TreeViewItem>>();
+            repository = new XMLSerializer<List<TreeViewItem>>();
             Click_Button = new RelayCommand(LoadDLL);
             Click_Browse = new RelayCommand(Browse);
             Save_Button = new RelayCommand(Save);
@@ -72,12 +74,12 @@ namespace ViewModel
 
         private void Save()
         {
-            repository.SaveToRepository(HierarchicalAreas, @"x.xml");
+            repository.SaveToRepository(HierarchicalAreas.ToList(), @"x.xml");
         }
 
         private void Load()
         {
-            HierarchicalAreas = repository.LoadFromRepository(@"x.xml");
+            HierarchicalAreas = new ObservableCollection<TreeViewItem>(repository.LoadFromRepository(@"x.xml"));
         }
         #endregion
 

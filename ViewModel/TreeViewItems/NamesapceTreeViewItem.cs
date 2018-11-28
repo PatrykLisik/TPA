@@ -14,6 +14,10 @@ namespace ViewModel.TreeViewItems
         [DataMember]
         private NamespaceMetadata _namespaceMetadata;
 
+        public NamesapceTreeViewItem()
+        {
+        }
+
         public NamesapceTreeViewItem(NamespaceMetadata namespaceMetadata)
         {
             _namespaceMetadata = namespaceMetadata;

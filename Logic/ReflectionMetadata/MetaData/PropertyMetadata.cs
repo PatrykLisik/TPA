@@ -7,14 +7,14 @@ using System.Runtime.Serialization;
 
 namespace Logic.ReflectionMetadata
 {
-    [DataContract(IsReference = true)]
-    [KnownType(typeof(TypeMetadata))]
+    [Serializable]
     public class PropertyMetadata
     {
-        [DataMember]
-        public string m_Name { get; private set; }
-        [DataMember]
-        public TypeMetadata m_TypeMetadata { get; private set; }
+        private string m_Name;
+        private TypeMetadata m_TypeMetadata;
+
+        public string Name { get => m_Name; set => m_Name = value; }
+        public TypeMetadata TypeMetadata { get => m_TypeMetadata; set => m_TypeMetadata = value; }
 
         public static IEnumerable<PropertyMetadata> EmitProperties(IEnumerable<PropertyInfo> props)
         {
@@ -24,15 +24,12 @@ namespace Logic.ReflectionMetadata
         }
 
 
-        public override string ToString()
-        {
-            return "Property: " + m_TypeMetadata.TypeName + " "+m_Name;
-        }
+
 
         private PropertyMetadata(string propertyName, TypeMetadata propertyType)
         {
-            m_Name = propertyName;
-            m_TypeMetadata = propertyType;
+            Name = propertyName;
+            TypeMetadata = propertyType;
         }
 
     }

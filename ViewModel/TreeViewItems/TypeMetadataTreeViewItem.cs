@@ -1,13 +1,13 @@
 ﻿using Logic.ReflectionMetadata;
-using System.Runtime.Serialization;
+using System;
 using static Logic.ReflectionMetadata.TypeMetadata;
 
 namespace ViewModel.TreeViewItems
 {
-    [DataContract(IsReference = true)]
+    [Serializable]
     public class TypeMetadataTreeViewItem : TreeViewItem
     {
-        [DataMember]
+
         private TypeMetadata _typeMetadata;
 
         public TypeMetadataTreeViewItem(TypeMetadata typeMetadata)
@@ -16,6 +16,10 @@ namespace ViewModel.TreeViewItems
             Name = GenerteName();
 
 
+        }
+
+        public TypeMetadataTreeViewItem()
+        {
         }
 
 

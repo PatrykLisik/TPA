@@ -14,6 +14,10 @@ namespace ViewModel.TreeViewItems
             _method = method;
             Name = GenerateName();
         }
+
+        public MethodTreeViewItem()
+        {
+        }
         #region Name generation 
         private string GenerateName()
         {

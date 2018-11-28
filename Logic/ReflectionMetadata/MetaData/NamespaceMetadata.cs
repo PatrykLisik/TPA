@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 
 namespace Logic.ReflectionMetadata
 {
-    [DataContract(IsReference = true)]
+    [Serializable]
     public class NamespaceMetadata
     {
         [DataMember]
