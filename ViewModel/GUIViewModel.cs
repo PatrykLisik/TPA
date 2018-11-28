@@ -1,4 +1,5 @@
 ﻿using Logic.Serialization;
+using Microsoft.Win32;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.Serialization;
@@ -71,9 +72,19 @@ namespace ViewModel
 
         private void Save()
         {
-            //string patchToXML = pathGeter.GetPath(".xml");
-            Repository.SaveToRepository(RootItemBuilder.LoadRootItemFromDLL(PathVariable), @"x.xml");
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "XML Files|*.xml";
+            saveFileDialog1.Title = "Save an XML File";
+            saveFileDialog1.ShowDialog();
 
+            if (saveFileDialog1.FileName != "")
+            {
+                Repository.SaveToRepository(RootItemBuilder.LoadRootItemFromDLL(PathVariable), saveFileDialog1.FileName);
+            }
+            else
+            {
+                MessageBox.Show("No files selected");
+            }
         }
 
         private void LoadRepository()
