@@ -72,6 +72,12 @@
     <Compile Include="ReflectionMetadata\Metadata\TestAssemblyBuilder.cs" />
     <Compile Include="ReflectionMetadata\Metadata\TypeMetadataTests.cs" />
     <Compile Include="Serialization\XMLSerializerTests.cs" />
+    <Compile Include="TreeViewItems\AssemblyMetadataTreeViewItemTests.cs" />
+    <Compile Include="TreeViewItems\MethodTreeViewItemTests.cs" />
+    <Compile Include="TreeViewItems\NamesapceTreeViewItemTests.cs" />
+    <Compile Include="TreeViewItems\ParamterTreeViewItemTests.cs" />
+    <Compile Include="TreeViewItems\PropertyMetadaTreeViewItemTests.cs" />
+    <Compile Include="TreeViewItems\TypeMetadataTreeViewItemTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -84,6 +90,10 @@
     <ProjectReference Include="..\Logic\Logic.csproj">
       <Project>{28254930-A865-40F0-ACDE-C988C2A35C85}</Project>
       <Name>Logic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ViewModel\ViewModel.csproj">
+      <Project>{2CEB5E7C-F0B3-4AF4-A8F0-B13C74D93550}</Project>
+      <Name>ViewModel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
