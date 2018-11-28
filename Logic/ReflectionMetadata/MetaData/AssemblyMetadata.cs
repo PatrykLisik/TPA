@@ -11,7 +11,9 @@ namespace Logic.ReflectionMetadata
     [DataContract(IsReference = true)]
     public class AssemblyMetadata
     {
+        [DataMember]
         private readonly string m_Name;
+        [DataMember]
         private readonly IEnumerable<NamespaceMetadata> m_Namespaces;
 
         public AssemblyMetadata(Assembly assembly)

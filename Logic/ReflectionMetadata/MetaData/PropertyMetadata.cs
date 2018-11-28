@@ -10,7 +10,9 @@ namespace Logic.ReflectionMetadata
     [DataContract(IsReference = true)]
     public class PropertyMetadata
     {
+        [DataMember]
         private string m_Name;
+        [DataMember]
         private TypeMetadata m_TypeMetadata;
 
         public string Name { get => m_Name; set => m_Name = value; }
