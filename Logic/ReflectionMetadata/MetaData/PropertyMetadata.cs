@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 
 namespace Logic.ReflectionMetadata
 {
-    [Serializable]
+    [DataContract(IsReference = true)]
     public class PropertyMetadata
     {
         private string m_Name;

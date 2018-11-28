@@ -1,15 +1,15 @@
 ﻿using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
-using System.Xml.Serialization;
 
 namespace ViewModel.TreeViewItems
 {
-    [XmlInclude(typeof(AssemblyMetadataTreeViewItem))]
-    [XmlInclude(typeof(MethodTreeViewItem))]
-    [XmlInclude(typeof(NamesapceTreeViewItem))]
-    [XmlInclude(typeof(ParamterTreeViewItem))]
-    [XmlInclude(typeof(TypeMetadataTreeViewItem))]
-    [XmlInclude(typeof(PropertyMetadaTreeViewItem))]
+    [DataContract(IsReference = true)]
+    [KnownType(typeof(AssemblyMetadataTreeViewItem))]
+    [KnownType(typeof(MethodTreeViewItem))]
+    [KnownType(typeof(NamesapceTreeViewItem))]
+    [KnownType(typeof(ParamterTreeViewItem))]
+    [KnownType(typeof(TypeMetadataTreeViewItem))]
+    [KnownType(typeof(PropertyMetadaTreeViewItem))]
     public abstract class TreeViewItem
     {
         public TreeViewItem()
@@ -18,6 +18,7 @@ namespace ViewModel.TreeViewItems
             m_WasBuilt = false;
         }
         public string Name { get; set; }
+        [DataMember]
         public ObservableCollection<TreeViewItem> Children { get; set; }
         public bool IsExpanded
         {

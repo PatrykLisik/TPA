@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 
 namespace Logic.ReflectionMetadata
 {
-    [Serializable]
+    [DataContract(IsReference = true)]
     public class MethodMetadata
     {
 
@@ -20,18 +20,18 @@ namespace Logic.ReflectionMetadata
         }
 
         #region private
-        //vars
-        [DataMember]
+        //vars\\\
+        //[DataMember]
         private readonly string m_Name;
-        [DataMember]
+        //[DataMember]
         private readonly IEnumerable<TypeMetadata> m_GenericArguments;
-        [DataMember]
+        //[DataMember]
         private readonly Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum> m_Modifiers;
-        [DataMember]
+        //[DataMember]
         private readonly TypeMetadata m_ReturnType;
-        [DataMember]
+        //[DataMember]
         private readonly bool m_Extension;
-        [DataMember]
+        //[DataMember]
         private readonly IEnumerable<ParameterMetadata> m_Parameters;
 
         public string Name => m_Name;

@@ -8,12 +8,12 @@ using System.Runtime.Serialization;
 
 namespace Logic.ReflectionMetadata
 {
-    [Serializable]
+    [DataContract(IsReference = true)]
     public class NamespaceMetadata
     {
-        [DataMember]
+        //[DataMember]
         private string m_NamespaceName;
-        [DataMember]
+        //[DataMember]
         private IEnumerable<TypeMetadata> m_Types;
 
         public string NamespaceName { get => m_NamespaceName; set => m_NamespaceName = value; }

@@ -1,12 +1,13 @@
-﻿using System;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace Logic.ReflectionMetadata
 {
-    [Serializable]
+    [DataContract(IsReference = true)]
     public class ParameterMetadata
     {
+        //[DataMember]
         private string m_Name;
+        //[DataMember] 
         private TypeMetadata m_TypeMetadata;
 
         public ParameterMetadata(string name, TypeMetadata typeMetadata)

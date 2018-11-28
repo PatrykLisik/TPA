@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 
 namespace Logic.ReflectionMetadata
 {
-    [Serializable]
+    [DataContract(IsReference = true)]
     public class TypeMetadata
     {
 
@@ -60,33 +60,33 @@ namespace Logic.ReflectionMetadata
         #endregion
 
         //vars
-        [DataMember]
+        //[DataMember]
         private readonly string m_typeName;
-        [DataMember]
+       // [DataMember]
         private readonly string m_NamespaceName;
-        [DataMember]
+        //[DataMember]
         private readonly TypeMetadata m_BaseType;
-        [DataMember]
+        //[DataMember]
         private IEnumerable<TypeMetadata> m_GenericArguments;
-        [DataMember]
+        //[DataMember]
         private Tuple<AccessLevel, SealedEnum, AbstractEnum> m_Modifiers;
-        [DataMember]
+        //[DataMember]
         private TypeKind m_TypeKind;
-        [DataMember]
+        //[DataMember]
         private readonly IEnumerable<Attribute> m_Attributes;
-        [DataMember]
+        //[DataMember]
         private readonly IEnumerable<TypeMetadata> m_ImplementedInterfaces;
-        [DataMember]
+       // [DataMember]
         private readonly IEnumerable<TypeMetadata> m_NestedTypes;
-        [DataMember]
+      //  [DataMember]
         private readonly IEnumerable<PropertyMetadata> m_Properties;
-        [DataMember]
+       // [DataMember]
         private readonly TypeMetadata m_DeclaringType;
-        [DataMember]
+       // [DataMember]
         private readonly IEnumerable<MethodMetadata> m_Methods;
-        [DataMember]
+      //  [DataMember]
         private readonly IEnumerable<MethodMetadata> m_Constructors;
-        [DataMember]
+      //  [DataMember]
         private readonly IEnumerable<ParameterMetadata> m_Fields;
 
         public string TypeName => m_typeName;

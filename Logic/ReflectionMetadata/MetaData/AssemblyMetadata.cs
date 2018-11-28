@@ -8,7 +8,7 @@ using System.Windows.Markup;
 
 namespace Logic.ReflectionMetadata
 {
-    [Serializable]
+    [DataContract(IsReference = true)]
     public class AssemblyMetadata
     {
         private readonly string m_Name;
