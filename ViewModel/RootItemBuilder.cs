@@ -1,6 +1,7 @@
 ﻿using Logic.ReflectionMetadata;
 using Logic.Serialization;
 using System.Reflection;
+using System.Threading.Tasks;
 using ViewModel.TreeViewItems;
 
 namespace ViewModel
@@ -14,9 +15,9 @@ namespace ViewModel
             return new AssemblyMetadataTreeViewItem(assemblyMetadata);
         }
 
-        public static AssemblyMetadataTreeViewItem LoadRootItemFromRepository(string path, IRepositoryActions<AssemblyMetadata> repository)
+        public static async Task<AssemblyMetadataTreeViewItem> LoadRootItemFromRepositoryAsync(string path, IRepositoryActions<AssemblyMetadata> repository)
         {
-            AssemblyMetadata assemblyMetadata = repository.LoadFromRepository(path);
+            AssemblyMetadata assemblyMetadata =await Task.Run(()=> repository.LoadFromRepository(path));
             return new AssemblyMetadataTreeViewItem(assemblyMetadata);
 
         }
