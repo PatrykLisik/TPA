@@ -8,6 +8,6 @@ namespace ViewModel
 {
     public interface IFilePathGeter
     {
-        string GetPath();
+        string GetPath(string extension = ".dll");
     }
 }

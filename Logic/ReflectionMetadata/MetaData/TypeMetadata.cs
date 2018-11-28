@@ -3,9 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
 
 namespace Logic.ReflectionMetadata
 {
+    [DataContract(IsReference = true)]
     public class TypeMetadata
     {
 
@@ -58,20 +60,34 @@ namespace Logic.ReflectionMetadata
         #endregion
 
         //vars
-        private readonly string m_typeName;
-        private readonly string m_NamespaceName;
-        private readonly TypeMetadata m_BaseType;
+        [DataMember]
+        private string m_typeName;
+        [DataMember]
+        private string m_NamespaceName;
+        [DataMember]
+        private TypeMetadata m_BaseType;
+        [DataMember]
         private IEnumerable<TypeMetadata> m_GenericArguments;
+        [DataMember]
         private Tuple<AccessLevel, SealedEnum, AbstractEnum> m_Modifiers;
+        [DataMember]
         private TypeKind m_TypeKind;
-        private readonly IEnumerable<Attribute> m_Attributes;
-        private readonly IEnumerable<TypeMetadata> m_ImplementedInterfaces;
-        private readonly IEnumerable<TypeMetadata> m_NestedTypes;
-        private readonly IEnumerable<PropertyMetadata> m_Properties;
-        private readonly TypeMetadata m_DeclaringType;
-        private readonly IEnumerable<MethodMetadata> m_Methods;
-        private readonly IEnumerable<MethodMetadata> m_Constructors;
-        private readonly IEnumerable<ParameterMetadata> m_Fields;
+        //[DataMember]
+        private IEnumerable<Attribute> m_Attributes;
+        [DataMember]
+        private IEnumerable<TypeMetadata> m_ImplementedInterfaces;
+        [DataMember]
+        private IEnumerable<TypeMetadata> m_NestedTypes;
+        [DataMember]
+        private IEnumerable<PropertyMetadata> m_Properties;
+        [DataMember]
+        private TypeMetadata m_DeclaringType;
+        [DataMember]
+        private IEnumerable<MethodMetadata> m_Methods;
+        [DataMember]
+        private IEnumerable<MethodMetadata> m_Constructors;
+        [DataMember]
+        private IEnumerable<ParameterMetadata> m_Fields;
 
         public string TypeName => m_typeName;
 
@@ -113,7 +129,7 @@ namespace Logic.ReflectionMetadata
         {
             IEnumerable<FieldInfo> fieldInfo = type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
             List<ParameterMetadata> parameters = new List<ParameterMetadata>();
-            foreach (var field in fieldInfo)
+            foreach (FieldInfo field in fieldInfo)
             {
                 parameters.Add(new ParameterMetadata(field.Name, EmitReference(field.FieldType)));
             }

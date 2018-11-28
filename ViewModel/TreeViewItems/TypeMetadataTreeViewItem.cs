@@ -1,10 +1,13 @@
 ﻿using Logic.ReflectionMetadata;
+using System.Runtime.Serialization;
 using static Logic.ReflectionMetadata.TypeMetadata;
 
 namespace ViewModel.TreeViewItems
 {
+    [DataContract(IsReference = true)]
     public class TypeMetadataTreeViewItem : TreeViewItem
     {
+        [DataMember]
         private TypeMetadata _typeMetadata;
 
         public TypeMetadataTreeViewItem(TypeMetadata typeMetadata)
@@ -15,7 +18,9 @@ namespace ViewModel.TreeViewItems
 
         }
 
-
+        public TypeMetadataTreeViewItem()
+        {
+        }
         #region Name
 
         private string TypeKindToString(TypeKind typeKind)

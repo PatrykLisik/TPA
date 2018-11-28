@@ -3,13 +3,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
 
 namespace Logic.ReflectionMetadata
 {
+    [DataContract(IsReference = true)]
     public class AssemblyMetadata
     {
-        private readonly string m_Name;
-        private readonly IEnumerable<NamespaceMetadata> m_Namespaces;
+        [DataMember]
+        private string m_Name;
+        [DataMember]
+        private IEnumerable<NamespaceMetadata> m_Namespaces;
 
         public AssemblyMetadata(Assembly assembly)
         {

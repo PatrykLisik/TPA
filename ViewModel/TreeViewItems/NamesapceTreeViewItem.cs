@@ -1,15 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using Logic.ReflectionMetadata;
 
 namespace ViewModel.TreeViewItems
 {
+    [DataContract(IsReference = true)]
     public class NamesapceTreeViewItem : TreeViewItem
     {
+        [DataMember]
         private NamespaceMetadata _namespaceMetadata;
+
+        public NamesapceTreeViewItem()
+        {
+        }
 
         public NamesapceTreeViewItem(NamespaceMetadata namespaceMetadata)
         {

@@ -32,7 +32,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -55,6 +59,11 @@
     <Compile Include="ReflectionMetadata\StaticEnum.cs" />
     <Compile Include="ReflectionMetadata\MetaData\TypeMetadata.cs" />
     <Compile Include="ReflectionMetadata\VirtualEnum.cs" />
+    <Compile Include="Serialization\IRepositoryActions.cs" />
+    <Compile Include="Serialization\XMLSerializer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,15 +1,22 @@
 ﻿using Logic.ReflectionMetadata;
+using System.Runtime.Serialization;
 
 namespace ViewModel.TreeViewItems
 {
+    [DataContract(IsReference = true)]
     public class MethodTreeViewItem : TreeViewItem
     {
-        private readonly MethodMetadata _method;
+        [DataMember]
+        private MethodMetadata _method;
 
         public MethodTreeViewItem(MethodMetadata method)
         {
             _method = method;
             Name = GenerateName();
+        }
+
+        public MethodTreeViewItem()
+        {
         }
         #region Name generation 
         private string GenerateName()

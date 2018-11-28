@@ -38,7 +38,7 @@ namespace TUI2
 
         private void LoadRootItem()
         {
-            rootItem = RootItemBuilder.LoadRootItem(pathToDll);
+            rootItem = RootItemBuilder.LoadRootItemFromDLL(pathToDll);
         }
 
         private static int GetIntFromUser()

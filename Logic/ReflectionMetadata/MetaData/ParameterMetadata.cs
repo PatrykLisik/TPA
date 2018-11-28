@@ -1,8 +1,13 @@
-﻿namespace Logic.ReflectionMetadata
+﻿using System.Runtime.Serialization;
+
+namespace Logic.ReflectionMetadata
 {
+    [DataContract(IsReference = true)]
     public class ParameterMetadata
     {
+        [DataMember]
         private string m_Name;
+        [DataMember]
         private TypeMetadata m_TypeMetadata;
 
         public ParameterMetadata(string name, TypeMetadata typeMetadata)

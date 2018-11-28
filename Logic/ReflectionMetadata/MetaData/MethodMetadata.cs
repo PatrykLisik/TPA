@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 
 namespace Logic.ReflectionMetadata
 {
+    [DataContract(IsReference = true)]
     public class MethodMetadata
     {
 
@@ -18,13 +20,19 @@ namespace Logic.ReflectionMetadata
         }
 
         #region private
-        //vars
-        private readonly string m_Name;
-        private readonly IEnumerable<TypeMetadata> m_GenericArguments;
-        private readonly Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum> m_Modifiers;
-        private readonly TypeMetadata m_ReturnType;
-        private readonly bool m_Extension;
-        private readonly IEnumerable<ParameterMetadata> m_Parameters;
+        //vars\\\
+        [DataMember]
+        private string m_Name;
+        [DataMember]
+        private IEnumerable<TypeMetadata> m_GenericArguments;
+        [DataMember]
+        private Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum> m_Modifiers;
+        [DataMember]
+        private TypeMetadata m_ReturnType;
+        [DataMember]
+        private bool m_Extension;
+        [DataMember]
+        private IEnumerable<ParameterMetadata> m_Parameters;
 
         public string Name => m_Name;
 
