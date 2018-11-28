@@ -17,7 +17,7 @@ namespace ViewModel
 
         public static async Task<AssemblyMetadataTreeViewItem> LoadRootItemFromRepositoryAsync(string path, IRepositoryActions<AssemblyMetadata> repository)
         {
-            AssemblyMetadata assemblyMetadata =await Task.Run(()=> repository.LoadFromRepository(path));
+            AssemblyMetadata assemblyMetadata = await Task.Run(() => repository.LoadFromRepository(path));
             return new AssemblyMetadataTreeViewItem(assemblyMetadata);
 
         }
