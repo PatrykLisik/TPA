@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Logic.Serialization;
+using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using Tracer;
@@ -14,11 +16,12 @@ namespace TUI2
         static TreeViewItem rootItem;
         private static int indentLevel = 0;
         private IFilePathGeter pathGeter;
-
+        private IRepositoryActions<AssemblyMetadataTreeViewItem> Repository { get; set; }
 
         public TextView(IFilePathGeter pathGeter)
         {
             this.pathGeter = pathGeter;
+            Repository = new XMLSerializer<AssemblyMetadataTreeViewItem>();
         }
 
 
@@ -32,6 +35,11 @@ namespace TUI2
                 rootItem.IsExpanded = true;
                 ShowOptions();
                 int Choice = GetIntFromUser();
+                if (Choice == -1)
+                {
+                    Save();
+                    continue;
+                }
                 rootItem = rootItem.Children.ToList().ElementAt(Choice);
             }
         }
@@ -45,10 +53,11 @@ namespace TUI2
         {
             while (true)
             {
-                Console.WriteLine("Enter choice: ");
+                Console.WriteLine("Enter choice: (or -1 to Save)");
                 string input = Console.ReadLine();
                 int number = 0;
                 int.TryParse(input, out number);
+                if (number == -1) return -1;
                 if (!(number == 0) && number - 1 < rootItem.Children.Count())
                     return number - 1;
                 tracer.Tracer(TraceEventType.Warning, "Wrong number input from user!");
@@ -66,6 +75,21 @@ namespace TUI2
             }
             tracer.Tracer(TraceEventType.Stop, "listing stop");
             indentLevel++;
+        }
+
+        private void Save()
+        {
+            Console.WriteLine("\nEnter file name:");
+            string line = Console.ReadLine();
+            line += ".xml";
+            if(line != "")
+            {
+                Repository.SaveToRepository(RootItemBuilder.LoadRootItemFromDLL(pathToDll), line);
+            }
+            else
+            {
+                Console.WriteLine("Empty selection");
+            }
         }
     }
 }
