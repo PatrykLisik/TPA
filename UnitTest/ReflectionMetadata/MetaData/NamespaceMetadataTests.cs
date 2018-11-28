@@ -1,9 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Logic.ReflectionMetadata;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
-namespace Logic.ReflectionMetadata.Tests
+namespace UnitTest.ReflectionMetadata.Metadata
 {
 
     [TestClass()]
@@ -13,15 +13,29 @@ namespace Logic.ReflectionMetadata.Tests
         [TestInitialize]
         public void Init()
         {
-            string pathToDll = @"..\..\..\UnitTest\ExampleDLL.dll";
-            AssemblyMetadata testAssembly = new AssemblyMetadata(Assembly.LoadFrom(pathToDll));
-            namespaces = testAssembly.Namespaces;
+            namespaces = TestAssemblyBuilder.GetTestNamespaces();
         }
 
         [TestMethod()]
-        public void ToStringTest()
+        public void NamesTest()
         {
-            Assert.IsFalse(false);
+            IEnumerable<string> expectedNames = new List<string> { "Example" };
+            IEnumerable<string> namespacesNames = from NamespaceMetadata _namespace in namespaces
+                                                  select _namespace.NamespaceName;
+
+            CollectionAssert.AreEquivalent(expectedNames.ToList(), namespacesNames.ToList());
         }
+
+        [TestMethod()]
+        public void TypeTest()
+        {
+            List<string> expectedTypesNames = new List<string>{"ExampleEnum","ExampleInterface","GenericClass`2","StaticExample","TestClass1" };
+            IEnumerable<string> namespaceTypesNames = from NamespaceMetadata _namespace in namespaces
+                                                      from TypeMetadata type in _namespace.Types
+                                                      select type.TypeName;
+
+            CollectionAssert.AreEquivalent(expectedTypesNames, namespaceTypesNames.ToList());
+        }
+
     }
 }
