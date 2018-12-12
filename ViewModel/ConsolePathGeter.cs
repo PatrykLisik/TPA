@@ -10,6 +10,7 @@ namespace ViewModel
     {
         public string GetPath(string extension = ".dll")
         {
+            Console.WriteLine("Enter path to file *" + extension);
             return Console.ReadLine();
         }
     }

@@ -34,16 +34,16 @@ namespace TUI2
                 int Choice = GetIntFromUser();
                 if (Choice == -1)
                 {
-                    Save();
+                    SaveAsync();
                     continue;
                 }
                 rootItem = rootItem.Children.ToList().ElementAt(Choice);
             }
         }
 
-        private void LoadRootItem()
+        private async void LoadRootItem()
         {
-            rootItem = ViewModelSaverLoader.LoadRootItemFromDLLAsync(pathToDll);
+            rootItem = await ViewModelSaverLoader.LoadRootItemFromDLLAsync(pathToDll);
         }
 
         private static int GetIntFromUser()
@@ -74,13 +74,13 @@ namespace TUI2
             indentLevel++;
         }
 
-        private void Save()
+        private async void SaveAsync()
         {
             Console.WriteLine("\nEnter file name:");
             string line = pathGeter.GetPath(".xml");
             if(line != "")
             {
-                ViewModelSaverLoader.SaveDLLToRepositoryAsync(line, pathToDll);
+                await ViewModelSaverLoader.SaveDLLToRepositoryAsync(line, pathToDll);
             }
             else
             {
