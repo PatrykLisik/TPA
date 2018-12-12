@@ -1,5 +1,4 @@
-﻿using Logic.Serialization;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
@@ -16,12 +15,10 @@ namespace TUI2
         static TreeViewItem rootItem;
         private static int indentLevel = 0;
         private IFilePathGeter pathGeter;
-        private IRepositoryActions<AssemblyMetadataTreeViewItem> Repository { get; set; }
 
         public TextView(IFilePathGeter pathGeter)
         {
             this.pathGeter = pathGeter;
-            Repository = new XMLSerializer<AssemblyMetadataTreeViewItem>();
         }
 
 
@@ -46,7 +43,7 @@ namespace TUI2
 
         private void LoadRootItem()
         {
-            rootItem = RootItemBuilder.LoadRootItemFromDLL(pathToDll);
+            rootItem = ViewModelSaverLoader.LoadRootItemFromDLLAsync(pathToDll);
         }
 
         private static int GetIntFromUser()
@@ -80,11 +77,10 @@ namespace TUI2
         private void Save()
         {
             Console.WriteLine("\nEnter file name:");
-            string line = Console.ReadLine();
-            line += ".xml";
+            string line = pathGeter.GetPath(".xml");
             if(line != "")
             {
-                Repository.SaveToRepository(RootItemBuilder.LoadRootItemFromDLL(pathToDll), line);
+                ViewModelSaverLoader.SaveDLLToRepositoryAsync(line, pathToDll);
             }
             else
             {

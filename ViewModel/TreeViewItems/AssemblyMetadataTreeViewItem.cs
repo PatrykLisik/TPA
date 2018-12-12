@@ -1,13 +1,10 @@
 ﻿using Logic.ReflectionMetadata;
 using System;
-using System.Runtime.Serialization;
 
 namespace ViewModel.TreeViewItems
 {
-    [DataContract(IsReference = true)]
     public class AssemblyMetadataTreeViewItem : TreeViewItem
     {
-        [DataMember]
         AssemblyMetadata assemblyMetada;
 
         public AssemblyMetadataTreeViewItem()

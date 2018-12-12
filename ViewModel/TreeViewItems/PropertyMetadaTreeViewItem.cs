@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using Logic.ReflectionMetadata;
+﻿using Logic.ReflectionMetadata;
+using System;
 
 namespace ViewModel.TreeViewItems
 {
-    [DataContract(IsReference = true)]
     public class PropertyMetadaTreeViewItem : TreeViewItem
     {
         PropertyMetadata propertyMateadata;
@@ -17,7 +12,7 @@ namespace ViewModel.TreeViewItems
 
         public PropertyMetadaTreeViewItem(PropertyMetadata prooprtyMateadata)
         {
-            this.propertyMateadata = prooprtyMateadata ?? throw new ArgumentNullException(nameof(prooprtyMateadata));
+            propertyMateadata = prooprtyMateadata ?? throw new ArgumentNullException(nameof(prooprtyMateadata));
             base.Name = GenerateName();
         }
         private string GenerateName()

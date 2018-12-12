@@ -1,12 +1,9 @@
 ﻿using Logic.ReflectionMetadata;
-using System.Runtime.Serialization;
 
 namespace ViewModel.TreeViewItems
 {
-    [DataContract(IsReference = true)]
     public class MethodTreeViewItem : TreeViewItem
     {
-        [DataMember]
         private MethodMetadata _method;
 
         public MethodTreeViewItem(MethodMetadata method)

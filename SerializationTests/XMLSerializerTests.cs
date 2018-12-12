@@ -1,8 +1,14 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Serialization;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Logic.Serialization.Tests
+namespace Serialization.Tests
 {
     [TestClass()]
     public class XMLSerializerTests
@@ -43,6 +49,4 @@ namespace Logic.Serialization.Tests
         }
 
     }
-
-
 }

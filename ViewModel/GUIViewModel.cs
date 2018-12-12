@@ -1,19 +1,16 @@
-﻿using Logic.Serialization;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Runtime.Serialization;
 using System.Windows;
 using System.Windows.Input;
 using ViewModel.TreeViewItems;
 
 namespace ViewModel
 {
-    [DataContract]
+
     public class GUIViewModel : INotifyPropertyChanged
     {
         #region DataContext
-        [DataMember]
         public ObservableCollection<TreeViewItem> HierarchicalAreas { get; set; }
         public string PathVariable { get; set; }
         public Visibility ChangeControlVisibility { get; set; } = Visibility.Hidden;
@@ -26,11 +23,9 @@ namespace ViewModel
         #region constructors
         readonly IFilePathGeter pathGeter;
 
-        private IRepositoryActions<AssemblyMetadataTreeViewItem> Repository { get; set; }
         public GUIViewModel(IFilePathGeter fileGeter)
         {
             HierarchicalAreas = new ObservableCollection<TreeViewItem>();
-            Repository = new XMLSerializer<AssemblyMetadataTreeViewItem>();
             Show_TreeView = new RelayCommand(LoadDLL);
             Click_Browse = new RelayCommand(Browse);
             Save_Button = new RelayCommand(Save);
@@ -53,9 +48,9 @@ namespace ViewModel
             if (PathVariable.Substring(PathVariable.Length - 4) == ".dll")
                 TreeViewLoaded();
         }
-        private void TreeViewLoaded()
+        private async void TreeViewLoaded()
         {
-            TreeViewItem rootItem = RootItemBuilder.LoadRootItemFromDLL(PathVariable);
+            TreeViewItem rootItem = await ViewModelSaverLoader.LoadRootItemFromDLLAsync(PathVariable);
             HierarchicalAreas.Add(rootItem);
         }
         private void Browse()
@@ -70,16 +65,18 @@ namespace ViewModel
             }
         }
 
-        private void Save()
+        private async void Save()
         {
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.Filter = "XML Files|*.xml";
-            saveFileDialog1.Title = "Save an XML File";
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog
+            {
+                Filter = "XML Files|*.xml",
+                Title = "Save an XML File"
+            };
             saveFileDialog1.ShowDialog();
 
             if (saveFileDialog1.FileName != "")
             {
-                Repository.SaveToRepository(RootItemBuilder.LoadRootItemFromDLL(PathVariable), saveFileDialog1.FileName);
+                await ViewModelSaverLoader.SaveDLLToRepositoryAsync(saveFileDialog1.FileName, PathVariable);
             }
             else
             {
@@ -87,13 +84,13 @@ namespace ViewModel
             }
         }
 
-        private void LoadRepository()
+        private async void LoadRepository()
         {
             string patchToXML = pathGeter.GetPath(".xml");
             if (patchToXML.Length != 0)
             {
                 PathVariable = patchToXML;
-                HierarchicalAreas.Add(Repository.LoadFromRepository(patchToXML));
+                HierarchicalAreas.Add(await ViewModelSaverLoader.LoadRootItemFromRepositoryAsync(patchToXML));
                 ChangeControlVisibility = Visibility.Visible;
                 RaisePropertyChanged("ChangeControlVisibility");
                 RaisePropertyChanged("PathVariable");

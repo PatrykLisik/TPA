@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
-namespace Logic.Serialization
+namespace Serialization
 {
-    [Export(typeof(IRepositoryActions<>))]
     public class XMLSerializer<T> : IRepositoryActions<T>
     {
         public T LoadFromRepository(string fileName)
@@ -30,10 +23,10 @@ namespace Logic.Serialization
             XmlWriterSettings settings = new XmlWriterSettings { Indent = true };
             XmlWriter w = XmlWriter.Create(f, settings);
             DataContractSerializer s = new DataContractSerializer(typeof(T),
-            null, 
-            0x7FFF /*maxItemsInObjectGraph*/, 
-            false /*ignoreExtensionDataObject*/, 
-            true /*preserveObjectReferences : this is where the magic happens */, 
+            null,
+            0x7FFF /*maxItemsInObjectGraph*/,
+            false /*ignoreExtensionDataObject*/,
+            true /*preserveObjectReferences : this is where the magic happens */,
             null /*dataContractSurrogate*/);
             s.WriteObject(w, data);
             w.Close();
