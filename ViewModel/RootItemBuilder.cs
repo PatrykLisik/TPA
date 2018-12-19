@@ -23,14 +23,14 @@ namespace ViewModel
 
         public static async Task<AssemblyMetadataTreeViewItem> LoadRootItemFromRepositoryAsync(string path)
         {
-            AssemblyMetadata assemblyMetadata = await Task.Run(() => AssemblyMetadataRepositoryActions.LoadFromRepository(path));
+            AssemblyMetadata assemblyMetadata = await Task.Run(() => new AssemblyMetadataRepositoryActions().LoadFromRepository(path));
             return new AssemblyMetadataTreeViewItem(assemblyMetadata);
 
         }
 
         public static async Task SaveDLLToRepositoryAsync(string repository, string dllPath)
         {
-            await Task.Run(() => AssemblyMetadataRepositoryActions.SaveToRepository(GetAssembly(dllPath), repository));
+            await Task.Run(() =>new AssemblyMetadataRepositoryActions().SaveToRepository(GetAssembly(dllPath), repository));
         }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using Microsoft.Win32;
+using System.ComponentModel.Composition;
 using System.Windows;
 
 namespace ViewModel
 {
+    [Export(typeof(IFilePathGeter))]
     public class WindowPathGeter : IFilePathGeter
     {
 

@@ -1,18 +1,28 @@
 ﻿using Logic.ReflectionMetadata;
+using MEF;
 using Serialization;
+using System.ComponentModel.Composition;
 
 namespace Logic
 {
-    public static class AssemblyMetadataRepositoryActions
+    public class AssemblyMetadataRepositoryActions
     {
-        private static IRepositoryActions<AssemblyMetadata> repository = new XMLSerializer<AssemblyMetadata>();
+        [Import]
+        private  IRepositoryActions<AssemblyMetadata> repository;
 
-        public static AssemblyMetadata LoadFromRepository(string file)
+
+        public  AssemblyMetadataRepositoryActions()
+        {
+            new Bootstrapper().ComposeApplication(this);
+        }
+
+
+        public AssemblyMetadata LoadFromRepository(string file)
         {
             return repository.LoadFromRepository(file);
         }
 
-        public static void SaveToRepository(AssemblyMetadata assemblyMetsdata, string file)
+        public void SaveToRepository(AssemblyMetadata assemblyMetsdata, string file)
         {
             repository.SaveToRepository(assemblyMetsdata, file);
         }

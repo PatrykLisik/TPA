@@ -1,6 +1,8 @@
-﻿using Microsoft.Win32;
+﻿using MEF;
+using Microsoft.Win32;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.ComponentModel.Composition;
 using System.Windows;
 using System.Windows.Input;
 using ViewModel.TreeViewItems;
@@ -21,16 +23,17 @@ namespace ViewModel
         #endregion
 
         #region constructors
-        readonly IFilePathGeter pathGeter;
+        [ImportMany(typeof(IFilePathGeter))]
+        Importer<IFilePathGeter> pathGeter;
 
-        public GUIViewModel(IFilePathGeter fileGeter)
+        public GUIViewModel()
         {
+            new Bootstrapper().ComposeApplication(this);
             HierarchicalAreas = new ObservableCollection<TreeViewItem>();
             Show_TreeView = new RelayCommand(LoadDLL);
             Click_Browse = new RelayCommand(Browse);
             Save_Button = new RelayCommand(Save);
             Load_Button = new RelayCommand(LoadRepository);
-            pathGeter = fileGeter;
         }
         #endregion
 
@@ -55,7 +58,7 @@ namespace ViewModel
         }
         private void Browse()
         {
-            string patchToDLL = pathGeter.GetPath();
+            string patchToDLL = pathGeter.GetImport().GetPath();
             if (patchToDLL.Length != 0)
             {
                 PathVariable = patchToDLL;
@@ -86,7 +89,7 @@ namespace ViewModel
 
         private async void LoadRepository()
         {
-            string patchToXML = pathGeter.GetPath(".xml");
+            string patchToXML = pathGeter.GetImport().GetPath(".xml");
             if (patchToXML.Length != 0)
             {
                 PathVariable = patchToXML;

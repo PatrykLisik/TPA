@@ -34,6 +34,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Presentation" />
@@ -65,6 +66,10 @@
     <ProjectReference Include="..\Logic\Logic.csproj">
       <Project>{28254930-a865-40f0-acde-c988c2a35c85}</Project>
       <Name>Logic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MEF\MEF.csproj">
+      <Project>{7495C734-222E-4473-AEA8-86BAD47C1795}</Project>
+      <Name>MEF</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

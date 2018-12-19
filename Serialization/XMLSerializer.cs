@@ -1,9 +1,11 @@
-﻿using System.IO;
+﻿using System.ComponentModel.Composition;
+using System.IO;
 using System.Runtime.Serialization;
 using System.Xml;
 
 namespace Serialization
 {
+    [Export(typeof(IRepositoryActions<>))]
     public class XMLSerializer<T> : IRepositoryActions<T>
     {
         public T LoadFromRepository(string fileName)
