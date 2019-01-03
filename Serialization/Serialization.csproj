@@ -45,18 +45,17 @@
   <ItemGroup>
     <Compile Include="IRepositoryActions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SerializationModel\AbstractEnum.cs" />
-    <Compile Include="SerializationModel\AccessLevel.cs" />
-    <Compile Include="SerializationModel\InternalGeter.cs" />
+    <Compile Include="SerializationModel\AbstractEnum_DTO.cs" />
+    <Compile Include="SerializationModel\AccessLevel_DTO.cs" />
     <Compile Include="SerializationModel\DTO\Assembly_DTO.cs" />
     <Compile Include="SerializationModel\DTO\Method_DTO.cs" />
     <Compile Include="SerializationModel\DTO\Namespace_DTO.cs" />
     <Compile Include="SerializationModel\DTO\Parameter_DTO.cs" />
     <Compile Include="SerializationModel\DTO\Property_DTO.cs" />
     <Compile Include="SerializationModel\DTO\Type_DTO.cs" />
-    <Compile Include="SerializationModel\SealedEnum.cs" />
-    <Compile Include="SerializationModel\StaticEnum.cs" />
-    <Compile Include="SerializationModel\VirtualEnum.cs" />
+    <Compile Include="SerializationModel\SealedEnum_DTO.cs" />
+    <Compile Include="SerializationModel\StaticEnum_DTO.cs" />
+    <Compile Include="SerializationModel\VirtualEnum_DTO.cs" />
     <Compile Include="XMLSerializer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

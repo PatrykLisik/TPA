@@ -8,7 +8,7 @@ namespace SerializationModel.DTO
     public class Type_DTO
     {
 
-        public enum TypeKind
+        public enum TypeKind_DTO
         {
             EnumType, StructType, InterfaceType, ClassType
         }
@@ -24,7 +24,7 @@ namespace SerializationModel.DTO
         [DataMember]
         public Tuple<AccessLevel_DTO, SealedEnum_DTO, AbstractEnum_DTO> Modifiers;
         [DataMember]
-        public TypeKind TypeKind1;
+        public TypeKind_DTO TypeKind1;
         [DataMember]
         public IEnumerable<Type_DTO> ImplementedInterfaces;
         [DataMember]

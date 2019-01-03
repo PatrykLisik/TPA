@@ -15,7 +15,7 @@ namespace Logic.ReflectionMetadata
         public TypeMetadata(Type type)
         {
             m_typeName = type.Name;
-            m_DeclaringType = EmitDeclaringType(type.DeclaringType);
+            DeclaringType = EmitDeclaringType(type.DeclaringType);
             m_Constructors = MethodMetadata.EmitMethods(type.GetConstructors());
             m_Methods = MethodMetadata.EmitMethods(type.GetMethods());
             m_NestedTypes = EmitNestedTypes(type.GetNestedTypes());
@@ -109,6 +109,7 @@ namespace Logic.ReflectionMetadata
 
         public string NamespaceName { get => m_NamespaceName; set => m_NamespaceName = value; }
         public TypeMetadata BaseType { get => m_BaseType; set => m_BaseType = value; }
+        public TypeMetadata DeclaringType { get => m_DeclaringType; set => m_DeclaringType = value; }
 
         //methods
         private TypeMetadata EmitDeclaringType(Type declaringType)

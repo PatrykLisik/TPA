@@ -7,8 +7,8 @@ namespace SerializationModel.DTO
     public class Assembly_DTO
     {
         [DataMember]
-        public string m_Name;
+        public string Name;
         [DataMember]
-        public IEnumerable<Namespace_DTO> m_Namespaces;
+        public IEnumerable<Namespace_DTO> Namespaces;
     }
 }
