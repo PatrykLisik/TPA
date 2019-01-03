@@ -9,6 +9,6 @@ namespace SerializationModel.DTO
         [DataMember]
         public string m_Name;
         [DataMember]
-        public IEnumerable<NamespaceMetadata> m_Namespaces;
+        public IEnumerable<Namespace_DTO> m_Namespaces;
     }
 }

@@ -6,11 +6,11 @@ using System.Runtime.Serialization;
 namespace SerializationModel.DTO
 {
     [DataContract(IsReference = true)]
-    public class NamespaceMetadata
+    public class Namespace_DTO
     {
         [DataMember]
         public string NamespaceName;
         [DataMember]
-        public IEnumerable<TypeMetadata_DTO> Types;
+        public IEnumerable<Type_DTO> Types;
     }
 }

@@ -6,11 +6,11 @@ using System.Runtime.Serialization;
 namespace SerializationModel.DTO
 {
     [DataContract(IsReference = true)]
-    public class PropertyMetadata
+    public class Property_DTO
     {
         [DataMember]
         public string Name;
         [DataMember]
-        public TypeMetadata_DTO TypeMetadata;
+        public Type_DTO TypeMetadata;
     }
 }

@@ -3,10 +3,11 @@ using System.Runtime.Serialization;
 namespace SerializationModel.DTO
 {
     [DataContract(IsReference = true)]
-    public class ParameterMetadata
+    public class Parameter_DTO
     {
         [DataMember]
         public string Name;
         [DataMember]
-        public TypeMetadata_DTO TypeMetadata;
+        public Type_DTO TypeMetadata;
+    }
 }

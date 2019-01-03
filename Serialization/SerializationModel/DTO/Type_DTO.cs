@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace SerializationModel.DTO
 {
     [DataContract(IsReference = true)]
-    public class TypeMetadata_DTO
+    public class Type_DTO
     {
 
         public enum TypeKind
@@ -18,26 +18,26 @@ namespace SerializationModel.DTO
         [DataMember]
         public string NamespaceName;
         [DataMember]
-        public TypeMetadata_DTO BaseType;
+        public Type_DTO BaseType;
         [DataMember]
-        public IEnumerable<TypeMetadata_DTO> GenericArguments;
+        public IEnumerable<Type_DTO> GenericArguments;
         [DataMember]
         public Tuple<AccessLevel, SealedEnum, AbstractEnum> Modifiers;
         [DataMember]
         public TypeKind TypeKind1;
         [DataMember]
-        public IEnumerable<TypeMetadata_DTO> ImplementedInterfaces;
+        public IEnumerable<Type_DTO> ImplementedInterfaces;
         [DataMember]
-        public IEnumerable<TypeMetadata_DTO> NestedTypes;
+        public IEnumerable<Type_DTO> NestedTypes;
         [DataMember]
-        public IEnumerable<PropertyMetadata> Properties;
+        public IEnumerable<Property_DTO> Properties;
         [DataMember]
-        public TypeMetadata_DTO DeclaringType;
+        public Type_DTO DeclaringType;
         [DataMember]
-        public IEnumerable<MethodMetadata> Methods;
+        public IEnumerable<Method_DTO> Methods;
         [DataMember]
-        public IEnumerable<MethodMetadata> Constructors;
+        public IEnumerable<Method_DTO> Constructors;
         [DataMember]
-        public IEnumerable<ParameterMetadata> Fields;
+        public IEnumerable<Parameter_DTO> Fields;
     }
 }
