@@ -1,7 +1,7 @@
 
 namespace SerializationModel
 {
-  public enum AbstractEnum
+  public enum AbstractEnum_DTO
   {
     NotAbstract, Abstract
   }

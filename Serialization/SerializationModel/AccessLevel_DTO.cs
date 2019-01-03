@@ -1,7 +1,7 @@
 
 namespace SerializationModel
 {
-  public enum AccessLevel
+  public enum AccessLevel_DTO
   {
       IsPublic, IsProtected, IsProtectedInternal, IsPrivate
   }

@@ -22,7 +22,7 @@ namespace SerializationModel.DTO
         [DataMember]
         public IEnumerable<Type_DTO> GenericArguments;
         [DataMember]
-        public Tuple<AccessLevel, SealedEnum, AbstractEnum> Modifiers;
+        public Tuple<AccessLevel_DTO, SealedEnum_DTO, AbstractEnum_DTO> Modifiers;
         [DataMember]
         public TypeKind TypeKind1;
         [DataMember]

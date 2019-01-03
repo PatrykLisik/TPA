@@ -1,7 +1,7 @@
 
 namespace SerializationModel
 {
-  public enum  VirtualEnum
+  public enum  VirtualEnum_DTO
   {
     NotVirtual, Virtual 
   }

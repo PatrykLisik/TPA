@@ -22,7 +22,7 @@ namespace Logic.ReflectionMetadata
             m_ImplementedInterfaces = EmitImplements(type.GetInterfaces());
             GenericArguments = !type.IsGenericTypeDefinition ? null : TypeMetadata.EmitGenericArguments(type.GetGenericArguments());
             Modifiers = EmitModifiers(type);
-            m_BaseType = EmitExtends(type.BaseType);
+            BaseType = EmitExtends(type.BaseType);
             m_Properties = PropertyMetadata.EmitProperties(type.GetProperties());
             TypeKind1 = GetTypeKind(type);
             m_Attributes = type.GetCustomAttributes(false).Cast<Attribute>();
@@ -31,7 +31,7 @@ namespace Logic.ReflectionMetadata
         private TypeMetadata(string typeName, string namespaceName)
         {
             m_typeName = typeName;
-            m_NamespaceName = namespaceName;
+            NamespaceName = namespaceName;
         }
         private TypeMetadata(string typeName, string namespaceName, IEnumerable<TypeMetadata> genericArguments) : this(typeName, namespaceName)
         {
@@ -106,6 +106,9 @@ namespace Logic.ReflectionMetadata
         public IEnumerable<MethodMetadata> Constructors => m_Constructors;
 
         public IEnumerable<ParameterMetadata> Fields => m_Fields;
+
+        public string NamespaceName { get => m_NamespaceName; set => m_NamespaceName = value; }
+        public TypeMetadata BaseType { get => m_BaseType; set => m_BaseType = value; }
 
         //methods
         private TypeMetadata EmitDeclaringType(Type declaringType)

@@ -12,7 +12,7 @@ namespace SerializationModel.DTO
         [DataMember]
         public IEnumerable<Type_DTO> GenericArguments;
         [DataMember]
-        public Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum> Modifiers;
+        public Tuple<AccessLevel_DTO, AbstractEnum_DTO, StaticEnum_DTO, VirtualEnum_DTO> Modifiers;
         [DataMember]
         public Type_DTO ReturnType;
         [DataMember]

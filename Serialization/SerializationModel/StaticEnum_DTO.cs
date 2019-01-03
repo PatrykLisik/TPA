@@ -1,7 +1,7 @@
 
 namespace SerializationModel
 {
-  public enum StaticEnum
+  public enum StaticEnum_DTO
   {
     NotStatic, Static
   }
