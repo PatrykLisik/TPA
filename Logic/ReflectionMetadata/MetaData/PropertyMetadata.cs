@@ -1,16 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.Serialization;
 
 namespace Logic.ReflectionMetadata
 {
-    [DataContract(IsReference = true)]
     public class PropertyMetadata
     {
-        [DataMember]
         private string m_Name;
-        [DataMember]
         private TypeMetadata m_TypeMetadata;
 
         public string Name { get => m_Name; set => m_Name = value; }
@@ -23,14 +19,14 @@ namespace Logic.ReflectionMetadata
                    select new PropertyMetadata(prop.Name, TypeMetadata.EmitReference(prop.PropertyType));
         }
 
-
-
-
         private PropertyMetadata(string propertyName, TypeMetadata propertyType)
         {
             Name = propertyName;
             TypeMetadata = propertyType;
         }
 
+        public PropertyMetadata()
+        {
+        }
     }
 }

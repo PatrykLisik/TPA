@@ -45,7 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Mappers\XML_DTO_Mapper.cs" />
+    <Compile Include="Mappers\XML_DTOToAssemblyMetadata.cs" />
+    <Compile Include="Repository\IRepositoryActions.cs" />
+    <Compile Include="Mappers\AssemblyMetadataToXML_DTOMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReflectionMetadata\AbstractEnum.cs" />
     <Compile Include="ReflectionMetadata\AccessLevel.cs" />
@@ -60,7 +62,8 @@
     <Compile Include="ReflectionMetadata\StaticEnum.cs" />
     <Compile Include="ReflectionMetadata\Metadata\TypeMetadata.cs" />
     <Compile Include="ReflectionMetadata\VirtualEnum.cs" />
-    <Compile Include="AssemblyMetadataRepositoryActions.cs" />
+    <Compile Include="Repository\AssemblyMetadataRepositoryActions.cs" />
+    <Compile Include="Repository\XML_Repository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

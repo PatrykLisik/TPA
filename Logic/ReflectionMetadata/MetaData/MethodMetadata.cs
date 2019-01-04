@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -8,7 +7,6 @@ using System.Runtime.Serialization;
 
 namespace Logic.ReflectionMetadata
 {
-    [DataContract(IsReference = true)]
     public class MethodMetadata
     {
 
@@ -21,41 +19,37 @@ namespace Logic.ReflectionMetadata
 
         #region private
         //vars\\\
-        [DataMember]
         private string m_Name;
-        [DataMember]
         private IEnumerable<TypeMetadata> m_GenericArguments;
-        [DataMember]
         private Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum> m_Modifiers;
-        [DataMember]
         private TypeMetadata m_ReturnType;
-        [DataMember]
         private bool m_Extension;
-        [DataMember]
         private IEnumerable<ParameterMetadata> m_Parameters;
 
-        public string Name => m_Name;
+        public string Name { get => m_Name; set => m_Name = value; }
+        public IEnumerable<TypeMetadata> GenericArguments { get => m_GenericArguments; set => m_GenericArguments = value; }
+        public Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum> Modifiers { get => m_Modifiers; set => m_Modifiers = value; }
+        public TypeMetadata ReturnType { get => m_ReturnType; set => m_ReturnType = value; }
+        public bool Extension { get => m_Extension; set => m_Extension = value; }
+        public IEnumerable<ParameterMetadata> Parameters { get => m_Parameters; set => m_Parameters = value; }
 
-        public IEnumerable<TypeMetadata> GenericArguments => m_GenericArguments;
 
-        public Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum> Modifiers => m_Modifiers;
-
-        public TypeMetadata ReturnType => m_ReturnType;
-
-        public bool Extension => m_Extension;
-
-        public IEnumerable<ParameterMetadata> Parameters => m_Parameters;
 
         //constructor
         private MethodMetadata(MethodBase method)
         {
-            m_Name = method.Name;
-            m_GenericArguments = !method.IsGenericMethodDefinition ? null : TypeMetadata.EmitGenericArguments(method.GetGenericArguments());
-            m_ReturnType = EmitReturnType(method) ?? new TypeMetadata(typeof(void));
-            m_Parameters = EmitParameters(method.GetParameters());
-            m_Modifiers = EmitModifiers(method);
-            m_Extension = EmitExtension(method);
+            Name = method.Name;
+            GenericArguments = !method.IsGenericMethodDefinition ? null : TypeMetadata.EmitGenericArguments(method.GetGenericArguments());
+            ReturnType = EmitReturnType(method) ?? new TypeMetadata(typeof(void));
+            Parameters = EmitParameters(method.GetParameters());
+            Modifiers = EmitModifiers(method);
+            Extension = EmitExtension(method);
         }
+
+        public MethodMetadata()
+        {
+        }
+
         //methods
         private static IEnumerable<ParameterMetadata> EmitParameters(IEnumerable<ParameterInfo> parms)
         {
