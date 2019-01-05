@@ -12,6 +12,9 @@ namespace Logic.Mappers
     {
         public static AssemblyMetadata MapToObject(this Assembly_DTO metadata)
         {
+            if (metadata == null)
+                return null;
+
             return new AssemblyMetadata
             {
                 Name = metadata.Name,
@@ -21,6 +24,9 @@ namespace Logic.Mappers
 
         public static MethodMetadata  MapToObject(this Method_DTO metadata)
         {
+            if (metadata == null)
+                return null;
+
             return new MethodMetadata
             {
                 Name = metadata.Name,
@@ -34,6 +40,9 @@ namespace Logic.Mappers
 
         public static  NamespaceMetadata MapToObject(this Namespace_DTO metadata)
         {
+            if (metadata == null)
+                return null;
+
             return new NamespaceMetadata
             {
                 NamespaceName = metadata.NamespaceName,
@@ -43,6 +52,9 @@ namespace Logic.Mappers
 
         public static ParameterMetadata  MapToObject(this Parameter_DTO metadata)
         {
+            if (metadata == null)
+                return null;
+
             return new ParameterMetadata
             {
                 Name = metadata.Name,
@@ -52,6 +64,9 @@ namespace Logic.Mappers
 
         public static PropertyMetadata  MapToObject(this Property_DTO metadata)
         {
+            if (metadata == null)
+                return null;
+
             return new PropertyMetadata
             {
                 Name = metadata.Name,
@@ -61,6 +76,9 @@ namespace Logic.Mappers
 
         public static TypeMetadata  MapToObject(this Type_DTO metadata)
         {
+            if (metadata == null)
+                return null;
+
             return new TypeMetadata
             {
                 TypeName = metadata.TypeName,

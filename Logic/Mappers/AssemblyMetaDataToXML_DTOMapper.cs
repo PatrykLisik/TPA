@@ -2,6 +2,7 @@
 using SerializationModel;
 using SerializationModel.DTO;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using static Logic.ReflectionMetadata.TypeMetadata;
 using static SerializationModel.DTO.Type_DTO;
@@ -10,39 +11,47 @@ namespace Logic.Mappers
 {
     public static class AssemblyMetadataToXML_DTOMapper
     {
-        public static Assembly_DTO ToXML_DTO(this  AssemblyMetadata metadata)
+        public static Assembly_DTO ToXML_DTO(this AssemblyMetadata metadata)
         {
+            if (metadata == null)
+                return null;
             return new Assembly_DTO
             {
                 Name = metadata.Name,
-                Namespaces = metadata.Namespaces.Select(i => i.ToXML_DTO())
+                Namespaces = CollectionToXMLDTO(metadata.Namespaces, i => i.ToXML_DTO())
             };
         }
 
         public static Method_DTO ToXML_DTO(this MethodMetadata metadata)
         {
+            if (metadata == null)
+                return null;
             return new Method_DTO
             {
                 Name = metadata.Name,
-                GenericArguments = metadata.GenericArguments.Select(i => i.ToXML_DTO()),
+                GenericArguments = CollectionToXMLDTO(metadata.GenericArguments, i => i.ToXML_DTO()),
                 Modifiers = metadata.Modifiers.ToXMLDTO(),
                 ReturnType = metadata.ReturnType.ToXML_DTO(),
                 Extension = metadata.Extension,
-                Parameters = metadata.Parameters.Select(i => i.ToXML_DTO())
+                Parameters = CollectionToXMLDTO(metadata.Parameters, i => i.ToXML_DTO())
             };
         }
 
         public static Namespace_DTO ToXML_DTO(this NamespaceMetadata metadata)
         {
+            if (metadata == null)
+                return null;
             return new Namespace_DTO
             {
                 NamespaceName = metadata.NamespaceName,
-                Types = metadata.Types.Select(i => i.ToXML_DTO())
+                Types = CollectionToXMLDTO(metadata.Types, i => i.ToXML_DTO())
             };
         }
 
         public static Parameter_DTO ToXML_DTO(this ParameterMetadata metadata)
         {
+            if (metadata == null)
+                return null;
             return new Parameter_DTO
             {
                 Name = metadata.Name,
@@ -52,6 +61,8 @@ namespace Logic.Mappers
 
         public static Property_DTO ToXML_DTO(this PropertyMetadata metadata)
         {
+            if (metadata == null)
+                return null;
             return new Property_DTO
             {
                 Name = metadata.Name,
@@ -61,23 +72,33 @@ namespace Logic.Mappers
 
         public static Type_DTO ToXML_DTO(this TypeMetadata metadata)
         {
+            if (metadata == null)
+                return null;
             return new Type_DTO
             {
                 TypeName = metadata.TypeName,
                 NamespaceName = metadata.NamespaceName,
                 BaseType = metadata.BaseType.ToXML_DTO(),
-                GenericArguments = metadata.GenericArguments.Select(i => i.ToXML_DTO()),
+                GenericArguments = CollectionToXMLDTO(metadata.GenericArguments, i => i.ToXML_DTO()),
                 Modifiers = metadata.Modifiers.ToXMLDTO(),
                 TypeKind1 = metadata.TypeKind1.ToXMLDTO(),
-                ImplementedInterfaces = metadata.ImplementedInterfaces.Select(i => i.ToXML_DTO()),
-                NestedTypes = metadata.NestedTypes.Select(i => i.ToXML_DTO()),
-                Properties = metadata.Properties.Select(i => i.ToXML_DTO()),
+                ImplementedInterfaces = CollectionToXMLDTO(metadata.ImplementedInterfaces, i => i.ToXML_DTO()),
+                NestedTypes = CollectionToXMLDTO(metadata.NestedTypes, i => i.ToXML_DTO()),
+                Properties = CollectionToXMLDTO(metadata.Properties, i => i.ToXML_DTO()),
                 DeclaringType = metadata.DeclaringType.ToXML_DTO(),
-                Methods = metadata.Methods.Select(i => i.ToXML_DTO()),
-                Constructors = metadata.Constructors.Select(i => i.ToXML_DTO()),
-                Fields = metadata.Fields.Select(i => i.ToXML_DTO())
+                Methods = CollectionToXMLDTO(metadata.Methods, i => i.ToXML_DTO()),
+                Constructors = CollectionToXMLDTO(metadata.Constructors, i => i.ToXML_DTO()),
+                Fields = CollectionToXMLDTO(metadata.Fields, i => i.ToXML_DTO())
 
             };
+        }
+
+        public static IEnumerable<DTO> CollectionToXMLDTO<Metada, DTO>(IEnumerable<Metada> metadata, Func<Metada, DTO> func)
+        {
+            if (metadata == null)
+                return null;
+
+            return metadata.Select(func);
         }
 
         #region Enums
@@ -163,6 +184,8 @@ namespace Logic.Mappers
 
         public static Tuple<AccessLevel_DTO, SealedEnum_DTO, AbstractEnum_DTO> ToXMLDTO(this Tuple<AccessLevel, SealedEnum, AbstractEnum> tuple)
         {
+            if (tuple == null)
+                return null;
             AccessLevel_DTO accessLevel_ = tuple.Item1.ToXMLDTO();
             SealedEnum_DTO sealedEnum_ = tuple.Item2.ToXMLDTO();
             AbstractEnum_DTO abstractEnum_ = tuple.Item3.ToXMLDTO();
@@ -171,6 +194,8 @@ namespace Logic.Mappers
 
         public static Tuple<AccessLevel_DTO, AbstractEnum_DTO, StaticEnum_DTO, VirtualEnum_DTO> ToXMLDTO(this Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum> tuple)
         {
+            if (tuple == null)
+                return null;
             AccessLevel_DTO accessLevel_ = tuple.Item1.ToXMLDTO();
             AbstractEnum_DTO abstractEnum_ = tuple.Item2.ToXMLDTO();
             StaticEnum_DTO staticEnum_ = tuple.Item3.ToXMLDTO();
