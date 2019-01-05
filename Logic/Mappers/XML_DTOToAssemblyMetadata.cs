@@ -2,6 +2,7 @@
 using SerializationModel;
 using SerializationModel.DTO;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using static Logic.ReflectionMetadata.TypeMetadata;
 using static SerializationModel.DTO.Type_DTO;
@@ -18,7 +19,7 @@ namespace Logic.Mappers
             return new AssemblyMetadata
             {
                 Name = metadata.Name,
-                Namespaces = metadata.Namespaces.Select(i => i.MapToObject())
+                Namespaces = CollectionMapToObject(metadata.Namespaces, i => i.MapToObject())
             };
         }
 
@@ -30,11 +31,11 @@ namespace Logic.Mappers
             return new MethodMetadata
             {
                 Name = metadata.Name,
-                GenericArguments = metadata.GenericArguments.Select(i => i.MapToObject()),
-                Modifiers = metadata.Modifiers.ToXMLDTO(),
+                GenericArguments = CollectionMapToObject(metadata.GenericArguments, i => i.MapToObject()),
+                Modifiers = metadata.Modifiers.MapToObject(),
                 ReturnType = metadata.ReturnType.MapToObject(),
                 Extension = metadata.Extension,
-                Parameters = metadata.Parameters.Select(i => i.MapToObject())
+                Parameters = CollectionMapToObject(metadata.Parameters, i => i.MapToObject())
             };
         }
 
@@ -46,7 +47,7 @@ namespace Logic.Mappers
             return new NamespaceMetadata
             {
                 NamespaceName = metadata.NamespaceName,
-                Types = metadata.Types.Select(i => i.MapToObject())
+                Types = CollectionMapToObject(metadata.Types, i => i.MapToObject())
             };
         }
 
@@ -84,22 +85,28 @@ namespace Logic.Mappers
                 TypeName = metadata.TypeName,
                 NamespaceName = metadata.NamespaceName,
                 BaseType = metadata.BaseType.MapToObject(),
-                GenericArguments = metadata.GenericArguments.Select(i => i.MapToObject()),
-                Modifiers = metadata.Modifiers.ToXMLDTO(),
-                TypeKind1 = metadata.TypeKind1.ToXMLDTO(),
-                ImplementedInterfaces = metadata.ImplementedInterfaces.Select(i => i.MapToObject()),
-                NestedTypes = metadata.NestedTypes.Select(i => i.MapToObject()),
-                Properties = metadata.Properties.Select(i => i.MapToObject()),
+                GenericArguments = CollectionMapToObject(metadata.GenericArguments, i => i.MapToObject()),
+                Modifiers = metadata.Modifiers.MapToObject(),
+                TypeKind1 = metadata.TypeKind1.MapToObject(),
+                ImplementedInterfaces = CollectionMapToObject(metadata.ImplementedInterfaces, i => i.MapToObject()),
+                NestedTypes = CollectionMapToObject(metadata.NestedTypes, i => i.MapToObject()),
+                Properties = CollectionMapToObject(metadata.Properties, i => i.MapToObject()),
                 DeclaringType = metadata.DeclaringType.MapToObject(),
-                Methods = metadata.Methods.Select(i => i.MapToObject()),
-                Constructors = metadata.Constructors.Select(i => i.MapToObject()),
-                Fields = metadata.Fields.Select(i => i.MapToObject())
+                Methods = CollectionMapToObject(metadata.Methods, i => i.MapToObject()),
+                Constructors = CollectionMapToObject(metadata.Constructors, i => i.MapToObject()),
+                Fields = CollectionMapToObject(metadata.Fields, i => i.MapToObject())
 
             };
         }
+        public static IEnumerable<DTO> CollectionMapToObject<Metada, DTO>(IEnumerable<Metada> metadata, Func<Metada, DTO> func)
+        {
+            if (metadata == null)
+                return null;
 
+            return metadata.Select(func);
+        }
         #region Enums
-        public static AccessLevel  ToXMLDTO(this AccessLevel_DTO enumType)
+        public static AccessLevel  MapToObject(this AccessLevel_DTO enumType)
         {
             switch (enumType)
             {
@@ -115,7 +122,7 @@ namespace Logic.Mappers
             throw new Exception();
         }
 
-        public static SealedEnum  ToXMLDTO(this SealedEnum_DTO enumType)
+        public static SealedEnum  MapToObject(this SealedEnum_DTO enumType)
         {
             switch (enumType)
             {
@@ -127,7 +134,7 @@ namespace Logic.Mappers
             throw new Exception();
         }
 
-        public static AbstractEnum ToXMLDTO(this  AbstractEnum_DTO enumType)
+        public static AbstractEnum MapToObject(this  AbstractEnum_DTO enumType)
         {
             switch (enumType)
             {
@@ -139,7 +146,7 @@ namespace Logic.Mappers
             throw new Exception();
         }
 
-        public static StaticEnum ToXMLDTO(this StaticEnum_DTO enumType)
+        public static StaticEnum MapToObject(this StaticEnum_DTO enumType)
         {
             switch (enumType)
             {
@@ -151,7 +158,7 @@ namespace Logic.Mappers
             throw new Exception();
         }
 
-        public static VirtualEnum ToXMLDTO(this VirtualEnum_DTO enumType)
+        public static VirtualEnum MapToObject(this VirtualEnum_DTO enumType)
         {
             switch (enumType)
             {
@@ -163,7 +170,7 @@ namespace Logic.Mappers
             throw new Exception();
         }
 
-        public static TypeKind ToXMLDTO(this TypeKind_DTO typeKind)
+        public static TypeKind MapToObject(this TypeKind_DTO typeKind)
         {
             switch (typeKind)
             {
@@ -179,20 +186,24 @@ namespace Logic.Mappers
             throw new Exception();
         }
 
-        public static Tuple<AccessLevel, SealedEnum, AbstractEnum> ToXMLDTO(this Tuple<AccessLevel_DTO, SealedEnum_DTO, AbstractEnum_DTO> tuple)
+        public static Tuple<AccessLevel, SealedEnum, AbstractEnum> MapToObject(this Tuple<AccessLevel_DTO, SealedEnum_DTO, AbstractEnum_DTO> tuple)
         {
-            AccessLevel accessLevel_ = tuple.Item1.ToXMLDTO();
-            SealedEnum sealedEnum_ = tuple.Item2.ToXMLDTO();
-            AbstractEnum abstractEnum_ = tuple.Item3.ToXMLDTO();
+            if (tuple == null)
+                return null;
+            AccessLevel accessLevel_ = tuple.Item1.MapToObject();
+            SealedEnum sealedEnum_ = tuple.Item2.MapToObject();
+            AbstractEnum abstractEnum_ = tuple.Item3.MapToObject();
             return new Tuple<AccessLevel, SealedEnum, AbstractEnum>(accessLevel_, sealedEnum_, abstractEnum_);
         }
 
-        public static Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum>   ToXMLDTO(this Tuple<AccessLevel_DTO, AbstractEnum_DTO, StaticEnum_DTO, VirtualEnum_DTO> tuple)
+        public static Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum> MapToObject(this Tuple<AccessLevel_DTO, AbstractEnum_DTO, StaticEnum_DTO, VirtualEnum_DTO> tuple)
         {
-            AccessLevel accessLevel_ = tuple.Item1.ToXMLDTO();
-            AbstractEnum abstractEnum_ = tuple.Item2.ToXMLDTO();
-            StaticEnum staticEnum_ = tuple.Item3.ToXMLDTO();
-            VirtualEnum virtualEnum_ = tuple.Item4.ToXMLDTO();
+            if (tuple == null)
+                return null;
+            AccessLevel accessLevel_ = tuple.Item1.MapToObject();
+            AbstractEnum abstractEnum_ = tuple.Item2.MapToObject();
+            StaticEnum staticEnum_ = tuple.Item3.MapToObject();
+            VirtualEnum virtualEnum_ = tuple.Item4.MapToObject();
             return new Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum>(accessLevel_, abstractEnum_, staticEnum_, virtualEnum_);
         }
         #endregion
