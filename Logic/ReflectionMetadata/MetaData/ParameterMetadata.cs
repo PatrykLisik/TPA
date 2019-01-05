@@ -2,13 +2,14 @@
 
 namespace Logic.ReflectionMetadata
 {
-    [DataContract(IsReference = true)]
     public class ParameterMetadata
     {
-        [DataMember]
         private string m_Name;
-        [DataMember]
         private TypeMetadata m_TypeMetadata;
+
+        public ParameterMetadata()
+        {
+        }
 
         public ParameterMetadata(string name, TypeMetadata typeMetadata)
         {

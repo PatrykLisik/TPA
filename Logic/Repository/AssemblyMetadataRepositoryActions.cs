@@ -1,17 +1,16 @@
-﻿using Logic.ReflectionMetadata;
+using Logic.ReflectionMetadata;
 using MEF;
-using Serialization;
 using System.ComponentModel.Composition;
 
-namespace Logic
+namespace Repository
 {
     public class AssemblyMetadataRepositoryActions
     {
         [Import]
-        private  IRepositoryActions<AssemblyMetadata> repository;
+        private IRepositoryActions repository;
 
 
-        public  AssemblyMetadataRepositoryActions()
+        public AssemblyMetadataRepositoryActions()
         {
             new Bootstrapper().ComposeApplication(this);
         }

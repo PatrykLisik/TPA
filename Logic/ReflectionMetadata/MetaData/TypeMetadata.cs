@@ -7,35 +7,38 @@ using System.Runtime.Serialization;
 
 namespace Logic.ReflectionMetadata
 {
-    [DataContract(IsReference = true)]
     public class TypeMetadata
     {
 
         #region constructors
         public TypeMetadata(Type type)
         {
-            m_typeName = type.Name;
-            m_DeclaringType = EmitDeclaringType(type.DeclaringType);
-            m_Constructors = MethodMetadata.EmitMethods(type.GetConstructors());
-            m_Methods = MethodMetadata.EmitMethods(type.GetMethods());
-            m_NestedTypes = EmitNestedTypes(type.GetNestedTypes());
-            m_ImplementedInterfaces = EmitImplements(type.GetInterfaces());
+            TypeName = type.Name;
+            DeclaringType = EmitDeclaringType(type.DeclaringType);
+            Constructors = MethodMetadata.EmitMethods(type.GetConstructors());
+            Methods = MethodMetadata.EmitMethods(type.GetMethods());
+            NestedTypes = EmitNestedTypes(type.GetNestedTypes());
+            ImplementedInterfaces = EmitImplements(type.GetInterfaces());
             GenericArguments = !type.IsGenericTypeDefinition ? null : TypeMetadata.EmitGenericArguments(type.GetGenericArguments());
             Modifiers = EmitModifiers(type);
-            m_BaseType = EmitExtends(type.BaseType);
-            m_Properties = PropertyMetadata.EmitProperties(type.GetProperties());
+            BaseType = EmitExtends(type.BaseType);
+            Properties = PropertyMetadata.EmitProperties(type.GetProperties());
             TypeKind1 = GetTypeKind(type);
-            m_Attributes = type.GetCustomAttributes(false).Cast<Attribute>();
-            m_Fields = EmitFields(type);
+            Attributes = type.GetCustomAttributes(false).Cast<Attribute>();
+            Fields = EmitFields(type);
         }
         private TypeMetadata(string typeName, string namespaceName)
         {
-            m_typeName = typeName;
-            m_NamespaceName = namespaceName;
+            TypeName = typeName;
+            NamespaceName = namespaceName;
         }
         private TypeMetadata(string typeName, string namespaceName, IEnumerable<TypeMetadata> genericArguments) : this(typeName, namespaceName)
         {
             GenericArguments = genericArguments;
+        }
+
+        public TypeMetadata()
+        {
         }
         #endregion
 
@@ -60,52 +63,37 @@ namespace Logic.ReflectionMetadata
         #endregion
 
         //vars
-        [DataMember]
         private string m_typeName;
-        [DataMember]
         private string m_NamespaceName;
-        [DataMember]
         private TypeMetadata m_BaseType;
-        [DataMember]
         private IEnumerable<TypeMetadata> m_GenericArguments;
-        [DataMember]
         private Tuple<AccessLevel, SealedEnum, AbstractEnum> m_Modifiers;
-        [DataMember]
         private TypeKind m_TypeKind;
-        //[DataMember]
         private IEnumerable<Attribute> m_Attributes;
-        [DataMember]
         private IEnumerable<TypeMetadata> m_ImplementedInterfaces;
-        [DataMember]
         private IEnumerable<TypeMetadata> m_NestedTypes;
-        [DataMember]
         private IEnumerable<PropertyMetadata> m_Properties;
-        [DataMember]
         private TypeMetadata m_DeclaringType;
-        [DataMember]
         private IEnumerable<MethodMetadata> m_Methods;
-        [DataMember]
         private IEnumerable<MethodMetadata> m_Constructors;
-        [DataMember]
         private IEnumerable<ParameterMetadata> m_Fields;
 
-        public string TypeName => m_typeName;
-
-        public TypeKind TypeKind1 { get => m_TypeKind; set => m_TypeKind = value; }
-        public Tuple<AccessLevel, SealedEnum, AbstractEnum> Modifiers { get => m_Modifiers; set => m_Modifiers = value; }
+        public string TypeName { get => m_typeName; set => m_typeName = value; }
+        public string NamespaceName { get => m_NamespaceName; set => m_NamespaceName = value; }
+        public TypeMetadata BaseType { get => m_BaseType; set => m_BaseType = value; }
         public IEnumerable<TypeMetadata> GenericArguments { get => m_GenericArguments; set => m_GenericArguments = value; }
+        public Tuple<AccessLevel, SealedEnum, AbstractEnum> Modifiers { get => m_Modifiers; set => m_Modifiers = value; }
+        public TypeKind TypeKind1 { get => m_TypeKind; set => m_TypeKind = value; }
+        public IEnumerable<Attribute> Attributes { get => m_Attributes; set => m_Attributes = value; }
+        public IEnumerable<TypeMetadata> ImplementedInterfaces { get => m_ImplementedInterfaces; set => m_ImplementedInterfaces = value; }
+        public IEnumerable<TypeMetadata> NestedTypes { get => m_NestedTypes; set => m_NestedTypes = value; }
+        public IEnumerable<PropertyMetadata> Properties { get => m_Properties; set => m_Properties = value; }
+        public TypeMetadata DeclaringType { get => m_DeclaringType; set => m_DeclaringType = value; }
+        public IEnumerable<MethodMetadata> Methods { get => m_Methods; set => m_Methods = value; }
+        public IEnumerable<MethodMetadata> Constructors { get => m_Constructors; set => m_Constructors = value; }
+        public IEnumerable<ParameterMetadata> Fields { get => m_Fields; set => m_Fields = value; }
 
-        public IEnumerable<MethodMetadata> Methods => m_Methods;
 
-        public IEnumerable<TypeMetadata> NestedTypes => m_NestedTypes;
-
-        public IEnumerable<TypeMetadata> ImplementedInterfaces => m_ImplementedInterfaces;
-
-        public IEnumerable<PropertyMetadata> Properties => m_Properties;
-
-        public IEnumerable<MethodMetadata> Constructors => m_Constructors;
-
-        public IEnumerable<ParameterMetadata> Fields => m_Fields;
 
         //methods
         private TypeMetadata EmitDeclaringType(Type declaringType)
