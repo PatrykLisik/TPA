@@ -21,7 +21,12 @@ namespace UnitTest.ReflectionMetadata.Metadata
         [TestMethod()]
         public void NamesTest()
         {
-            List<string> expectedNames = new List<string> {"T2","Int32"};
+            List<string> expectedNames = new List<string> {"Linq2SQL",
+                                                            "ServiceB",
+                                                            "ServiceC",
+                                                            "ServiceA",
+                                                            "Model"
+            };
             IEnumerable<string> PropertyNames = from PropertyMetadata _p in properties
                                                 select _p.TypeMetadata.TypeName;
 

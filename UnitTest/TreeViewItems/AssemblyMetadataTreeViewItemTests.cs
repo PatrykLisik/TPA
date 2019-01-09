@@ -20,7 +20,7 @@ namespace ViewModel.TreeViewItems.Tests
                 IsExpanded = true
             };
             string name = "ExampleDLL.dll";
-            int childNumber = 1;
+            int childNumber = 3;
             Assert.IsTrue(viewItem.Name == name);
             Assert.IsTrue(viewItem.Children.Count == childNumber);
         }

@@ -19,8 +19,14 @@ namespace UnitTest.ReflectionMetadata.Metadata
         [TestMethod()]
         public void NamesTest()
         {
-            List<string> expectedNames = new List<string> {"ExampleEnum","ExampleInterface","GenericClass`2",
-                "StaticExample","TestClass1"};
+            List<string> expectedNames = new List<string> {"Model",
+                                                            "ServiceA",
+                                                            "ServiceB",
+                                                            "ServiceC",
+                                                            "ViewModel",
+                                                            "Linq2SQL",
+                                                            "View"
+            };
             IEnumerable<string> TypeNames = from TypeMetadata _t in types
                                             select _t.TypeName;
 
@@ -30,8 +36,14 @@ namespace UnitTest.ReflectionMetadata.Metadata
         [TestMethod()]
         public void ConstructorNamesTest()
         {
-            List<string> expectedNames = new List<string> {"ExampleEnum","ExampleInterface","GenericClass`2",
-                "StaticExample","TestClass1"};
+            List<string> expectedNames = new List<string> {"Model",
+                                                            "ServiceA",
+                                                            "ServiceB",
+                                                            "ServiceC",
+                                                            "ViewModel",
+                                                            "Linq2SQL",
+                                                            "View"
+            };
             IEnumerable<string> TypeNames = from TypeMetadata _t in types
                                             select _t.TypeName;
 

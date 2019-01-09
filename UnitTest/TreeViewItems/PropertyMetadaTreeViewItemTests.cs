@@ -1,11 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ViewModel.TreeViewItems;
-using System;
+﻿using Logic.ReflectionMetadata;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Logic.ReflectionMetadata;
 using UnitTest.ReflectionMetadata.Metadata;
 
 namespace ViewModel.TreeViewItems.Tests
@@ -19,8 +15,13 @@ namespace ViewModel.TreeViewItems.Tests
             IEnumerable<PropertyMetadaTreeViewItem> viewItems = from TypeMetadata _nm in TestAssemblyBuilder.GetTestTypetadata()
                                                                 from PropertyMetadata _p in _nm.Properties
                                                                 select new PropertyMetadaTreeViewItem(_p);
-            List<string> ExpectedNames = new List<string> { "Property: T2 GenericType2","Property: Int32 Int_2" };
-            List<int> ExpectedChildernCounts = new List<int> { 1,1 };
+            List<string> ExpectedNames = new List<string> { "Property: Linq2SQL Linq2SQL",
+                                                            "Property: ServiceB ServiceB",
+                                                            "Property: ServiceC ServiceC",
+                                                            "Property: ServiceA ServiceA",
+                                                            "Property: Model Model"
+            };
+            List<int> ExpectedChildernCounts = new List<int> { 1, 1, 1, 1, 1};
 
             IEnumerable<string> Names = from PropertyMetadaTreeViewItem _pt in viewItems
                                         select _pt.Name;
