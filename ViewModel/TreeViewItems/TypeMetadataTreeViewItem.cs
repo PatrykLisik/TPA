@@ -10,7 +10,7 @@ namespace ViewModel.TreeViewItems
         public TypeMetadataTreeViewItem(TypeMetadata typeMetadata)
         {
             _typeMetadata = typeMetadata;
-            Name = GenerateName() + "TypeMetadata";
+            Name = GenerateName();
 
 
         }
