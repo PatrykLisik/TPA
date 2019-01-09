@@ -19,7 +19,10 @@ namespace UnitTest.ReflectionMetadata.Metadata
         [TestMethod()]
         public void NamesTest()
         {
-            IEnumerable<string> expectedNames = new List<string> { "Example" };
+            IEnumerable<string> expectedNames = new List<string> {  "TPA.ApplicationArchitecture.BusinessLogic",
+                                                                    "TPA.ApplicationArchitecture.Data",
+                                                                    "TPA.ApplicationArchitecture.Presentation"
+            };
             IEnumerable<string> namespacesNames = from NamespaceMetadata _namespace in namespaces
                                                   select _namespace.NamespaceName;
 
@@ -29,7 +32,14 @@ namespace UnitTest.ReflectionMetadata.Metadata
         [TestMethod()]
         public void TypeTest()
         {
-            List<string> expectedTypesNames = new List<string>{"ExampleEnum","ExampleInterface","GenericClass`2","StaticExample","TestClass1" };
+            List<string> expectedTypesNames = new List<string>{"Model",
+                                                                "ServiceA",
+                                                                "ServiceB",
+                                                                "ServiceC",
+                                                                "ViewModel",
+                                                                "Linq2SQL",
+                                                                "View"
+            };
             IEnumerable<string> namespaceTypesNames = from NamespaceMetadata _namespace in namespaces
                                                       from TypeMetadata type in _namespace.Types
                                                       select type.TypeName;
