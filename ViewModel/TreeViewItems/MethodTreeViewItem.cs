@@ -47,7 +47,7 @@ namespace ViewModel.TreeViewItems
         #endregion
         protected override void BuildMyself()
         {
-            ;
+            Children.Add(new TypeMetadataTreeViewItem(_method.ReturnType));
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Logic.ReflectionMetadata
         {
             return from prop in props
                    where prop.GetGetMethod().GetVisible() || prop.GetSetMethod().GetVisible()
-                   select new PropertyMetadata(prop.Name, TypeMetadata.EmitReference(prop.PropertyType));
+                   select new PropertyMetadata(prop.Name, new TypeMetadata(prop.PropertyType));
         }
 
         private PropertyMetadata(string propertyName, TypeMetadata propertyType)

@@ -10,7 +10,7 @@ namespace ViewModel.TreeViewItems
         public TypeMetadataTreeViewItem(TypeMetadata typeMetadata)
         {
             _typeMetadata = typeMetadata;
-            Name = GenerteName();
+            Name = GenerateName() + "TypeMetadata";
 
 
         }
@@ -24,7 +24,7 @@ namespace ViewModel.TreeViewItems
         {
             return typeKind.ToString().Replace("Type", "") + " ";
         }
-        private string GenerteName()
+        protected virtual string GenerateName()
         {
 
             return ModifiersToString() +
@@ -77,6 +77,12 @@ namespace ViewModel.TreeViewItems
                 {
                     Children.Add(new ParamterTreeViewItem(parameter));
                 }
+            if(_typeMetadata.Properties != null)
+                foreach (PropertyMetadata parameter in _typeMetadata.Properties)
+                {
+                    Children.Add(new PropertyMetadaTreeViewItem(parameter));
+                }
+
         }
     }
 }
