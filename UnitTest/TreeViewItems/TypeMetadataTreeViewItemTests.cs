@@ -14,13 +14,13 @@ namespace ViewModel.TreeViewItems.Tests
         {
             IEnumerable<TypeMetadataTreeViewItem> viewItems = from TypeMetadata _nm in TestAssemblyBuilder.GetTestTypetadata()
                                                               select new TypeMetadataTreeViewItem(_nm);
-            List<string> ExpectedNames = new List<string> {"Class ModelTypeMetadata",
-                                                            "Class ServiceATypeMetadata",
-                                                            "Class ServiceBTypeMetadata",
-                                                            "Class ServiceCTypeMetadata",
-                                                            "Class ViewModelTypeMetadata",
-                                                            "Class Linq2SQLTypeMetadata",
-                                                            "Class ViewTypeMetadata"
+            List<string> ExpectedNames = new List<string> {"Class Model",
+                                                            "Class ServiceA",
+                                                            "Class ServiceB",
+                                                            "Class ServiceC",
+                                                            "Class ViewModel",
+                                                            "Class Linq2SQL",
+                                                            "Class View"
             };
             List<int> ExpectedChildernCounts = new List<int> { 1, 1, 1, 1, 1, 1, 1 };
 
