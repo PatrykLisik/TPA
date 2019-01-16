@@ -12,7 +12,7 @@ namespace Database.Mapper
 {
     public static class BaseToDatabaseMapper
     {
-        public static AssemblyDataBaseDTO MapToSerializationModel(this AssemblyBaseDTO metadata)
+        public static AssemblyDataBaseDTO MapToDatabaseModel(this AssemblyBaseDTO metadata)
         {
             if (metadata == null)
                 return null;
@@ -20,11 +20,11 @@ namespace Database.Mapper
             return new AssemblyDataBaseDTO
             {
                 Name = metadata.Name,
-                Namespaces = CollectionMapToObject(metadata.Namespaces, i => i.MapToSerializationModel())
+                Namespaces = CollectionMapToObject(metadata.Namespaces, i => i.MapToDatabaseModel())
             };
         }
 
-        public static MethodDataBaseDTO MapToSerializationModel(this MethodBaseDTO metadata)
+        public static MethodDataBaseDTO MapToDatabaseModel(this MethodBaseDTO metadata)
         {
             if (metadata == null)
                 return null;
@@ -32,15 +32,15 @@ namespace Database.Mapper
             return new MethodDataBaseDTO
             {
                 Name = metadata.Name,
-                GenericArguments = CollectionMapToObject(metadata.GenericArguments, i => i.MapToSerializationModel()),
-                Modifiers = metadata.Modifiers.MapToSerializationModel(),
-                ReturnType = metadata.ReturnType.MapToSerializationModel(),
+                GenericArguments = CollectionMapToObject(metadata.GenericArguments, i => i.MapToDatabaseModel()),
+                Modifiers = metadata.Modifiers.MapToDatabaseModel(),
+                ReturnType = metadata.ReturnType.MapToDatabaseModel(),
                 Extension = metadata.Extension,
-                Parameters = CollectionMapToObject(metadata.Parameters, i => i.MapToSerializationModel())
+                Parameters = CollectionMapToObject(metadata.Parameters, i => i.MapToDatabaseModel())
             };
         }
 
-        public static NamespaceDataBaseDTO MapToSerializationModel(this NamespaceBaseDTO metadata)
+        public static NamespaceDataBaseDTO MapToDatabaseModel(this NamespaceBaseDTO metadata)
         {
             if (metadata == null)
                 return null;
@@ -48,11 +48,11 @@ namespace Database.Mapper
             return new NamespaceDataBaseDTO
             {
                 NamespaceName = metadata.NamespaceName,
-                Types = CollectionMapToObject(metadata.Types, i => i.MapToSerializationModel())
+                Types = CollectionMapToObject(metadata.Types, i => i.MapToDatabaseModel())
             };
         }
 
-        public static ParameterDataBaseDTO MapToSerializationModel(this ParameterBaseDTO metadata)
+        public static ParameterDataBaseDTO MapToDatabaseModel(this ParameterBaseDTO metadata)
         {
             if (metadata == null)
                 return null;
@@ -60,11 +60,11 @@ namespace Database.Mapper
             return new ParameterDataBaseDTO
             {
                 Name = metadata.Name,
-                TypeMetadata = metadata.TypeMetadata.MapToSerializationModel()
+                TypeMetadata = metadata.TypeMetadata.MapToDatabaseModel()
             };
         }
 
-        public static PropertyDataBaseDTO MapToSerializationModel(this PropertyBaseDTO metadata)
+        public static PropertyDataBaseDTO MapToDatabaseModel(this PropertyBaseDTO metadata)
         {
             if (metadata == null)
                 return null;
@@ -72,11 +72,11 @@ namespace Database.Mapper
             return new PropertyDataBaseDTO
             {
                 Name = metadata.Name,
-                TypeMetadata = metadata.TypeMetadata.MapToSerializationModel()
+                TypeMetadata = metadata.TypeMetadata.MapToDatabaseModel()
             };
         }
 
-        public static TypeDataBaseDTO MapToSerializationModel(this TypeBaseDTO metadata)
+        public static TypeDataBaseDTO MapToDatabaseModel(this TypeBaseDTO metadata)
         {
             if (metadata == null)
                 return null;
@@ -84,17 +84,17 @@ namespace Database.Mapper
             {
                 TypeName = metadata.TypeName,
                 NamespaceName = metadata.NamespaceName,
-                BaseType = metadata.BaseType.MapToSerializationModel(),
-                GenericArguments = CollectionMapToObject(metadata.GenericArguments, i => i.MapToSerializationModel()),
-                Modifiers = metadata.Modifiers.MapToSerializationModel(),
-                TypeKind1 = metadata.TypeKind1.MapToSerializationModel(),
-                ImplementedInterfaces = CollectionMapToObject(metadata.ImplementedInterfaces, i => i.MapToSerializationModel()),
-                NestedTypes = CollectionMapToObject(metadata.NestedTypes, i => i.MapToSerializationModel()),
-                Properties = CollectionMapToObject(metadata.Properties, i => i.MapToSerializationModel()),
-                DeclaringType = metadata.DeclaringType.MapToSerializationModel(),
-                Methods = CollectionMapToObject(metadata.Methods, i => i.MapToSerializationModel()),
-                Constructors = CollectionMapToObject(metadata.Constructors, i => i.MapToSerializationModel()),
-                Fields = CollectionMapToObject(metadata.Fields, i => i.MapToSerializationModel())
+                BaseType = metadata.BaseType.MapToDatabaseModel(),
+                GenericArguments = CollectionMapToObject(metadata.GenericArguments, i => i.MapToDatabaseModel()),
+                Modifiers = metadata.Modifiers.MapToDatabaseModel(),
+                TypeKind1 = metadata.TypeKind1.MapToDatabaseModel(),
+                ImplementedInterfaces = CollectionMapToObject(metadata.ImplementedInterfaces, i => i.MapToDatabaseModel()),
+                NestedTypes = CollectionMapToObject(metadata.NestedTypes, i => i.MapToDatabaseModel()),
+                Properties = CollectionMapToObject(metadata.Properties, i => i.MapToDatabaseModel()),
+                DeclaringType = metadata.DeclaringType.MapToDatabaseModel(),
+                Methods = CollectionMapToObject(metadata.Methods, i => i.MapToDatabaseModel()),
+                Constructors = CollectionMapToObject(metadata.Constructors, i => i.MapToDatabaseModel()),
+                Fields = CollectionMapToObject(metadata.Fields, i => i.MapToDatabaseModel())
 
             };
         }
@@ -106,7 +106,7 @@ namespace Database.Mapper
             return metadata.Select(func);
         }
         #region Enums
-        public static AccessLevelDataBaseDTO MapToSerializationModel(this AccessLevelBaseDTO enumType)
+        public static AccessLevelDataBaseDTO MapToDatabaseModel(this AccessLevelBaseDTO enumType)
         {
             switch (enumType)
             {
@@ -122,7 +122,7 @@ namespace Database.Mapper
             throw new Exception();
         }
 
-        public static SealedEnumDataBaseDTO MapToSerializationModel(this SealedEnumBaseDTO enumType)
+        public static SealedEnumDataBaseDTO MapToDatabaseModel(this SealedEnumBaseDTO enumType)
         {
             switch (enumType)
             {
@@ -134,7 +134,7 @@ namespace Database.Mapper
             throw new Exception();
         }
 
-        public static AbstractEnumDataBaseDTO MapToSerializationModel(this AbstractEnumBaseDTO enumType)
+        public static AbstractEnumDataBaseDTO MapToDatabaseModel(this AbstractEnumBaseDTO enumType)
         {
             switch (enumType)
             {
@@ -146,7 +146,7 @@ namespace Database.Mapper
             throw new Exception();
         }
 
-        public static StaticEnumDataBaseDTO MapToSerializationModel(this StaticEnumBaseDTO enumType)
+        public static StaticEnumDataBaseDTO MapToDatabaseModel(this StaticEnumBaseDTO enumType)
         {
             switch (enumType)
             {
@@ -158,7 +158,7 @@ namespace Database.Mapper
             throw new Exception();
         }
 
-        public static VirtualEnumDataBaseDTO MapToSerializationModel(this VirtualEnumBaseDTO enumType)
+        public static VirtualEnumDataBaseDTO MapToDatabaseModel(this VirtualEnumBaseDTO enumType)
         {
             switch (enumType)
             {
@@ -170,7 +170,7 @@ namespace Database.Mapper
             throw new Exception();
         }
 
-        public static TypeKindDataBaseDTO MapToSerializationModel(this TypeKindBaseDTO typeKind)
+        public static TypeKindDataBaseDTO MapToDatabaseModel(this TypeKindBaseDTO typeKind)
         {
             switch (typeKind)
             {
@@ -186,24 +186,24 @@ namespace Database.Mapper
             throw new Exception();
         }
 
-        public static Tuple<AccessLevelDataBaseDTO, SealedEnumDataBaseDTO, AbstractEnumDataBaseDTO> MapToSerializationModel(this Tuple<AccessLevelBaseDTO, SealedEnumBaseDTO, AbstractEnumBaseDTO> tuple)
+        public static Tuple<AccessLevelDataBaseDTO, SealedEnumDataBaseDTO, AbstractEnumDataBaseDTO> MapToDatabaseModel(this Tuple<AccessLevelBaseDTO, SealedEnumBaseDTO, AbstractEnumBaseDTO> tuple)
         {
             if (tuple == null)
                 return null;
-            AccessLevelDataBaseDTO accessLevelBase = tuple.Item1.MapToSerializationModel();
-            SealedEnumDataBaseDTO sealedEnumBase = tuple.Item2.MapToSerializationModel();
-            AbstractEnumDataBaseDTO abstractEnumBase = tuple.Item3.MapToSerializationModel();
+            AccessLevelDataBaseDTO accessLevelBase = tuple.Item1.MapToDatabaseModel();
+            SealedEnumDataBaseDTO sealedEnumBase = tuple.Item2.MapToDatabaseModel();
+            AbstractEnumDataBaseDTO abstractEnumBase = tuple.Item3.MapToDatabaseModel();
             return new Tuple<AccessLevelDataBaseDTO, SealedEnumDataBaseDTO, AbstractEnumDataBaseDTO>(accessLevelBase, sealedEnumBase, abstractEnumBase);
         }
 
-        public static Tuple<AccessLevelDataBaseDTO, AbstractEnumDataBaseDTO, StaticEnumDataBaseDTO, VirtualEnumDataBaseDTO> MapToSerializationModel(this Tuple<AccessLevelBaseDTO, AbstractEnumBaseDTO, StaticEnumBaseDTO, VirtualEnumBaseDTO> tuple)
+        public static Tuple<AccessLevelDataBaseDTO, AbstractEnumDataBaseDTO, StaticEnumDataBaseDTO, VirtualEnumDataBaseDTO> MapToDatabaseModel(this Tuple<AccessLevelBaseDTO, AbstractEnumBaseDTO, StaticEnumBaseDTO, VirtualEnumBaseDTO> tuple)
         {
             if (tuple == null)
                 return null;
-            AccessLevelDataBaseDTO accessLevelBase = tuple.Item1.MapToSerializationModel();
-            AbstractEnumDataBaseDTO abstractEnumBase = tuple.Item2.MapToSerializationModel();
-            StaticEnumDataBaseDTO staticEnumBase = tuple.Item3.MapToSerializationModel();
-            VirtualEnumDataBaseDTO virtualEnumBase = tuple.Item4.MapToSerializationModel();
+            AccessLevelDataBaseDTO accessLevelBase = tuple.Item1.MapToDatabaseModel();
+            AbstractEnumDataBaseDTO abstractEnumBase = tuple.Item2.MapToDatabaseModel();
+            StaticEnumDataBaseDTO staticEnumBase = tuple.Item3.MapToDatabaseModel();
+            VirtualEnumDataBaseDTO virtualEnumBase = tuple.Item4.MapToDatabaseModel();
             return new Tuple<AccessLevelDataBaseDTO, AbstractEnumDataBaseDTO, StaticEnumDataBaseDTO, VirtualEnumDataBaseDTO>(accessLevelBase, abstractEnumBase, staticEnumBase, virtualEnumBase);
         }
         #endregion

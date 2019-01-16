@@ -9,7 +9,7 @@ using System.Reflection;
 using Logic.ReflectionMetadata;
 using Logic.Mappers;
 using Model.DTO;
-
+using Database.Mapper;
 namespace RunDB
 {
     class Program
@@ -23,9 +23,11 @@ namespace RunDB
 
             // Get the currently executing assembly.
             Assembly currentAssem = Assembly.GetExecutingAssembly();
+            AssemblyMetadata assemblyMeta = new AssemblyMetadata(currentAssem);
+
             using (var db = new MainContext())
             {
-                var blog = new AssemblyDataBaseDTO(); //ZLE
+                var blog = assemblyMeta.ToBaseDTO().MapToDatabaseModel(); //ZLE
                 db.assemblies.Add(blog);
                 db.SaveChanges();
 
