@@ -5,6 +5,6 @@ namespace Database
 {
     public class MainContext : DbContext
     {
-        public DbSet<AssemblyDataBaseDTO> assemblies { get; set; }
+        public virtual DbSet<AssemblyDataBaseDTO> assemblies { get; set; }
     }
 }

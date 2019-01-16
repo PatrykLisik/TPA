@@ -22,12 +22,13 @@ namespace RunDB
             Console.WriteLine("   {0}\n", assemFromType.FullName);
 
             // Get the currently executing assembly.
-            Assembly currentAssem = Assembly.LoadFrom(@"C:\Users\Bartosz\Dysk Google\Studia\Technologie Programowania Adaptacyjnego\TPA_repo\UnitTest\ExampleDLL.dll");
+            //Assembly currentAssem = Assembly.LoadFrom(@"C:\Users\Bartosz\Dysk Google\Studia\Technologie Programowania Adaptacyjnego\TPA_repo\UnitTest\ExampleDLL.dll");
+            Assembly currentAssem = Assembly.LoadFrom(@"..\..\..\..\TPA_repo\UnitTest\ExampleDLL.dll");
             AssemblyMetadata assemblyMeta = new AssemblyMetadata(currentAssem);
 
-            using (var db = new MainContext())
+            using (MainContext db = new MainContext())
             {
-                var blog = assemblyMeta.ToBaseDTO().MapToDatabaseModel(); //ZLE
+                Model.DTO.AssemblyDataBaseDTO blog = assemblyMeta.ToBaseDTO().MapToDatabaseModel(); //ZLE
                 db.assemblies.Add(blog);
                 db.SaveChanges();
 
