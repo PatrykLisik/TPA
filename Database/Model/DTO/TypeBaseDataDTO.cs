@@ -7,7 +7,7 @@ namespace Model.DTO
     public class TypeDataBaseDTO
     {
 
-        public enum TypeKindBaseDTO
+        public enum TypeKindDataBaseDTO
         {
             EnumType, StructType, InterfaceType, ClassType
         }
@@ -17,7 +17,7 @@ namespace Model.DTO
         public TypeDataBaseDTO BaseType{ get; set; }
         public IEnumerable<TypeDataBaseDTO> GenericArguments{ get; set; }
         public Tuple<AccessLevelDataBaseDTO, SealedEnumDataBaseDTO, AbstractEnumDataBaseDTO> Modifiers{ get; set; }
-        public TypeKindBaseDTO TypeKind1{ get; set; }
+        public TypeKindDataBaseDTO TypeKind1{ get; set; }
         public IEnumerable<TypeDataBaseDTO> ImplementedInterfaces{ get; set; }
         public IEnumerable<TypeDataBaseDTO> NestedTypes{ get; set; }
         public IEnumerable<PropertyDataBaseDTO> Properties{ get; set; }
