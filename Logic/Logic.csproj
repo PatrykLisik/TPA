@@ -69,6 +69,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DTOBase\DTOBase.csproj">
+      <Project>{E0ED691E-3FA2-439F-B909-29E7298BFD88}</Project>
+      <Name>DTOBase</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MEF\MEF.csproj">
       <Project>{7495C734-222E-4473-AEA8-86BAD47C1795}</Project>
       <Name>MEF</Name>

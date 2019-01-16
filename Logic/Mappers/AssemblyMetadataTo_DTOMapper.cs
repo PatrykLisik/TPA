@@ -1,99 +1,99 @@
 ﻿using Logic.ReflectionMetadata;
-using SerializationModel;
-using SerializationModel.DTO;
+using Model;
+using Model.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using static Logic.ReflectionMetadata.TypeMetadata;
-using static SerializationModel.DTO.Type_DTO;
+using static Model.DTO.TypeBaseDTO;
 
 namespace Logic.Mappers
 {
-    public static class AssemblyMetadataTo_DTOMapper
+    public static class AssemblyMetadataToBaseDTOMapper
     {
-        public static Assembly_DTO ToXML_DTO(this AssemblyMetadata metadata)
+        public static AssemblyBaseDTO ToBaseDTO(this AssemblyMetadata metadata)
         {
             if (metadata == null)
                 return null;
-            return new Assembly_DTO
+            return new AssemblyBaseDTO
             {
                 Name = metadata.Name,
-                Namespaces = CollectionToXMLDTO(metadata.Namespaces, i => i.ToXML_DTO())
+                Namespaces = CollectionToBaseDTO(metadata.Namespaces, i => i.ToBaseDTO())
             };
         }
 
-        public static Method_DTO ToXML_DTO(this MethodMetadata metadata)
+        public static MethodBaseDTO ToBaseDTO(this MethodMetadata metadata)
         {
             if (metadata == null)
                 return null;
-            return new Method_DTO
+            return new MethodBaseDTO
             {
                 Name = metadata.Name,
-                GenericArguments = CollectionToXMLDTO(metadata.GenericArguments, i => i.ToXML_DTO()),
-                Modifiers = metadata.Modifiers.ToXMLDTO(),
-                ReturnType = metadata.ReturnType.ToXML_DTO(),
+                GenericArguments = CollectionToBaseDTO(metadata.GenericArguments, i => i.ToBaseDTO()),
+                Modifiers = metadata.Modifiers.ToBaseDTO(),
+                ReturnType = metadata.ReturnType.ToBaseDTO(),
                 Extension = metadata.Extension,
-                Parameters = CollectionToXMLDTO(metadata.Parameters, i => i.ToXML_DTO())
+                Parameters = CollectionToBaseDTO(metadata.Parameters, i => i.ToBaseDTO())
             };
         }
 
-        public static Namespace_DTO ToXML_DTO(this NamespaceMetadata metadata)
+        public static NamespaceBaseDTO ToBaseDTO(this NamespaceMetadata metadata)
         {
             if (metadata == null)
                 return null;
-            return new Namespace_DTO
+            return new NamespaceBaseDTO
             {
                 NamespaceName = metadata.NamespaceName,
-                Types = CollectionToXMLDTO(metadata.Types, i => i.ToXML_DTO())
+                Types = CollectionToBaseDTO(metadata.Types, i => i.ToBaseDTO())
             };
         }
 
-        public static Parameter_DTO ToXML_DTO(this ParameterMetadata metadata)
+        public static ParameterBaseDTO ToBaseDTO(this ParameterMetadata metadata)
         {
             if (metadata == null)
                 return null;
-            return new Parameter_DTO
+            return new ParameterBaseDTO
             {
                 Name = metadata.Name,
-                TypeMetadata = metadata.TypeMetadata.ToXML_DTO()
+                TypeMetadata = metadata.TypeMetadata.ToBaseDTO()
             };
         }
 
-        public static Property_DTO ToXML_DTO(this PropertyMetadata metadata)
+        public static PropertyBaseDTO ToBaseDTO(this PropertyMetadata metadata)
         {
             if (metadata == null)
                 return null;
-            return new Property_DTO
+            return new PropertyBaseDTO
             {
                 Name = metadata.Name,
-                TypeMetadata = metadata.TypeMetadata.ToXML_DTO()
+                TypeMetadata = metadata.TypeMetadata.ToBaseDTO()
             };
         }
 
-        public static Type_DTO ToXML_DTO(this TypeMetadata metadata)
+        public static TypeBaseDTO ToBaseDTO(this TypeMetadata metadata)
         {
             if (metadata == null)
                 return null;
-            return new Type_DTO
+            return new TypeBaseDTO
             {
                 TypeName = metadata.TypeName,
                 NamespaceName = metadata.NamespaceName,
-                BaseType = metadata.BaseType.ToXML_DTO(),
-                GenericArguments = CollectionToXMLDTO(metadata.GenericArguments, i => i.ToXML_DTO()),
-                Modifiers = metadata.Modifiers.ToXMLDTO(),
-                TypeKind1 = metadata.TypeKind1.ToXMLDTO(),
-                ImplementedInterfaces = CollectionToXMLDTO(metadata.ImplementedInterfaces, i => i.ToXML_DTO()),
-                NestedTypes = CollectionToXMLDTO(metadata.NestedTypes, i => i.ToXML_DTO()),
-                Properties = CollectionToXMLDTO(metadata.Properties, i => i.ToXML_DTO()),
-                DeclaringType = metadata.DeclaringType.ToXML_DTO(),
-                Methods = CollectionToXMLDTO(metadata.Methods, i => i.ToXML_DTO()),
-                Constructors = CollectionToXMLDTO(metadata.Constructors, i => i.ToXML_DTO()),
-                Fields = CollectionToXMLDTO(metadata.Fields, i => i.ToXML_DTO())
+                BaseType = metadata.BaseType.ToBaseDTO(),
+                GenericArguments = CollectionToBaseDTO(metadata.GenericArguments, i => i.ToBaseDTO()),
+                Modifiers = metadata.Modifiers.ToBaseDTO(),
+                TypeKind1 = metadata.TypeKind1.ToBaseDTO(),
+                ImplementedInterfaces = CollectionToBaseDTO(metadata.ImplementedInterfaces, i => i.ToBaseDTO()),
+                NestedTypes = CollectionToBaseDTO(metadata.NestedTypes, i => i.ToBaseDTO()),
+                Properties = CollectionToBaseDTO(metadata.Properties, i => i.ToBaseDTO()),
+                DeclaringType = metadata.DeclaringType.ToBaseDTO(),
+                Methods = CollectionToBaseDTO(metadata.Methods, i => i.ToBaseDTO()),
+                Constructors = CollectionToBaseDTO(metadata.Constructors, i => i.ToBaseDTO()),
+                Fields = CollectionToBaseDTO(metadata.Fields, i => i.ToBaseDTO())
 
             };
         }
 
-        public static IEnumerable<DTO> CollectionToXMLDTO<Metada, DTO>(IEnumerable<Metada> metadata, Func<Metada, DTO> func)
+        public static IEnumerable<DTO> CollectionToBaseDTO<Metada, DTO>(IEnumerable<Metada> metadata, Func<Metada, DTO> func)
         {
             if (metadata == null)
                 return null;
@@ -102,105 +102,105 @@ namespace Logic.Mappers
         }
 
         #region Enums
-        public static AccessLevel_DTO ToXMLDTO(this AccessLevel enumType)
+        public static AccessLevelBaseDTO ToBaseDTO(this AccessLevel enumType)
         {
             switch (enumType)
             {
                 case AccessLevel.IsPrivate:
-                    return AccessLevel_DTO.IsPrivate;
+                    return AccessLevelBaseDTO.IsPrivate;
                 case AccessLevel.IsProtected:
-                    return AccessLevel_DTO.IsProtected;
+                    return AccessLevelBaseDTO.IsProtected;
                 case AccessLevel.IsProtectedInternal:
-                    return AccessLevel_DTO.IsProtectedInternal;
+                    return AccessLevelBaseDTO.IsProtectedInternal;
                 case AccessLevel.IsPublic:
-                    return AccessLevel_DTO.IsPublic;
+                    return AccessLevelBaseDTO.IsPublic;
             }
             throw new Exception();
         }
 
-        public static SealedEnum_DTO ToXMLDTO(this SealedEnum enumType)
+        public static SealedEnumBaseDTO ToBaseDTO(this SealedEnum enumType)
         {
             switch (enumType)
             {
                 case SealedEnum.NotSealed:
-                    return SealedEnum_DTO.NotSealed;
+                    return SealedEnumBaseDTO.NotSealed;
                 case SealedEnum.Sealed:
-                    return SealedEnum_DTO.Sealed;
+                    return SealedEnumBaseDTO.Sealed;
             }
             throw new Exception();
         }
 
-        public static AbstractEnum_DTO ToXMLDTO(this AbstractEnum enumType)
+        public static AbstractEnumBaseDTO ToBaseDTO(this AbstractEnum enumType)
         {
             switch (enumType)
             {
                 case AbstractEnum.Abstract:
-                    return AbstractEnum_DTO.Abstract;
+                    return AbstractEnumBaseDTO.Abstract;
                 case AbstractEnum.NotAbstract:
-                    return AbstractEnum_DTO.NotAbstract;
+                    return AbstractEnumBaseDTO.NotAbstract;
             }
             throw new Exception();
         }
 
-        public static StaticEnum_DTO ToXMLDTO(this StaticEnum enumType)
+        public static StaticEnumBaseDTO ToBaseDTO(this StaticEnum enumType)
         {
             switch (enumType)
             {
                 case StaticEnum.NotStatic:
-                    return StaticEnum_DTO.NotStatic;
+                    return StaticEnumBaseDTO.NotStatic;
                 case StaticEnum.Static:
-                    return StaticEnum_DTO.Static;
+                    return StaticEnumBaseDTO.Static;
             }
             throw new Exception();
         }
 
-        public static VirtualEnum_DTO ToXMLDTO(this VirtualEnum enumType)
+        public static VirtualEnumBaseDTO ToBaseDTO(this VirtualEnum enumType)
         {
             switch (enumType)
             {
                 case VirtualEnum.NotVirtual:
-                    return VirtualEnum_DTO.NotVirtual;
+                    return VirtualEnumBaseDTO.NotVirtual;
                 case VirtualEnum.Virtual:
-                    return VirtualEnum_DTO.Virtual;
+                    return VirtualEnumBaseDTO.Virtual;
             }
             throw new Exception();
         }
 
-        public static TypeKind_DTO ToXMLDTO(this TypeKind typeKind)
+        public static TypeKindBaseDTO ToBaseDTO(this TypeKind typeKind)
         {
             switch (typeKind)
             {
                 case TypeKind.ClassType:
-                    return TypeKind_DTO.ClassType;
+                    return TypeKindBaseDTO.ClassType;
                 case TypeKind.EnumType:
-                    return TypeKind_DTO.EnumType;
+                    return TypeKindBaseDTO.EnumType;
                 case TypeKind.InterfaceType:
-                    return TypeKind_DTO.InterfaceType;
+                    return TypeKindBaseDTO.InterfaceType;
                 case TypeKind.StructType:
-                    return TypeKind_DTO.StructType;
+                    return TypeKindBaseDTO.StructType;
             }
             throw new Exception();
         }
 
-        public static Tuple<AccessLevel_DTO, SealedEnum_DTO, AbstractEnum_DTO> ToXMLDTO(this Tuple<AccessLevel, SealedEnum, AbstractEnum> tuple)
+        public static Tuple<AccessLevelBaseDTO, SealedEnumBaseDTO, AbstractEnumBaseDTO> ToBaseDTO(this Tuple<AccessLevel, SealedEnum, AbstractEnum> tuple)
         {
             if (tuple == null)
                 return null;
-            AccessLevel_DTO accessLevel_ = tuple.Item1.ToXMLDTO();
-            SealedEnum_DTO sealedEnum_ = tuple.Item2.ToXMLDTO();
-            AbstractEnum_DTO abstractEnum_ = tuple.Item3.ToXMLDTO();
-            return new Tuple<AccessLevel_DTO, SealedEnum_DTO, AbstractEnum_DTO>(accessLevel_, sealedEnum_, abstractEnum_);
+            AccessLevelBaseDTO accessLevelBase = tuple.Item1.ToBaseDTO();
+            SealedEnumBaseDTO sealedEnumBase = tuple.Item2.ToBaseDTO();
+            AbstractEnumBaseDTO abstractEnumBase = tuple.Item3.ToBaseDTO();
+            return new Tuple<AccessLevelBaseDTO, SealedEnumBaseDTO, AbstractEnumBaseDTO>(accessLevelBase, sealedEnumBase, abstractEnumBase);
         }
 
-        public static Tuple<AccessLevel_DTO, AbstractEnum_DTO, StaticEnum_DTO, VirtualEnum_DTO> ToXMLDTO(this Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum> tuple)
+        public static Tuple<AccessLevelBaseDTO, AbstractEnumBaseDTO, StaticEnumBaseDTO, VirtualEnumBaseDTO> ToBaseDTO(this Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum> tuple)
         {
             if (tuple == null)
                 return null;
-            AccessLevel_DTO accessLevel_ = tuple.Item1.ToXMLDTO();
-            AbstractEnum_DTO abstractEnum_ = tuple.Item2.ToXMLDTO();
-            StaticEnum_DTO staticEnum_ = tuple.Item3.ToXMLDTO();
-            VirtualEnum_DTO virtualEnum_ = tuple.Item4.ToXMLDTO();
-            return new Tuple<AccessLevel_DTO, AbstractEnum_DTO, StaticEnum_DTO, VirtualEnum_DTO>(accessLevel_, abstractEnum_, staticEnum_, virtualEnum_);
+            AccessLevelBaseDTO accessLevelBase = tuple.Item1.ToBaseDTO();
+            AbstractEnumBaseDTO abstractEnumBase = tuple.Item2.ToBaseDTO();
+            StaticEnumBaseDTO staticEnumBase = tuple.Item3.ToBaseDTO();
+            VirtualEnumBaseDTO virtualEnumBase = tuple.Item4.ToBaseDTO();
+            return new Tuple<AccessLevelBaseDTO, AbstractEnumBaseDTO, StaticEnumBaseDTO, VirtualEnumBaseDTO>(accessLevelBase, abstractEnumBase, staticEnumBase, virtualEnumBase);
         }
         #endregion
     }

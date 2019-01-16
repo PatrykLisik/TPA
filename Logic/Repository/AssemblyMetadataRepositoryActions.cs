@@ -1,6 +1,6 @@
 using Logic.ReflectionMetadata;
 using MEF;
-using SerializationModel.DTO;
+using Logic.Mappers;
 using System.ComponentModel.Composition;
 
 namespace Repository
@@ -17,14 +17,14 @@ namespace Repository
         }
 
 
-        public Assembly_DTO LoadFromRepository(string file)
+        public AssemblyMetadata LoadFromRepository(string file)
         {
-            return repository.LoadFromRepository(file);
+            return repository.LoadFromRepository(file).MapToObject();
         }
 
-        public void SaveToRepository(Assembly_DTO assemblyMetsdata, string file)
+        public void SaveToRepository(AssemblyMetadata assemblyMetadata, string file)
         {
-            repository.SaveToRepository(assemblyMetsdata, file);
+            repository.SaveToRepository(assemblyMetadata.ToBaseDTO(), file);
         }
     }
 }
