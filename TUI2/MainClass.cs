@@ -8,7 +8,7 @@ namespace TUI2
 
         public static async Task MainAsync(string[] args)
         {
-            TextView view = new TextView(new ConsolePathGeter());
+            TextView view = new TextView();
             await view.RunAsync();
         }
 

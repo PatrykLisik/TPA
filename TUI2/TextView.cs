@@ -14,23 +14,23 @@ namespace TUI2
     public class TextView
     {
         [ImportMany]
-        private static Importer<ITracer> tracer;
+        private Importer<ITracer> tracer;
         private string pathToDll;
         static TreeViewItem rootItem;
         private static int indentLevel = 0;
-        private IFilePathGeter pathGeter;
+        [ImportMany]
+        private Importer<IFilePathGeter> pathGeter;
 
-        public TextView(IFilePathGeter pathGeter)
+        public TextView()
         {
-            this.pathGeter = pathGeter;
             new Bootstrapper().ComposeApplication(this);
         }
 
 
         public async Task RunAsync()
         {
-            //tracer.GetImport().Trace(TraceEventType.Information, "Program started");
-            pathToDll = pathGeter.GetPath();
+            tracer.GetImport().Trace(TraceEventType.Information, "Program started");
+            pathToDll = pathGeter.GetImport().GetPath();
             await LoadRootItem();
             while (true)
             {
@@ -51,7 +51,7 @@ namespace TUI2
             rootItem = await ViewModelSaverLoader.LoadRootItemFromDLLAsync(pathToDll);
         }
 
-        private static int GetIntFromUser()
+        private int GetIntFromUser()
         {
             while (true)
             {
@@ -66,7 +66,7 @@ namespace TUI2
             }
         }
 
-        private static void ShowOptions()
+        private void ShowOptions()
         {
             int start = 1;
             //tracer.GetImport().Trace(TraceEventType.Start, "listing start");
@@ -82,7 +82,7 @@ namespace TUI2
         private async Task SaveAsync()
         {
             Console.WriteLine("\nEnter file name:");
-            string line = pathGeter.GetPath(".xml");
+            string line = pathGeter.GetImport().GetPath(".xml");
             if(line != "")
             {
                 await ViewModelSaverLoader.SaveDLLToRepositoryAsync(line, pathToDll);

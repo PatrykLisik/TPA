@@ -12,7 +12,16 @@ namespace Tracer
     [Export(typeof(ITracer))]
     public class FileTracer : ITracer
     {
+        public FileTracer()
+        {
+            Init("myTracerLog.log");
+        }
         public FileTracer(string logPath = "myTracerLog.log")
+        {
+            Init(logPath);
+        }
+
+        private static void Init(string logPath)
         {
             if (File.Exists(logPath))
             {
