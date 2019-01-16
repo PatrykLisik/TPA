@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MEF;
+using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel.Composition;
 using System.Diagnostics;
 using System.Linq;
 using Tracer;
@@ -10,7 +12,8 @@ namespace TUI2
 {
     public class TextView
     {
-        private static TracerFile tracer = new TracerFile();
+        [ImportMany]
+        private static Importer<ITracer> tracer;
         private string pathToDll;
         static TreeViewItem rootItem;
         private static int indentLevel = 0;
@@ -19,12 +22,13 @@ namespace TUI2
         public TextView(IFilePathGeter pathGeter)
         {
             this.pathGeter = pathGeter;
+            new Bootstrapper().ComposeApplication(this);
         }
 
 
         public void Run()
         {
-            tracer.Tracer(TraceEventType.Information, "Program started");
+            tracer.GetImport().Trace(TraceEventType.Information, "Program started");
             pathToDll = pathGeter.GetPath();
             LoadRootItem();
             while (true)
@@ -57,20 +61,20 @@ namespace TUI2
                 if (number == -1) return -1;
                 if (!(number == 0) && number - 1 < rootItem.Children.Count())
                     return number - 1;
-                tracer.Tracer(TraceEventType.Warning, "Wrong number input from user!");
+                tracer.GetImport().Trace(TraceEventType.Warning, "Wrong number input from user!");
             }
         }
 
         private static void ShowOptions()
         {
             int start = 1;
-            tracer.Tracer(TraceEventType.Start, "listing start");
+            tracer.GetImport().Trace(TraceEventType.Start, "listing start");
             foreach (TreeViewItem tiv in rootItem.Children)
             {
                 Console.WriteLine(new string(' ', indentLevel * 4) + start + "." + tiv.Name);
                 start++;
             }
-            tracer.Tracer(TraceEventType.Stop, "listing stop");
+            tracer.GetImport().Trace(TraceEventType.Stop, "listing stop");
             indentLevel++;
         }
 

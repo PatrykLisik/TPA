@@ -6,7 +6,8 @@ namespace Model.DTO
     public class AssemblyDataBaseDTO
     {
         [Key]
+        public int AssemblyId { get; set; }
         public string Name { get; set; }
-        public List<NamespaceDataBaseDTO> Namespaces { get; set; }
+        public ICollection<NamespaceDataBaseDTO> Namespaces { get; set; }
     }
 }

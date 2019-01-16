@@ -74,7 +74,7 @@ namespace Logic.Mappers
         {
             if (metadata == null)
                 return null;
-            return new TypeBaseDTO
+            return new TypeBaseDTO ////NAPRAWIC REKURENCJE DLA KAZDEGO POLA
             {
                 TypeName = metadata.TypeName,
                 NamespaceName = metadata.NamespaceName,
@@ -84,12 +84,11 @@ namespace Logic.Mappers
                 TypeKind1 = metadata.TypeKind1.ToBaseDTO(),
                 ImplementedInterfaces = CollectionToBaseDTO(metadata.ImplementedInterfaces, i => i.ToBaseDTO()),
                 NestedTypes = CollectionToBaseDTO(metadata.NestedTypes, i => i.ToBaseDTO()),
-                Properties = CollectionToBaseDTO(metadata.Properties, i => i.ToBaseDTO()),
+                //Properties = CollectionToBaseDTO(metadata.Properties, i => i.ToBaseDTO()),
                 DeclaringType = metadata.DeclaringType.ToBaseDTO(),
-                Methods = CollectionToBaseDTO(metadata.Methods, i => i.ToBaseDTO()),
+                //Methods = CollectionToBaseDTO(metadata.Methods, i => i.ToBaseDTO()),
                 Constructors = CollectionToBaseDTO(metadata.Constructors, i => i.ToBaseDTO()),
-                Fields = CollectionToBaseDTO(metadata.Fields, i => i.ToBaseDTO())
-
+                //Fields = CollectionToBaseDTO(metadata.Fields, i => i.ToBaseDTO())
             };
         }
 
