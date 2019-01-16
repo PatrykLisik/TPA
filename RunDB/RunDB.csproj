@@ -4,16 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CAE516C7-5AD6-4470-8656-A41C9005769E}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Database</RootNamespace>
-    <AssemblyName>Database</AssemblyName>
+    <ProjectGuid>{0CB2307F-B19D-45FC-A599-40B866733B4D}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>RunDB</RootNamespace>
+    <AssemblyName>RunDB</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -37,9 +39,13 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Scaffolding.EntityFramework.12.0, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Data.Entity.Design.Extensibility, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Entity.Design" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,18 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainContext.cs" />
-    <Compile Include="Model\AbstractEnumDataBaseDTO.cs" />
-    <Compile Include="Model\AccessLevelDataBaseDTO.cs" />
-    <Compile Include="Model\DTO\AssemblyDataBaseDTO.cs" />
-    <Compile Include="Model\DTO\MethodDataBaseDTO.cs" />
-    <Compile Include="Model\DTO\NamespaceDataBaseDTO.cs" />
-    <Compile Include="Model\DTO\ParameterDataBaseDTO.cs" />
-    <Compile Include="Model\DTO\PropertyDataBaseDTO.cs" />
-    <Compile Include="Model\DTO\TypeBaseDataDTO.cs" />
-    <Compile Include="Model\SealedEnumDataBaseDTO.cs" />
-    <Compile Include="Model\StaticEnumDataBaseDTO.cs" />
-    <Compile Include="Model\VirtualEnumDataBaseDTO.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -67,9 +62,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Database\Database.csproj">
+      <Project>{CAE516C7-5AD6-4470-8656-A41C9005769E}</Project>
+      <Name>Database</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DTOBase\DTOBase.csproj">
-      <Project>{E0ED691E-3FA2-439F-B909-29E7298BFD88}</Project>
+      <Project>{e0ed691e-3fa2-439f-b909-29e7298bfd88}</Project>
       <Name>DTOBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Logic\Logic.csproj">
+      <Project>{28254930-A865-40F0-ACDE-C988C2A35C85}</Project>
+      <Name>Logic</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

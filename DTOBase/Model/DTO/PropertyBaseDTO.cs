@@ -2,7 +2,7 @@ namespace Model.DTO
 {
     public class PropertyBaseDTO
     {
-        public string Name;
-        public TypeBaseDTO TypeMetadata;
+        public string Name{ get; set; }
+        public TypeBaseDTO TypeMetadata{ get; set; }
     }
 }

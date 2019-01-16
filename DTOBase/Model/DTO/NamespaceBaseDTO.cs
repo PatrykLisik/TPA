@@ -4,7 +4,7 @@ namespace Model.DTO
 {
     public class NamespaceBaseDTO
     {
-        public string NamespaceName;
-        public IEnumerable<TypeBaseDTO> Types;
+        public string NamespaceName { get; set; }
+        public IEnumerable<TypeBaseDTO> Types { get; set; }
     }
 }

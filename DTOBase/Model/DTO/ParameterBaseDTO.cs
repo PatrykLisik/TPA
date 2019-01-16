@@ -1,10 +1,8 @@
-using System.Runtime.Serialization;
-
 namespace Model.DTO
 {
     public class ParameterBaseDTO
     {
-        public string Name;
-        public TypeBaseDTO TypeMetadata;
+        public string Name{ get; set; }
+        public TypeBaseDTO TypeMetadata{ get; set; }
     }
 }
