@@ -1,9 +1,7 @@
 ﻿using Model.DTO;
-using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Database
@@ -32,15 +30,6 @@ namespace Database
                         select b;
 
             return query.ToList();
-        }
-
-        public async Task<List<AssemblyDataBaseDTO>> GetAllBlogsAsync()
-        {
-            var query = from b in _context.assemblies
-                        orderby b.Name
-                        select b;
-
-            return await query.ToListAsync();
         }
     }
 }
