@@ -6,10 +6,11 @@ using System;
 using System.ComponentModel.Composition;
 
 namespace Repository
-{   [Export(typeof(IRepositoryActions))]
+{
+    [Export(typeof(IRepositoryActions))]
     public class XML_Repository : IRepositoryActions
     {
-        static readonly Lazy<XMLSerializer<Assembly_DTO>> XMLSerializer = new Lazy<XMLSerializer<SerializationModel.DTO.Assembly_DTO>>();
+        static readonly Lazy<XMLSerializer<Assembly_DTO>> XMLSerializer = new Lazy<XMLSerializer<Assembly_DTO>>();
 
 
         public void SaveToRepository(AssemblyBaseDTO data, string fileName)
@@ -19,7 +20,8 @@ namespace Repository
 
         public AssemblyBaseDTO LoadFromRepository(string fileName)
         {
-            return XMLSerializer.Value.LoadFromRepository(fileName);
+            //return XMLSerializer.Value.LoadFromRepository(fileName);
+            return null;
         }
     }
 }

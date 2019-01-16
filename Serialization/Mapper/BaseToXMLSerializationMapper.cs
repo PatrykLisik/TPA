@@ -10,8 +10,9 @@ using static SerializationModel.DTO.Type_DTO;
 
 namespace Serialization.Mapper
 {
-    public static class XMLSerializationToBaseMapper
+    public static class BaseToXMLSerializationMapper
     {
+        static Dictionary<string, Type_DTO> KnowTypes = new Dictionary<string, Type_DTO>();
         public static Assembly_DTO MapToSerializationModel(this AssemblyBaseDTO metadata)
         {
             if (metadata == null)
@@ -80,8 +81,11 @@ namespace Serialization.Mapper
         {
             if (metadata == null)
                 return null;
-
-            return new Type_DTO
+            if (KnowTypes.ContainsKey(metadata.TypeName))
+            {
+                return KnowTypes[metadata.TypeName];
+            }
+            Type_DTO type_ = new Type_DTO
             {
                 TypeName = metadata.TypeName,
                 NamespaceName = metadata.NamespaceName,
@@ -98,6 +102,8 @@ namespace Serialization.Mapper
                 Fields = CollectionMapToObject(metadata.Fields, i => i.MapToSerializationModel())
 
             };
+            KnowTypes.Add(metadata.TypeName, type_);
+            return type_;
         }
         public static IEnumerable<DTO> CollectionMapToObject<Metada, DTO>(IEnumerable<Metada> metadata, Func<Metada, DTO> func)
         {
