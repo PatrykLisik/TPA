@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using Tracer;
 using ViewModel;
 using ViewModel.TreeViewItems;
@@ -26,11 +27,11 @@ namespace TUI2
         }
 
 
-        public void Run()
+        public async Task RunAsync()
         {
-            tracer.GetImport().Trace(TraceEventType.Information, "Program started");
+            //tracer.GetImport().Trace(TraceEventType.Information, "Program started");
             pathToDll = pathGeter.GetPath();
-            LoadRootItem();
+            await LoadRootItem();
             while (true)
             {
                 rootItem.IsExpanded = true;
@@ -38,14 +39,14 @@ namespace TUI2
                 int Choice = GetIntFromUser();
                 if (Choice == -1)
                 {
-                    SaveAsync();
+                    await SaveAsync();
                     continue;
                 }
                 rootItem = rootItem.Children.ToList().ElementAt(Choice);
             }
         }
 
-        private async void LoadRootItem()
+        private async Task LoadRootItem()
         {
             rootItem = await ViewModelSaverLoader.LoadRootItemFromDLLAsync(pathToDll);
         }
@@ -68,17 +69,17 @@ namespace TUI2
         private static void ShowOptions()
         {
             int start = 1;
-            tracer.GetImport().Trace(TraceEventType.Start, "listing start");
+            //tracer.GetImport().Trace(TraceEventType.Start, "listing start");
             foreach (TreeViewItem tiv in rootItem.Children)
             {
                 Console.WriteLine(new string(' ', indentLevel * 4) + start + "." + tiv.Name);
                 start++;
             }
-            tracer.GetImport().Trace(TraceEventType.Stop, "listing stop");
+            //tracer.GetImport().Trace(TraceEventType.Stop, "listing stop");
             indentLevel++;
         }
 
-        private async void SaveAsync()
+        private async Task SaveAsync()
         {
             Console.WriteLine("\nEnter file name:");
             string line = pathGeter.GetPath(".xml");
