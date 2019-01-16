@@ -1,6 +1,6 @@
-using Logic.Mappers;
-using Logic.ReflectionMetadata;
+using Model.DTO;
 using Serialization;
+using Serialization.Mapper;
 using SerializationModel.DTO;
 using System;
 using System.ComponentModel.Composition;
@@ -11,14 +11,15 @@ namespace Repository
     {
         static readonly Lazy<XMLSerializer<Assembly_DTO>> XMLSerializer = new Lazy<XMLSerializer<SerializationModel.DTO.Assembly_DTO>>();
 
-        public Assembly_DTO LoadFromRepository(string fileName)
+
+        public void SaveToRepository(AssemblyBaseDTO data, string fileName)
         {
-            return XMLSerializer.Value.LoadFromRepository(fileName);
+            XMLSerializer.Value.SaveToRepository(data.MapToSerializationModel(), fileName);
         }
 
-        public void SaveToRepository(Assembly_DTO data, string fileName)
+        public AssemblyBaseDTO LoadFromRepository(string fileName)
         {
-            XMLSerializer.Value.SaveToRepository(data, fileName);
+            return XMLSerializer.Value.LoadFromRepository(fileName);
         }
     }
 }
