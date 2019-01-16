@@ -56,6 +56,7 @@
     <Compile Include="SerializationModel\StaticEnum_DTO.cs" />
     <Compile Include="SerializationModel\VirtualEnum_DTO.cs" />
     <Compile Include="XMLSerializer.cs" />
+    <Compile Include="XML_Repository.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
