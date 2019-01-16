@@ -23,7 +23,7 @@ namespace Logic.ReflectionMetadata
             BaseType = EmitExtends(type.BaseType);
             Properties = PropertyMetadata.EmitProperties(type.GetProperties());
             TypeKind1 = GetTypeKind(type);
-            Attributes = type.GetCustomAttributes(false).Cast<Attribute>();
+            //Attributes = type.GetCustomAttributes(false).Cast<Attribute>();
             Fields = EmitFields(type);
         }
         private TypeMetadata(string typeName, string namespaceName)

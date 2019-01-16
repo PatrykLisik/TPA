@@ -98,12 +98,12 @@ namespace Database.Mapper
 
             };
         }
-        public static IEnumerable<DTO> CollectionMapToObject<Metada, DTO>(IEnumerable<Metada> metadata, Func<Metada, DTO> func)
+        public static List<DTO> CollectionMapToObject<Metada, DTO>(IEnumerable<Metada> metadata, Func<Metada, DTO> func)
         {
             if (metadata == null)
                 return null;
 
-            return metadata.Select(func);
+            return metadata.Select(func).ToList();
         }
         #region Enums
         public static AccessLevelDataBaseDTO MapToDatabaseModel(this AccessLevelBaseDTO enumType)

@@ -22,7 +22,7 @@ namespace RunDB
             Console.WriteLine("   {0}\n", assemFromType.FullName);
 
             // Get the currently executing assembly.
-            Assembly currentAssem = Assembly.GetExecutingAssembly();
+            Assembly currentAssem = Assembly.LoadFrom(@"C:\Users\Bartosz\Dysk Google\Studia\Technologie Programowania Adaptacyjnego\TPA_repo\UnitTest\ExampleDLL.dll");
             AssemblyMetadata assemblyMeta = new AssemblyMetadata(currentAssem);
 
             using (var db = new MainContext())

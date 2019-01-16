@@ -7,6 +7,6 @@ namespace Model.DTO
     {
         [Key]
         public string NamespaceName { get; set; }
-        public IEnumerable<TypeDataBaseDTO> Types { get; set; }
+        public List<TypeDataBaseDTO> Types { get; set; }
     }
 }
