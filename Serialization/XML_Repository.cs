@@ -7,7 +7,7 @@ using System.ComponentModel.Composition;
 
 namespace Repository
 {
-    [Export(typeof(IRepositoryActions))]
+    [Export(typeof(XML_Repository))]
     public class XML_Repository : IRepositoryActions
     {
         static readonly Lazy<XMLSerializer<Assembly_DTO>> XMLSerializer = new Lazy<XMLSerializer<Assembly_DTO>>();

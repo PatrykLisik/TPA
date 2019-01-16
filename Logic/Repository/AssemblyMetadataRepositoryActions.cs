@@ -7,8 +7,8 @@ namespace Repository
 {
     public class AssemblyMetadataRepositoryActions
     {
-        [Import]
-        private IRepositoryActions repository;
+        [ImportMany]
+        private Importer<IRepositoryActions> repository;
 
 
         public AssemblyMetadataRepositoryActions()
@@ -19,12 +19,12 @@ namespace Repository
 
         public AssemblyMetadata LoadFromRepository(string file)
         {
-            return repository.LoadFromRepository(file).MapToObject();
+            return repository.GetImport().LoadFromRepository(file).MapToObject();
         }
 
         public void SaveToRepository(AssemblyMetadata assemblyMetadata, string file)
         {
-            repository.SaveToRepository(assemblyMetadata.ToBaseDTO(), file);
+            repository.GetImport().SaveToRepository(assemblyMetadata.ToBaseDTO(), file);
         }
     }
 }
