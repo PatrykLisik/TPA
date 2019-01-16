@@ -1,17 +1,17 @@
 ﻿using Logic.ReflectionMetadata;
-using SerializationModel;
-using SerializationModel.DTO;
+using Model;
+using Model.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using static Logic.ReflectionMetadata.TypeMetadata;
-using static SerializationModel.DTO.Type_DTO;
+using static Model.DTO.TypeBaseDTO;
 
 namespace Logic.Mappers
 {
-    public static class XML_DTOToAssemblyMetadata
+    public static class DTOToAssemblyMetadata
     {
-        public static AssemblyMetadata MapToObject(this Assembly_DTO metadata)
+        public static AssemblyMetadata MapToObject(this AssemblyBaseDTO metadata)
         {
             if (metadata == null)
                 return null;
@@ -23,7 +23,7 @@ namespace Logic.Mappers
             };
         }
 
-        public static MethodMetadata  MapToObject(this Method_DTO metadata)
+        public static MethodMetadata MapToObject(this MethodBaseDTO metadata)
         {
             if (metadata == null)
                 return null;
@@ -39,7 +39,7 @@ namespace Logic.Mappers
             };
         }
 
-        public static  NamespaceMetadata MapToObject(this Namespace_DTO metadata)
+        public static NamespaceMetadata MapToObject(this NamespaceBaseDTO metadata)
         {
             if (metadata == null)
                 return null;
@@ -51,7 +51,7 @@ namespace Logic.Mappers
             };
         }
 
-        public static ParameterMetadata  MapToObject(this Parameter_DTO metadata)
+        public static ParameterMetadata MapToObject(this ParameterBaseDTO metadata)
         {
             if (metadata == null)
                 return null;
@@ -63,7 +63,7 @@ namespace Logic.Mappers
             };
         }
 
-        public static PropertyMetadata  MapToObject(this Property_DTO metadata)
+        public static PropertyMetadata MapToObject(this PropertyBaseDTO metadata)
         {
             if (metadata == null)
                 return null;
@@ -75,7 +75,7 @@ namespace Logic.Mappers
             };
         }
 
-        public static TypeMetadata  MapToObject(this Type_DTO metadata)
+        public static TypeMetadata MapToObject(this TypeBaseDTO metadata)
         {
             if (metadata == null)
                 return null;
@@ -106,105 +106,105 @@ namespace Logic.Mappers
             return metadata.Select(func);
         }
         #region Enums
-        public static AccessLevel  MapToObject(this AccessLevel_DTO enumType)
+        public static AccessLevel MapToObject(this AccessLevelBaseDTO enumType)
         {
             switch (enumType)
             {
-                case AccessLevel_DTO.IsPrivate :
+                case AccessLevelBaseDTO.IsPrivate:
                     return AccessLevel.IsPrivate;
-                case AccessLevel_DTO.IsProtected:
-                    return  AccessLevel.IsProtected;
-                case AccessLevel_DTO.IsProtectedInternal:
-                    return AccessLevel.IsProtectedInternal ;
-                case AccessLevel_DTO.IsPublic:
-                    return  AccessLevel.IsPublic;
+                case AccessLevelBaseDTO.IsProtected:
+                    return AccessLevel.IsProtected;
+                case AccessLevelBaseDTO.IsProtectedInternal:
+                    return AccessLevel.IsProtectedInternal;
+                case AccessLevelBaseDTO.IsPublic:
+                    return AccessLevel.IsPublic;
             }
             throw new Exception();
         }
 
-        public static SealedEnum  MapToObject(this SealedEnum_DTO enumType)
+        public static SealedEnum MapToObject(this SealedEnumBaseDTO enumType)
         {
             switch (enumType)
             {
-                case SealedEnum_DTO.NotSealed:
+                case SealedEnumBaseDTO.NotSealed:
                     return SealedEnum.NotSealed;
-                case SealedEnum_DTO.Sealed:
+                case SealedEnumBaseDTO.Sealed:
                     return SealedEnum.Sealed;
             }
             throw new Exception();
         }
 
-        public static AbstractEnum MapToObject(this  AbstractEnum_DTO enumType)
+        public static AbstractEnum MapToObject(this AbstractEnumBaseDTO enumType)
         {
             switch (enumType)
             {
-                case AbstractEnum_DTO.Abstract:
+                case AbstractEnumBaseDTO.Abstract:
                     return AbstractEnum.Abstract;
-                case AbstractEnum_DTO.NotAbstract:
+                case AbstractEnumBaseDTO.NotAbstract:
                     return AbstractEnum.NotAbstract;
             }
             throw new Exception();
         }
 
-        public static StaticEnum MapToObject(this StaticEnum_DTO enumType)
+        public static StaticEnum MapToObject(this StaticEnumBaseDTO enumType)
         {
             switch (enumType)
             {
-                case StaticEnum_DTO.NotStatic:
+                case StaticEnumBaseDTO.NotStatic:
                     return StaticEnum.NotStatic;
-                case StaticEnum_DTO.Static:
+                case StaticEnumBaseDTO.Static:
                     return StaticEnum.Static;
             }
             throw new Exception();
         }
 
-        public static VirtualEnum MapToObject(this VirtualEnum_DTO enumType)
+        public static VirtualEnum MapToObject(this VirtualEnumBaseDTO enumType)
         {
             switch (enumType)
             {
-                case VirtualEnum_DTO.NotVirtual:
+                case VirtualEnumBaseDTO.NotVirtual:
                     return VirtualEnum.NotVirtual;
-                case VirtualEnum_DTO.Virtual:
+                case VirtualEnumBaseDTO.Virtual:
                     return VirtualEnum.Virtual;
             }
             throw new Exception();
         }
 
-        public static TypeKind MapToObject(this TypeKind_DTO typeKind)
+        public static TypeKind MapToObject(this TypeKindBaseDTO typeKind)
         {
             switch (typeKind)
             {
-                case TypeKind_DTO.ClassType:
+                case TypeKindBaseDTO.ClassType:
                     return TypeKind.ClassType;
-                case TypeKind_DTO.EnumType:
+                case TypeKindBaseDTO.EnumType:
                     return TypeKind.EnumType;
-                case TypeKind_DTO.InterfaceType:
+                case TypeKindBaseDTO.InterfaceType:
                     return TypeKind.InterfaceType;
-                case TypeKind_DTO.StructType:
+                case TypeKindBaseDTO.StructType:
                     return TypeKind.StructType;
             }
             throw new Exception();
         }
 
-        public static Tuple<AccessLevel, SealedEnum, AbstractEnum> MapToObject(this Tuple<AccessLevel_DTO, SealedEnum_DTO, AbstractEnum_DTO> tuple)
+        public static Tuple<AccessLevel, SealedEnum, AbstractEnum> MapToObject(this Tuple<AccessLevelBaseDTO, SealedEnumBaseDTO, AbstractEnumBaseDTO> tuple)
         {
             if (tuple == null)
                 return null;
-            AccessLevel accessLevel_ = tuple.Item1.MapToObject();
-            SealedEnum sealedEnum_ = tuple.Item2.MapToObject();
-            AbstractEnum abstractEnum_ = tuple.Item3.MapToObject();
-            return new Tuple<AccessLevel, SealedEnum, AbstractEnum>(accessLevel_, sealedEnum_, abstractEnum_);
+            AccessLevel accessLevelBase = tuple.Item1.MapToObject();
+            SealedEnum sealedEnumBase = tuple.Item2.MapToObject();
+            AbstractEnum abstractEnumBase = tuple.Item3.MapToObject();
+            return new Tuple<AccessLevel, SealedEnum, AbstractEnum>(accessLevelBase, sealedEnumBase, abstractEnumBase);
         }
 
-        public static Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum> MapToObject(this Tuple<AccessLevel_DTO, AbstractEnum_DTO, StaticEnum_DTO, VirtualEnum_DTO> tuple)
+        public static Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum> MapToObject(this Tuple<AccessLevelBaseDTO, AbstractEnumBaseDTO, StaticEnumBaseDTO, VirtualEnumBaseDTO> tuple)
         {
             if (tuple == null)
                 return null;
-            AccessLevel accessLevel_ = tuple.Item1.MapToObject();
-            AbstractEnum abstractEnum_ = tuple.Item2.MapToObject();
-            StaticEnum staticEnum_ = tuple.Item3.MapToObject();
-            VirtualEnum virtualEnum_ = tuple.Item4.MapToObject();
-            return new Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum>(accessLevel_, abstractEnum_, staticEnum_, virtualEnum_);
+            AccessLevel accessLevelBase = tuple.Item1.MapToObject();
+            AbstractEnum abstractEnumBase = tuple.Item2.MapToObject();
+            StaticEnum staticEnumBase = tuple.Item3.MapToObject();
+            VirtualEnum virtualEnumBase = tuple.Item4.MapToObject();
+            return new Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum>(accessLevelBase, abstractEnumBase, staticEnumBase, virtualEnumBase);
         }
         #endregion
 

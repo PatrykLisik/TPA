@@ -1,13 +1,14 @@
 using Logic.ReflectionMetadata;
 using MEF;
+using Logic.Mappers;
 using System.ComponentModel.Composition;
 
 namespace Repository
 {
     public class AssemblyMetadataRepositoryActions
     {
-        [Import]
-        private IRepositoryActions repository;
+        [ImportMany]
+        private Importer<IRepositoryActions> repository;
 
 
         public AssemblyMetadataRepositoryActions()
@@ -18,12 +19,12 @@ namespace Repository
 
         public AssemblyMetadata LoadFromRepository(string file)
         {
-            return repository.LoadFromRepository(file);
+            return repository.GetImport().LoadFromRepository(file).MapToObject();
         }
 
-        public void SaveToRepository(AssemblyMetadata assemblyMetsdata, string file)
+        public void SaveToRepository(AssemblyMetadata assemblyMetadata, string file)
         {
-            repository.SaveToRepository(assemblyMetsdata, file);
+            repository.GetImport().SaveToRepository(assemblyMetadata.ToBaseDTO(), file);
         }
     }
 }

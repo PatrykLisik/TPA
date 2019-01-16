@@ -19,18 +19,21 @@ namespace Serialization
 
         public void SaveToRepository(T data, string fileName)
         {
-            FileStream f = new FileStream(fileName, FileMode.Create);
-            XmlWriterSettings settings = new XmlWriterSettings { Indent = true };
-            XmlWriter w = XmlWriter.Create(f, settings);
-            DataContractSerializer s = new DataContractSerializer(typeof(T),
-            null,
-            0x7FFF /*maxItemsInObjectGraph*/,
-            false /*ignoreExtensionDataObject*/,
-            true /*preserveObjectReferences : this is where the magic happens */,
-            null /*dataContractSurrogate*/);
-            s.WriteObject(w, data);
-            w.Close();
-            f.Close();
+            using (FileStream f = new FileStream(fileName, FileMode.Create))
+            {
+                XmlWriterSettings settings = new XmlWriterSettings { Indent = true };
+                using (XmlWriter w = XmlWriter.Create(f, settings))
+                {
+                    DataContractSerializer s = new DataContractSerializer(typeof(T),
+                                                                    null,
+                                                                    int.MaxValue,
+                                                                    false,
+                                                                    false,
+                                                                    null
+                                                                    );
+                    s.WriteObject(w, data);
+                }
+            }
         }
     }
 }

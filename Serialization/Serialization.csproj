@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mapper\BaseToXMLSerializationMapper.cs" />
+    <Compile Include="Mapper\XMLSerlializationToBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SerializationModel\AbstractEnum_DTO.cs" />
     <Compile Include="SerializationModel\AccessLevel_DTO.cs" />
@@ -56,6 +58,13 @@
     <Compile Include="SerializationModel\StaticEnum_DTO.cs" />
     <Compile Include="SerializationModel\VirtualEnum_DTO.cs" />
     <Compile Include="XMLSerializer.cs" />
+    <Compile Include="XML_Repository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DTOBase\DTOBase.csproj">
+      <Project>{e0ed691e-3fa2-439f-b909-29e7298bfd88}</Project>
+      <Name>DTOBase</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
