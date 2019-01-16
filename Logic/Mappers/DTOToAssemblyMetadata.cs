@@ -9,7 +9,7 @@ using static SerializationModel.DTO.Type_DTO;
 
 namespace Logic.Mappers
 {
-    public static class XML_DTOToAssemblyMetadata
+    public static class DTOToAssemblyMetadata
     {
         public static AssemblyMetadata MapToObject(this Assembly_DTO metadata)
         {

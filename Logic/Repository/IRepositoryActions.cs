@@ -1,10 +1,11 @@
 using Logic.ReflectionMetadata;
+using SerializationModel.DTO;
 
 namespace Repository
 {
     public interface IRepositoryActions
     {
-        void SaveToRepository(AssemblyMetadata data, string fileName);
-        AssemblyMetadata LoadFromRepository(string fileName);
+        void SaveToRepository(Assembly_DTO data, string fileName);
+        Assembly_DTO LoadFromRepository(string fileName);
     }
 }

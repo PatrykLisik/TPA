@@ -11,14 +11,14 @@ namespace Repository
     {
         static readonly Lazy<XMLSerializer<Assembly_DTO>> XMLSerializer = new Lazy<XMLSerializer<SerializationModel.DTO.Assembly_DTO>>();
 
-        public AssemblyMetadata LoadFromRepository(string fileName)
+        public Assembly_DTO LoadFromRepository(string fileName)
         {
-            return XMLSerializer.Value.LoadFromRepository(fileName).MapToObject();
+            return XMLSerializer.Value.LoadFromRepository(fileName);
         }
 
-        public void SaveToRepository(AssemblyMetadata data, string fileName)
+        public void SaveToRepository(Assembly_DTO data, string fileName)
         {
-            XMLSerializer.Value.SaveToRepository(data.ToXML_DTO(), fileName);
+            XMLSerializer.Value.SaveToRepository(data, fileName);
         }
     }
 }

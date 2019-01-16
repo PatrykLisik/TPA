@@ -45,9 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Mappers\XML_DTOToAssemblyMetadata.cs" />
+    <Compile Include="Mappers\DTOToAssemblyMetadata.cs" />
     <Compile Include="Repository\IRepositoryActions.cs" />
-    <Compile Include="Mappers\AssemblyMetadataToXML_DTOMapper.cs" />
+    <Compile Include="Mappers\AssemblyMetadataTo_DTOMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReflectionMetadata\AbstractEnum.cs" />
     <Compile Include="ReflectionMetadata\AccessLevel.cs" />
