@@ -20,8 +20,7 @@ namespace Repository
 
         public AssemblyBaseDTO LoadFromRepository(string fileName)
         {
-            //return XMLSerializer.Value.LoadFromRepository(fileName);
-            return null;
+            return XMLSerializer.Value.LoadFromRepository(fileName).ToBaseDTO();
         }
     }
 }
