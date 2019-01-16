@@ -1,14 +1,9 @@
 ﻿using Database;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.Entity;
 using System.Reflection;
 using Logic.ReflectionMetadata;
 using Logic.Mappers;
-using Model.DTO;
 using Database.Mapper;
 namespace RunDB
 {
