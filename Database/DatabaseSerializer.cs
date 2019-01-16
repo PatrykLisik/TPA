@@ -1,23 +1,26 @@
-﻿using Model.DTO;
+﻿using Database.Mapper;
+using Model.DTO;
 using Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.Composition;
 
 namespace Database
 {
+    [Export(typeof(IRepositoryActions))]
     public class DatabaseSerializer : IRepositoryActions
     {
         public AssemblyBaseDTO LoadFromRepository(string fileName)
         {
-            throw new NotImplementedException();
+            return new DBService(new MainContext()).GetAllAssemblies()[0].ToBaseDTO();
         }
 
         public void SaveToRepository(AssemblyBaseDTO data, string fileName)
         {
-            throw new NotImplementedException();
+            using (MainContext db = new MainContext())
+            {
+                db.assemblies.Add(data.MapToDatabaseModel());
+                db.SaveChanges();
+            }
         }
     }
+}
 }
