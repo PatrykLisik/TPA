@@ -13,7 +13,7 @@ namespace Logic.ReflectionMetadata
         internal static IEnumerable<MethodMetadata> EmitMethods(IEnumerable<MethodBase> methods)
         {
             return from MethodBase _currentMethod in methods
-                   where _currentMethod.GetVisible()
+                   //where _currentMethod.GetVisible()
                    select new MethodMetadata(_currentMethod);
         }
 

@@ -16,7 +16,7 @@ namespace Logic.ReflectionMetadata
             DeclaringType = EmitDeclaringType(type.DeclaringType);
             Constructors = MethodMetadata.EmitMethods(type.GetConstructors());
             Methods = MethodMetadata.EmitMethods(type.GetMethods());
-            NestedTypes = EmitNestedTypes(type.GetNestedTypes());
+            NestedTypes = EmitNestedTypes(type.GetNestedTypes(BindingFlags.Public | BindingFlags.NonPublic));
             ImplementedInterfaces = EmitImplements(type.GetInterfaces());
             GenericArguments = !type.IsGenericTypeDefinition ? null : TypeMetadata.EmitGenericArguments(type.GetGenericArguments());
             Modifiers = EmitModifiers(type);
@@ -104,7 +104,7 @@ namespace Logic.ReflectionMetadata
         private IEnumerable<TypeMetadata> EmitNestedTypes(IEnumerable<Type> nestedTypes)
         {
             return from _type in nestedTypes
-                   where _type.GetVisible()
+                   //where _type.GetVisible()
                    select new TypeMetadata(_type);
         }
         private IEnumerable<TypeMetadata> EmitImplements(IEnumerable<Type> interfaces)
