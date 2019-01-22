@@ -35,7 +35,10 @@ namespace ViewModel.TreeViewItems
         {
             if (_typeMetadata.Modifiers is null)
                 return "";
-            return GenericParamsToString();
+            return 
+                _typeMetadata.Modifiers.Item1.Stringify() +
+                _typeMetadata.Modifiers.Item2.Stringify() +
+                _typeMetadata.Modifiers.Item3.Stringify();
         }
 
         private string GenericParamsToString()
@@ -77,7 +80,7 @@ namespace ViewModel.TreeViewItems
                 {
                     Children.Add(new ParamterTreeViewItem(parameter));
                 }
-            if(_typeMetadata.Properties != null)
+            if (_typeMetadata.Properties != null)
                 foreach (PropertyMetadata parameter in _typeMetadata.Properties)
                 {
                     Children.Add(new PropertyMetadaTreeViewItem(parameter));
