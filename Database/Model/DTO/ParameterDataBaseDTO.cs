@@ -5,8 +5,8 @@ namespace Model.DTO
     public class ParameterDataBaseDTO
     {
         [Key]
-        public int ParameterId { get; set; }
-        public string Name{ get; set; }
-        public TypeDataBaseDTO TypeMetadata{ get; set; }
+        public virtual int ParameterId { get; set; }
+        public virtual string Name{ get; set; }
+        public virtual TypeDataBaseDTO TypeMetadata{ get; set; }
     }
 }

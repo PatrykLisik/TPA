@@ -6,8 +6,8 @@ namespace Model.DTO
     public class NamespaceDataBaseDTO
     {
         [Key]
-        public int NamespaceId { get; set; }
-        public string NamespaceName { get; set; }
-        public ICollection<TypeDataBaseDTO> Types { get; set; }
+        public virtual int NamespaceId { get; set; }
+        public virtual string NamespaceName { get; set; }
+        public virtual ICollection<TypeDataBaseDTO> Types { get; set; }
     }
 }

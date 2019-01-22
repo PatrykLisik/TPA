@@ -12,19 +12,19 @@ namespace Model.DTO
             EnumType, StructType, InterfaceType, ClassType
         }
         [Key]
-        public int TypeId { get; set; }
-        public string TypeName{ get; set; }
-        public string NamespaceName{ get; set; }
-        public TypeDataBaseDTO BaseType{ get; set; }
-        public ICollection<TypeDataBaseDTO> GenericArguments{ get; set; }
-        public Tuple<AccessLevelDataBaseDTO, SealedEnumDataBaseDTO, AbstractEnumDataBaseDTO> Modifiers{ get; set; }
-        public TypeKindDataBaseDTO TypeKind1{ get; set; }
-        public ICollection<TypeDataBaseDTO> ImplementedInterfaces{ get; set; }
-        public ICollection<TypeDataBaseDTO> NestedTypes{ get; set; }
-        public ICollection<PropertyDataBaseDTO> Properties{ get; set; }
-        public TypeDataBaseDTO DeclaringType{ get; set; }
-        public ICollection<MethodDataBaseDTO> Methods{ get; set; }
-        public ICollection<MethodDataBaseDTO> Constructors{ get; set; }
-        public ICollection<ParameterDataBaseDTO> Fields{ get; set; }
+        public virtual int TypeId { get; set; }
+        public virtual string TypeName{ get; set; }
+        public virtual string NamespaceName{ get; set; }
+        public virtual TypeDataBaseDTO BaseType{ get; set; }
+        public virtual ICollection<TypeDataBaseDTO> GenericArguments{ get; set; }
+        public virtual Tuple<AccessLevelDataBaseDTO, SealedEnumDataBaseDTO, AbstractEnumDataBaseDTO> Modifiers{ get; set; }
+        public virtual TypeKindDataBaseDTO TypeKind1{ get; set; }
+        public virtual ICollection<TypeDataBaseDTO> ImplementedInterfaces{ get; set; }
+        public virtual ICollection<TypeDataBaseDTO> NestedTypes{ get; set; }
+        public virtual ICollection<PropertyDataBaseDTO> Properties{ get; set; }
+        public virtual TypeDataBaseDTO DeclaringType{ get; set; }
+        public virtual ICollection<MethodDataBaseDTO> Methods{ get; set; }
+        public virtual ICollection<MethodDataBaseDTO> Constructors{ get; set; }
+        public virtual ICollection<ParameterDataBaseDTO> Fields{ get; set; }
     }
 }

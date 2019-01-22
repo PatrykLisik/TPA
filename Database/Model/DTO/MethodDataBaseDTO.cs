@@ -5,16 +5,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.DTO
 {
-    public class MethodDataBaseDTO
+    public  class MethodDataBaseDTO
     {
         [Key]
-        public int MethodId {get; set;}
-        public string Name{ get; set; }
-        public ICollection<TypeDataBaseDTO> GenericArguments{ get; set; }
-        public Tuple<AccessLevelDataBaseDTO, AbstractEnumDataBaseDTO, StaticEnumDataBaseDTO, VirtualEnumDataBaseDTO> Modifiers{ get; set; }
-        public TypeDataBaseDTO ReturnType{ get; set; }
-        public bool Extension{ get; set; }
-        public ICollection<ParameterDataBaseDTO> Parameters{ get; set; }
+        public virtual int MethodId {get; set;}
+        public virtual string Name{ get; set; }
+        public virtual ICollection<TypeDataBaseDTO> GenericArguments{ get; set; }
+        public virtual Tuple<AccessLevelDataBaseDTO, AbstractEnumDataBaseDTO, StaticEnumDataBaseDTO, VirtualEnumDataBaseDTO> Modifiers{ get; set; }
+        public virtual TypeDataBaseDTO ReturnType{ get; set; }
+        public virtual bool Extension{ get; set; }
+        public virtual ICollection<ParameterDataBaseDTO> Parameters{ get; set; }
 
     }
 }
