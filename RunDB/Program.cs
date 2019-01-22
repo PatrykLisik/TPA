@@ -18,7 +18,7 @@ namespace RunDB
 
             // Get the currently executing assembly.
             //Assembly currentAssem = Assembly.LoadFrom(@"C:\Users\Bartosz\Dysk Google\Studia\Technologie Programowania Adaptacyjnego\TPA_repo\UnitTest\ExampleDLL.dll");
-            Assembly currentAssem = Assembly.LoadFrom(@"..\..\..\..\TPA_repo\UnitTest\ExampleDLL.dll");
+            Assembly currentAssem = Assembly.LoadFrom(@"..\..\..\UnitTest\ExampleDLL.dll");
             AssemblyMetadata assemblyMeta = new AssemblyMetadata(currentAssem);
 
             using (MainContext db = new MainContext())
