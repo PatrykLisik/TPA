@@ -3,8 +3,6 @@ using Model.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static Model.DTO.TypeBaseDTO;
 using static Model.DTO.TypeDataBaseDTO;
 
@@ -12,6 +10,8 @@ namespace Database.Mapper
 {
     public static class BaseToDatabaseMapper
     {
+        static Dictionary<string, TypeDataBaseDTO> types;
+
         public static AssemblyDataBaseDTO MapToDatabaseModel(this AssemblyBaseDTO metadata)
         {
             if (metadata == null)
@@ -80,7 +80,10 @@ namespace Database.Mapper
         {
             if (metadata == null)
                 return null;
-            return new TypeDataBaseDTO
+            if (types.ContainsKey(metadata.TypeName))
+                return types[metadata.TypeName];
+
+            TypeDataBaseDTO typeDataBaseDTO = new TypeDataBaseDTO
             {
                 TypeName = metadata.TypeName,
                 NamespaceName = metadata.NamespaceName,
@@ -97,6 +100,8 @@ namespace Database.Mapper
                 Fields = CollectionMapToObject(metadata.Fields, i => i.MapToDatabaseModel())
 
             };
+            types.Add(metadata.TypeName, typeDataBaseDTO);
+            return typeDataBaseDTO;
         }
         public static ICollection<DTO> CollectionMapToObject<Metada, DTO>(IEnumerable<Metada> metadata, Func<Metada, DTO> func)
         {
