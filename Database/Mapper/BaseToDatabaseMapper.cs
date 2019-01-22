@@ -10,7 +10,7 @@ namespace Database.Mapper
 {
     public static class BaseToDatabaseMapper
     {
-        static Dictionary<string, TypeDataBaseDTO> types;
+        static Dictionary<string, TypeDataBaseDTO> types = new Dictionary<string, TypeDataBaseDTO>();
 
         public static AssemblyDataBaseDTO MapToDatabaseModel(this AssemblyBaseDTO metadata)
         {

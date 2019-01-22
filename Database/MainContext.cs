@@ -5,10 +5,8 @@ namespace Database
 {
     public class MainContext : DbContext
     {
-        public MainContext() : base("Data Source =.; Initial Catalog = tpa; Integrated Security = True;")
-        {
-
-        }
+        public MainContext() : base(@"Data Source = (localdb)\MSSQLLocalDB; AttachDbFilename=C:\zdaneTPA.mdf;Integrated Security = True")
+        { }
         public virtual DbSet<AssemblyDataBaseDTO> assemblies { get; set; }
     }
 }
