@@ -25,6 +25,8 @@ namespace ViewModel
         #region constructors
         [ImportMany(typeof(IFilePathGeter))]
         Importer<IFilePathGeter> pathGeter;
+        [ImportMany(typeof(RepositorySaver))]
+        Importer<RepositorySaver> fileSaver;
 
         public GUIViewModel()
         {
@@ -70,21 +72,7 @@ namespace ViewModel
 
         private async void Save()
         {
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog
-            {
-                Filter = "XML Files|*.xml",
-                Title = "Save an XML File"
-            };
-            saveFileDialog1.ShowDialog();
-
-            if (saveFileDialog1.FileName != "")
-            {
-                await ViewModelSaverLoader.SaveDLLToRepositoryAsync(saveFileDialog1.FileName, PathVariable);
-            }
-            else
-            {
-                MessageBox.Show("No files selected");
-            }
+            await fileSaver.GetImport().SaveFileAsync(PathVariable);
         }
 
         private async void LoadRepository()

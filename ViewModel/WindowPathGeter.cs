@@ -12,7 +12,7 @@ namespace ViewModel
         {
             OpenFileDialog window = new OpenFileDialog()
             {
-                Filter = string.Format("Dynamic Library File(*{0})| *{0}",extension)
+                Filter = string.Format("Dynamic Library File(*{0})| *{0}", extension)
             };
             window.ShowDialog();
             if (window.FileName.Length == 0)
