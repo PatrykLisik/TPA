@@ -3,11 +3,11 @@
 namespace ViewModel
 {
     [Export(typeof(IRepositoryLoader))]
-    public class MDFLoader : IRepositoryLoader
+    public class XMLLoader : IRepositoryLoader
     {
         public string GetPathTorepostory()
         {
-            return new WindowPathGeter().GetPath(".mdf");
+            return new WindowPathGeter().GetPath(".xml");
         }
     }
 }
