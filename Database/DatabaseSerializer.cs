@@ -13,7 +13,7 @@ namespace Database
         public AssemblyBaseDTO LoadFromRepository(string fileName)
         {
             AssemblyBaseDTO assembly;
-            using(MainContext mainContext = new MainContext())
+            using(MainContext mainContext = new MainContext(fileName))
             {
                 mainContext.assemblies.Load();
                 assembly = mainContext.assemblies.FirstOrDefault().ToBaseDTO();
@@ -23,7 +23,7 @@ namespace Database
 
         public void SaveToRepository(AssemblyBaseDTO data, string fileName)
         {
-            using (MainContext db = new MainContext())
+            using (MainContext db = new MainContext(fileName))
             {
                 db.assemblies.Add(data.MapToDatabaseModel());
                 db.SaveChanges();

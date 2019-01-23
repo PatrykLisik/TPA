@@ -60,7 +60,7 @@ namespace ViewModel
         }
         private void Browse()
         {
-            string patchToDLL = pathGeter.GetImport().GetPath();
+            string patchToDLL = pathGeter.GetImport().GetPath(".dll");
             if (patchToDLL.Length != 0)
             {
                 PathVariable = patchToDLL;

@@ -21,7 +21,7 @@ namespace RunDB
             Assembly currentAssem = Assembly.LoadFrom(@"..\..\..\UnitTest\TPA.ApplicationArchitecture.dll");
             AssemblyMetadata assemblyMeta = new AssemblyMetadata(currentAssem);
 
-            using (MainContext db = new MainContext())
+            using (MainContext db = new MainContext("D:\tpa.mdf"))
             {
                 Model.DTO.AssemblyDataBaseDTO blog = assemblyMeta.ToBaseDTO().MapToDatabaseModel(); //ZLE
                 db.assemblies.Add(blog);

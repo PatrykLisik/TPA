@@ -30,7 +30,7 @@ namespace TUI2
         public async Task RunAsync()
         {
             tracer.GetImport().Trace(TraceEventType.Information, "Program started");
-            pathToDll = pathGeter.GetImport().GetPath();
+            pathToDll = pathGeter.GetImport().GetPath(".dll");
             await LoadRootItem();
             while (true)
             {
@@ -82,7 +82,7 @@ namespace TUI2
         private async Task SaveAsync()
         {
             Console.WriteLine("\nEnter file name:");
-            string line = pathGeter.GetImport().GetPath(".xml");
+            string line = pathGeter.GetImport().GetPath();
             if(line != "")
             {
                 await ViewModelSaverLoader.SaveDLLToRepositoryAsync(line, pathToDll);

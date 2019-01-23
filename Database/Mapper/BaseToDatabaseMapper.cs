@@ -96,12 +96,8 @@ namespace Database.Mapper
                 TypeKind1 = metadata.TypeKind1.MapToDatabaseModel(),
                 ImplementedInterfaces = CollectionMapToObject(metadata.ImplementedInterfaces, i => i.MapToDatabaseModel()),
                 NestedTypes = CollectionMapToObject(metadata.NestedTypes, i => i.MapToDatabaseModel()),
-                Properties = CollectionMapToObject(metadata.Properties, i => i.MapToDatabaseModel()),
                 DeclaringType = metadata.DeclaringType.MapToDatabaseModel(),
-                Methods = CollectionMapToObject(metadata.Methods, i => i.MapToDatabaseModel()),
                 Constructors = CollectionMapToObject(metadata.Constructors, i => i.MapToDatabaseModel()),
-                Fields = CollectionMapToObject(metadata.Fields, i => i.MapToDatabaseModel())
-
             };
             if (types.ContainsKey(metadata.TypeName))
                 types[metadata.TypeName] = typeDataBaseDTO;

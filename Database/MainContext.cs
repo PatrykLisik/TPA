@@ -5,7 +5,8 @@ namespace Database
 {
     public class MainContext : DbContext
     {
-        public MainContext() : base(@"Data Source = (localdb)\MSSQLLocalDB; AttachDbFilename=C:\zdaneTPA.mdf;Integrated Security = True")
+        public MainContext(string file)
+            : base(string.Format(@"Data Source = (localdb)\MSSQLLocalDB; AttachDbFilename={0};Integrated Security = True", file))
         { }
         public virtual DbSet<AssemblyDataBaseDTO> assemblies { get; set; }
     }
