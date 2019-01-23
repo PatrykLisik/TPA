@@ -11,6 +11,7 @@ namespace Logic.Mappers
 {
     public static class AssemblyMetadataToBaseDTOMapper
     {
+        static Dictionary<string, TypeBaseDTO> types = new Dictionary<string, TypeBaseDTO>();
         public static AssemblyBaseDTO ToBaseDTO(this AssemblyMetadata metadata)
         {
             if (metadata == null)
@@ -74,7 +75,11 @@ namespace Logic.Mappers
         {
             if (metadata == null)
                 return null;
-            return new TypeBaseDTO
+            if (types.ContainsKey(metadata.TypeName))
+            {
+                return types[metadata.TypeName];
+            }
+            var t= new TypeBaseDTO ////TODO: NAPRAWIC REKURENCJE DLA KAZDEGO POLA
             {
                 TypeName = metadata.TypeName,
                 NamespaceName = metadata.NamespaceName,
@@ -89,8 +94,18 @@ namespace Logic.Mappers
                 Methods = CollectionToBaseDTO(metadata.Methods, i => i.ToBaseDTO()),
                 Constructors = CollectionToBaseDTO(metadata.Constructors, i => i.ToBaseDTO()),
                 Fields = CollectionToBaseDTO(metadata.Fields, i => i.ToBaseDTO())
-
             };
+
+            if (types.ContainsKey(metadata.TypeName))
+            {
+                return types[metadata.TypeName];
+            }
+            if (!types.ContainsKey(metadata.TypeName))
+            {
+                types.Add(metadata.TypeName, t);
+            }
+            return t;
+
         }
 
         public static IEnumerable<DTO> CollectionToBaseDTO<Metada, DTO>(IEnumerable<Metada> metadata, Func<Metada, DTO> func)

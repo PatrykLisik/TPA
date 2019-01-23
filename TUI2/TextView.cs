@@ -1,7 +1,10 @@
-﻿using System;
+﻿using MEF;
+using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel.Composition;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using Tracer;
 using ViewModel;
 using ViewModel.TreeViewItems;
@@ -10,23 +13,25 @@ namespace TUI2
 {
     public class TextView
     {
-        private static TracerFile tracer = new TracerFile();
+        [ImportMany]
+        private Importer<ITracer> tracer;
         private string pathToDll;
         static TreeViewItem rootItem;
         private static int indentLevel = 0;
-        private IFilePathGeter pathGeter;
+        [ImportMany]
+        private Importer<IFilePathGeter> pathGeter;
 
-        public TextView(IFilePathGeter pathGeter)
+        public TextView()
         {
-            this.pathGeter = pathGeter;
+            new Bootstrapper().ComposeApplication(this);
         }
 
 
-        public void Run()
+        public async Task RunAsync()
         {
-            tracer.Tracer(TraceEventType.Information, "Program started");
-            pathToDll = pathGeter.GetPath();
-            LoadRootItem();
+            tracer.GetImport().Trace(TraceEventType.Information, "Program started");
+            pathToDll = pathGeter.GetImport().GetPath(".dll");
+            await LoadRootItem();
             while (true)
             {
                 rootItem.IsExpanded = true;
@@ -34,19 +39,19 @@ namespace TUI2
                 int Choice = GetIntFromUser();
                 if (Choice == -1)
                 {
-                    SaveAsync();
+                    await SaveAsync();
                     continue;
                 }
                 rootItem = rootItem.Children.ToList().ElementAt(Choice);
             }
         }
 
-        private async void LoadRootItem()
+        private async Task LoadRootItem()
         {
             rootItem = await ViewModelSaverLoader.LoadRootItemFromDLLAsync(pathToDll);
         }
 
-        private static int GetIntFromUser()
+        private int GetIntFromUser()
         {
             while (true)
             {
@@ -57,27 +62,27 @@ namespace TUI2
                 if (number == -1) return -1;
                 if (!(number == 0) && number - 1 < rootItem.Children.Count())
                     return number - 1;
-                tracer.Tracer(TraceEventType.Warning, "Wrong number input from user!");
+                tracer.GetImport().Trace(TraceEventType.Warning, "Wrong number input from user!");
             }
         }
 
-        private static void ShowOptions()
+        private void ShowOptions()
         {
             int start = 1;
-            tracer.Tracer(TraceEventType.Start, "listing start");
+            //tracer.GetImport().Trace(TraceEventType.Start, "listing start");
             foreach (TreeViewItem tiv in rootItem.Children)
             {
                 Console.WriteLine(new string(' ', indentLevel * 4) + start + "." + tiv.Name);
                 start++;
             }
-            tracer.Tracer(TraceEventType.Stop, "listing stop");
+            //tracer.GetImport().Trace(TraceEventType.Stop, "listing stop");
             indentLevel++;
         }
 
-        private async void SaveAsync()
+        private async Task SaveAsync()
         {
             Console.WriteLine("\nEnter file name:");
-            string line = pathGeter.GetPath(".xml");
+            string line = pathGeter.GetImport().GetPath();
             if(line != "")
             {
                 await ViewModelSaverLoader.SaveDLLToRepositoryAsync(line, pathToDll);

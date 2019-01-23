@@ -10,7 +10,6 @@ namespace Repository
         [ImportMany]
         private Importer<IRepositoryActions> repository;
 
-
         public AssemblyMetadataRepositoryActions()
         {
             new Bootstrapper().ComposeApplication(this);

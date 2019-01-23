@@ -20,7 +20,7 @@ namespace Logic.ReflectionMetadata
         {
             Name = assembly.ManifestModule.Name;
             Namespaces = from Type _type in assembly.GetTypes()
-                           where _type.GetVisible()
+                           where _type.IsNested == false
                            group _type by _type.GetNamespace() into _group
                            orderby _group.Key
                            select new NamespaceMetadata(_group.Key, _group);

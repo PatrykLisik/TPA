@@ -25,7 +25,13 @@ namespace UnitTest.ReflectionMetadata.Metadata
                                                             "ServiceB",
                                                             "ServiceC",
                                                             "ServiceA",
-                                                            "Model"
+                                                            "Model",
+                                                            "String",
+                                                            "String",
+                                                            "T",
+                                                            "Int32",
+                                                            "ClassB",
+                                                            "ClassA"
             };
             IEnumerable<string> PropertyNames = from PropertyMetadata _p in properties
                                                 select _p.TypeMetadata.TypeName;

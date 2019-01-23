@@ -1,5 +1,3 @@
-using System.Runtime.Serialization;
-
 namespace Model.DTO
 {
     public class ParameterBaseDTO

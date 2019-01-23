@@ -19,11 +19,12 @@ namespace ViewModel.TreeViewItems.Tests
             IEnumerable<NamesapceTreeViewItem> viewItems = from NamespaceMetadata _nm in TestAssemblyBuilder.GetTestNamespaces()
                                                            select new NamesapceTreeViewItem(_nm);
             List<string> ExpectedNames = new List<string> {
-                "Namesapce TPA.ApplicationArchitecture.BusinessLogic",
+               "Namesapce TPA.ApplicationArchitecture.BusinessLogic",
                 "Namesapce TPA.ApplicationArchitecture.Data",
+                "Namesapce TPA.ApplicationArchitecture.Data.CircularReference",
                 "Namesapce TPA.ApplicationArchitecture.Presentation"
             };
-            List<int> ExpectedChildernCounts = new List<int> { 1,1,1 };
+            List<int> ExpectedChildernCounts = new List<int> { 1,1,1,1 };
 
             IEnumerable<string> Names = from NamesapceTreeViewItem _nt in viewItems
                                         select _nt.Name;

@@ -25,6 +25,11 @@ namespace ViewModel
         #region constructors
         [ImportMany(typeof(IFilePathGeter))]
         Importer<IFilePathGeter> pathGeter;
+        [ImportMany(typeof(RepositorySaver))]
+        Importer<RepositorySaver> fileSaver;
+        [ImportMany(typeof(IRepositoryLoader))]
+        Importer<IRepositoryLoader> repoLoader;
+
 
         public GUIViewModel()
         {
@@ -58,7 +63,7 @@ namespace ViewModel
         }
         private void Browse()
         {
-            string patchToDLL = pathGeter.GetImport().GetPath();
+            string patchToDLL = pathGeter.GetImport().GetPath(".dll");
             if (patchToDLL.Length != 0)
             {
                 PathVariable = patchToDLL;
@@ -70,30 +75,16 @@ namespace ViewModel
 
         private async void Save()
         {
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog
-            {
-                Filter = "XML Files|*.xml",
-                Title = "Save an XML File"
-            };
-            saveFileDialog1.ShowDialog();
-
-            if (saveFileDialog1.FileName != "")
-            {
-                await ViewModelSaverLoader.SaveDLLToRepositoryAsync(saveFileDialog1.FileName, PathVariable);
-            }
-            else
-            {
-                MessageBox.Show("No files selected");
-            }
+            await fileSaver.GetImport().SaveFileAsync(PathVariable);
         }
 
         private async void LoadRepository()
         {
-            string patchToXML = pathGeter.GetImport().GetPath(".xml");
-            if (patchToXML.Length != 0)
+            string patchToRepository = repoLoader.GetImport().GetPathTorepostory();
+            if (patchToRepository.Length != 0)
             {
-                PathVariable = patchToXML;
-                HierarchicalAreas.Add(await ViewModelSaverLoader.LoadRootItemFromRepositoryAsync(patchToXML));
+                PathVariable = patchToRepository;
+                HierarchicalAreas.Add(await ViewModelSaverLoader.LoadRootItemFromRepositoryAsync(patchToRepository));
                 ChangeControlVisibility = Visibility.Visible;
                 RaisePropertyChanged("ChangeControlVisibility");
                 RaisePropertyChanged("PathVariable");

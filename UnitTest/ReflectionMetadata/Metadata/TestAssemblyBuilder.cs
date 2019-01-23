@@ -7,7 +7,7 @@ namespace UnitTest.ReflectionMetadata.Metadata
 {
     internal static class TestAssemblyBuilder
     {
-        static readonly string pathToDll = @"..\..\..\UnitTest\ExampleDLL.dll";
+        static readonly string pathToDll = @"..\..\..\UnitTest\TPA.ApplicationArchitecture.dll";
         public static Assembly GetTestAssembly()
         {
 

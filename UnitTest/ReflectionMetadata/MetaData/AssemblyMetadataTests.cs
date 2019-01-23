@@ -23,7 +23,7 @@ namespace UnitTest.ReflectionMetadata.Metadata
         [TestMethod()]
         public void NameTest()
         {
-            const string expectedAssemblyName = "ExampleDLL.dll";
+            const string expectedAssemblyName = "TPA.ApplicationArchitecture.dll";
             Assert.IsTrue(expectedAssemblyName == testAssembly.Name);
         }
 
