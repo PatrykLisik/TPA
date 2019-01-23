@@ -45,12 +45,13 @@ namespace DataBaseRepositoryTest
             {
                 new NamespaceDataBaseDTO{ NamespaceName = "TPA.ApplicationArchitecture.BusinessLogic", Types = types},
                 new NamespaceDataBaseDTO{ NamespaceName = "TPA.ApplicationArchitecture.Data"},
-                new NamespaceDataBaseDTO{ NamespaceName = "TPA.ApplicationArchitecture.Presentation"}
+                new NamespaceDataBaseDTO{ NamespaceName = "TPA.ApplicationArchitecture.Presentation"},
+                new NamespaceDataBaseDTO{ NamespaceName = "TPA.ApplicationArchitecture.Data.CircularReference"}
             };
 
             var data = new List<AssemblyDataBaseDTO>
             {
-                new AssemblyDataBaseDTO { Name = "ExampleDLL.dll", Namespaces = namespaces }
+                new AssemblyDataBaseDTO { Name = "TPA.ApplicationArchitecture.dll", Namespaces = namespaces }
             }.AsQueryable();
 
             var mockSet = new Mock<DbSet<AssemblyDataBaseDTO>>();
@@ -72,7 +73,7 @@ namespace DataBaseRepositoryTest
             List<AssemblyDataBaseDTO> assemblyDataBaseDTOs = service.GetAllAssemblies();
 
             Assert.AreEqual(1, assemblyDataBaseDTOs.Count);
-            Assert.AreEqual("ExampleDLL.dll", assemblyDataBaseDTOs[0].Name);
+            Assert.AreEqual("TPA.ApplicationArchitecture.dll", assemblyDataBaseDTOs[0].Name);
         }
 
         [TestMethod]
@@ -80,7 +81,7 @@ namespace DataBaseRepositoryTest
         {
             List<AssemblyDataBaseDTO> assemblyDataBaseDTOs = service.GetAllAssemblies();
 
-            Assert.AreEqual(3, assemblyDataBaseDTOs[0].Namespaces.Count);
+            Assert.AreEqual(4, assemblyDataBaseDTOs[0].Namespaces.Count);
             CollectionAssert.AreEquivalent(assemblyDataBaseDTOs[0].Namespaces.ToList(), namespaces);
         }
 

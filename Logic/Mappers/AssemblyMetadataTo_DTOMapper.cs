@@ -79,7 +79,7 @@ namespace Logic.Mappers
             {
                 return types[metadata.TypeName];
             }
-            var t= new TypeBaseDTO ////NAPRAWIC REKURENCJE DLA KAZDEGO POLA
+            var t= new TypeBaseDTO ////TODO: NAPRAWIC REKURENCJE DLA KAZDEGO POLA
             {
                 TypeName = metadata.TypeName,
                 NamespaceName = metadata.NamespaceName,
