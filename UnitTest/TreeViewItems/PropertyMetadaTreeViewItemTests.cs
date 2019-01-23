@@ -19,9 +19,15 @@ namespace ViewModel.TreeViewItems.Tests
                                                             "Property: ServiceB ServiceB",
                                                             "Property: ServiceC ServiceC",
                                                             "Property: ServiceA ServiceA",
-                                                            "Property: Model Model"
+                                                            "Property: Model Model",
+                                                            "Property: String Property1",
+                                                            "Property: String Property1",
+                                                            "Property: T GenericProperty",
+                                                            "Property: Int32 StaticProperty",
+                                                            "Property: ClassB ClassB",
+                                                            "Property: ClassA ClassA"
             };
-            List<int> ExpectedChildernCounts = new List<int> { 1, 1, 1, 1, 1};
+            List<int> ExpectedChildernCounts = Enumerable.Repeat(1, 11).ToList();
 
             IEnumerable<string> Names = from PropertyMetadaTreeViewItem _pt in viewItems
                                         select _pt.Name;

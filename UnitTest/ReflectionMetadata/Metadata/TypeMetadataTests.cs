@@ -20,12 +20,24 @@ namespace UnitTest.ReflectionMetadata.Metadata
         public void NamesTest()
         {
             List<string> expectedNames = new List<string> {"Model",
-                                                            "ServiceA",
-                                                            "ServiceB",
-                                                            "ServiceC",
-                                                            "ViewModel",
-                                                            "Linq2SQL",
-                                                            "View"
+"ServiceA",
+"ServiceB",
+"ServiceC",
+"ViewModel",
+"AbstractClass",
+"ClassWithAttribute",
+"DerivedClass",
+"Enum",
+"GenericClass`1",
+"IExample",
+"ImplementationOfIExample",
+"Linq2SQL",
+"OuterClass",
+"StaticClass",
+"Structure",
+"ClassA",
+"ClassB",
+"View"
             };
             IEnumerable<string> TypeNames = from TypeMetadata _t in types
                                             select _t.TypeName;
@@ -41,7 +53,19 @@ namespace UnitTest.ReflectionMetadata.Metadata
                                                             "ServiceB",
                                                             "ServiceC",
                                                             "ViewModel",
+                                                            "AbstractClass",
+                                                            "ClassWithAttribute",
+                                                            "DerivedClass",
+                                                            "Enum",
+                                                            "GenericClass`1",
+                                                            "IExample",
+                                                            "ImplementationOfIExample",
                                                             "Linq2SQL",
+                                                            "OuterClass",
+                                                            "StaticClass",
+                                                            "Structure",
+                                                            "ClassA",
+                                                            "ClassB",
                                                             "View"
             };
             IEnumerable<string> TypeNames = from TypeMetadata _t in types

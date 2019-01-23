@@ -14,15 +14,27 @@ namespace ViewModel.TreeViewItems.Tests
         {
             IEnumerable<TypeMetadataTreeViewItem> viewItems = from TypeMetadata _nm in TestAssemblyBuilder.GetTestTypetadata()
                                                               select new TypeMetadataTreeViewItem(_nm);
-            List<string> ExpectedNames = new List<string> {"Class Model",
-                                                            "Class ServiceA",
-                                                            "Class ServiceB",
-                                                            "Class ServiceC",
-                                                            "Class ViewModel",
-                                                            "Class Linq2SQL",
-                                                            "Class View"
+            List<string> ExpectedNames = new List<string> {"Private Class Model",
+                                                            "Private Class ServiceA",
+                                                            "Private Class ServiceB",
+                                                            "Private Class ServiceC",
+                                                            "Private Class ViewModel",
+                                                            "Public Abstract Class AbstractClass",
+                                                            "Public Class ClassWithAttribute",
+                                                            "Public Class DerivedClass",
+                                                            "Private Seald Enum Enum",
+                                                            "Public Class GenericClass`1<Logic.ReflectionMetadata.TypeMetadata>",
+                                                            "Public Abstract Interface IExample",
+                                                            "Public Class ImplementationOfIExample",
+                                                            "Private Class Linq2SQL",
+                                                            "Public Class OuterClass",
+                                                            "Public Seald Abstract Class StaticClass",
+                                                            "Public Seald Struct Structure",
+                                                            "Public Class ClassA",
+                                                            "Public Class ClassB",
+                                                            "Private Class View"
             };
-            List<int> ExpectedChildernCounts = new List<int> { 1, 1, 1, 1, 1, 1, 1 };
+            List<int> ExpectedChildernCounts = Enumerable.Repeat(1, 19).ToList();
 
             IEnumerable<string> Names = from TypeMetadataTreeViewItem _nt in viewItems
                                         select _nt.Name;

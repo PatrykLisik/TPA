@@ -19,8 +19,8 @@ namespace ViewModel.TreeViewItems.Tests
             {
                 IsExpanded = true
             };
-            string name = "ExampleDLL.dll";
-            int childNumber = 3;
+            string name = "TPA.ApplicationArchitecture.dll";
+            int childNumber = 4;
             Assert.IsTrue(viewItem.Name == name);
             Assert.IsTrue(viewItem.Children.Count == childNumber);
         }

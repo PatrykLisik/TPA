@@ -21,6 +21,7 @@ namespace UnitTest.ReflectionMetadata.Metadata
         {
             IEnumerable<string> expectedNames = new List<string> {  "TPA.ApplicationArchitecture.BusinessLogic",
                                                                     "TPA.ApplicationArchitecture.Data",
+                                                                    "TPA.ApplicationArchitecture.Data.CircularReference",
                                                                     "TPA.ApplicationArchitecture.Presentation"
             };
             IEnumerable<string> namespacesNames = from NamespaceMetadata _namespace in namespaces
@@ -37,7 +38,19 @@ namespace UnitTest.ReflectionMetadata.Metadata
                                                                 "ServiceB",
                                                                 "ServiceC",
                                                                 "ViewModel",
+                                                                "AbstractClass",
+                                                                "ClassWithAttribute",
+                                                                "DerivedClass",
+                                                                "Enum",
+                                                                "GenericClass`1",
+                                                                "IExample",
+                                                                "ImplementationOfIExample",
                                                                 "Linq2SQL",
+                                                                "OuterClass",
+                                                                "StaticClass",
+                                                                "Structure",
+                                                                "ClassA",
+                                                                "ClassB",
                                                                 "View"
             };
             IEnumerable<string> namespaceTypesNames = from NamespaceMetadata _namespace in namespaces
