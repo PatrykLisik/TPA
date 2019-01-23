@@ -100,7 +100,11 @@ namespace Database.Mapper
                 Fields = CollectionMapToObject(metadata.Fields, i => i.MapToDatabaseModel())
 
             };
-            types.Add(metadata.TypeName, typeDataBaseDTO);
+
+            if (types.ContainsKey(metadata.TypeName))
+                return types[metadata.TypeName];
+            if (!types.ContainsKey(metadata.TypeName))
+                types.Add(metadata.TypeName, typeDataBaseDTO);
             return typeDataBaseDTO;
         }
         public static ICollection<DTO> CollectionMapToObject<Metada, DTO>(IEnumerable<Metada> metadata, Func<Metada, DTO> func)
@@ -108,7 +112,7 @@ namespace Database.Mapper
             if (metadata == null)
                 return null;
 
-            return metadata.Select(func).ToArray();
+            return metadata.Select(func).ToList();
         }
         #region Enums
         public static AccessLevelDataBaseDTO MapToDatabaseModel(this AccessLevelBaseDTO enumType)
