@@ -2,6 +2,8 @@
 using Model.DTO;
 using Repository;
 using System.ComponentModel.Composition;
+using System.Data.Entity;
+using System.Linq;
 
 namespace Database
 {
@@ -10,7 +12,13 @@ namespace Database
     {
         public AssemblyBaseDTO LoadFromRepository(string fileName)
         {
-            return new DBService(new MainContext()).GetAllAssemblies()[0].ToBaseDTO();
+            AssemblyBaseDTO assembly;
+            using(MainContext mainContext = new MainContext())
+            {
+                mainContext.assemblies.Load();
+                assembly = mainContext.assemblies.FirstOrDefault().ToBaseDTO();
+            }
+            return assembly;
         }
 
         public void SaveToRepository(AssemblyBaseDTO data, string fileName)
