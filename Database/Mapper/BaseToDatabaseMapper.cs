@@ -83,6 +83,9 @@ namespace Database.Mapper
             if (types.ContainsKey(metadata.TypeName))
                 return types[metadata.TypeName];
 
+            if (!types.ContainsKey(metadata.TypeName))
+                types.Add(metadata.TypeName, null);
+            //Console.WriteLine(metadata.TypeName + "\n");
             TypeDataBaseDTO typeDataBaseDTO = new TypeDataBaseDTO
             {
                 TypeName = metadata.TypeName,
@@ -100,11 +103,11 @@ namespace Database.Mapper
                 Fields = CollectionMapToObject(metadata.Fields, i => i.MapToDatabaseModel())
 
             };
-
+            if (types.ContainsKey(metadata.TypeName))
+                types[metadata.TypeName] = typeDataBaseDTO;
             if (types.ContainsKey(metadata.TypeName))
                 return types[metadata.TypeName];
-            if (!types.ContainsKey(metadata.TypeName))
-                types.Add(metadata.TypeName, typeDataBaseDTO);
+
             return typeDataBaseDTO;
         }
         public static ICollection<DTO> CollectionMapToObject<Metada, DTO>(IEnumerable<Metada> metadata, Func<Metada, DTO> func)

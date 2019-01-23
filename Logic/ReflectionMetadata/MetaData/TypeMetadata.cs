@@ -7,7 +7,6 @@ namespace Logic.ReflectionMetadata
 {
     public class TypeMetadata
     {
-
         #region constructors
         public TypeMetadata(Type type)
         {
